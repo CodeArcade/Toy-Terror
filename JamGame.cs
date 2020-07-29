@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace brackeys_2020_2_jam
 {
-    public class Game1 : Game
+    public class JamGame : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        public JamGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,6 +19,7 @@ namespace brackeys_2020_2_jam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Window.Title = "Jam Game!";
 
             base.Initialize();
         }
