@@ -34,6 +34,6 @@ jobs:
         # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
         # draft: # optional
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        rerelease: true 
+        prerelease: true 
         # Any branch or commit SHA the Git tag is created from, unused if the Git tag already exists. Default: SHA of current commit
         # commitish: # optional
