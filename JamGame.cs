@@ -20,6 +20,8 @@ namespace brackeys_2020_2_jam
         {
             // TODO: Add your initialization logic here
             Window.Title = "Jam Game!";
+            IsMouseVisible = false;
+            Window.AllowUserResizing = true;
 
             base.Initialize();
         }
