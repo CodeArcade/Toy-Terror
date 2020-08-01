@@ -17,7 +17,7 @@ namespace brackeys_2020_2_jam.Models
         public StateManager StateManager => Program.UnityContainer.Resolve<StateManager>();
 
         [Dependency]
-        public Manager.AudioManager AudioManager { get; set; }
+        public AudioManager AudioManager { get; set; }
 
         public bool HasLoaded { get; protected set; }
         

@@ -5,9 +5,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
 {
     public class Sprite : Component
     {
-        public Vector2 GRAVITY = new Vector2(0, -9.8f);
-        public Vector2 Velocity { get; set; }
-        public Vector2 MaxSpeed { get; protected set; }
+        public Vector2 GRAVITY = new Vector2(0, 9.8f);
+        public Vector2 Speed { get; set; }
+        public Vector2 MaxSpeed { get;  set; }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -41,7 +41,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         protected bool IsTouchingLeft(Sprite sprite)
         {
-            return this.Rectangle.Right + this.Velocity.X > sprite.Rectangle.Left &&
+            return this.Rectangle.Right + this.Speed.X > sprite.Rectangle.Left &&
               this.Rectangle.Left < sprite.Rectangle.Left &&
               this.Rectangle.Bottom > sprite.Rectangle.Top &&
               this.Rectangle.Top < sprite.Rectangle.Bottom;
@@ -49,7 +49,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         protected bool IsTouchingRight(Sprite sprite)
         {
-            return this.Rectangle.Left + this.Velocity.X < sprite.Rectangle.Right &&
+            return this.Rectangle.Left + this.Speed.X < sprite.Rectangle.Right &&
               this.Rectangle.Right > sprite.Rectangle.Right &&
               this.Rectangle.Bottom > sprite.Rectangle.Top &&
               this.Rectangle.Top < sprite.Rectangle.Bottom;
@@ -57,7 +57,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         protected bool IsTouchingTop(Sprite sprite)
         {
-            return this.Rectangle.Bottom + this.Velocity.Y > sprite.Rectangle.Top &&
+            return this.Rectangle.Bottom + this.Speed.Y > sprite.Rectangle.Top &&
               this.Rectangle.Top < sprite.Rectangle.Top &&
               this.Rectangle.Right > sprite.Rectangle.Left &&
               this.Rectangle.Left < sprite.Rectangle.Right;
@@ -65,7 +65,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         protected bool IsTouchingBottom(Sprite sprite)
         {
-            return this.Rectangle.Top + this.Velocity.Y < sprite.Rectangle.Bottom &&
+            return this.Rectangle.Top + this.Speed.Y < sprite.Rectangle.Bottom &&
               this.Rectangle.Bottom > sprite.Rectangle.Bottom &&
               this.Rectangle.Right > sprite.Rectangle.Left &&
               this.Rectangle.Left < sprite.Rectangle.Right;
