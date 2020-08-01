@@ -46,14 +46,12 @@ namespace brackeys_2020_2_jam.Component.Sprites
             Speed = new Vector2(0, -1);
         }
 
-        public void OnCollision(Sprite sprite)
+        public override void OnCollision(Sprite sprite, GameTime gameTime)
         {
             if (sprite is null) return;
             if (IsTouchingTop(sprite))
             {
-                // TODO
-                // Speed = new Vector2(Speed.X - conveyorSpeed, 0);
-                Speed = new Vector2(Speed.X, 0);
+               Speed = new Vector2(Speed.X, 0);
                 Position = new Vector2(Position.X, sprite.Position.Y - Rectangle.Height);
                 FallAcceleration = 0;
             }
@@ -82,8 +80,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
 
             FallDown();
-            Windup(gameTime);
-            Move(gameTime);
+            Windup();
+            Move();
 
             Position += Speed;
 
@@ -102,7 +100,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (Speed.Y > terminalVelocity) Speed = new Vector2(Speed.X, terminalVelocity);
         }
 
-        private void Windup(GameTime gameTime)
+        private void Windup()
         {
             if ((Speed.X != 0 || Speed.Y != 0) && IsInAir)
             {
@@ -119,13 +117,13 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else IsWindingUp = false;
         }
 
-        private void Move(GameTime gameTime)
+        private void Move()
         {
-            CheckMove(gameTime);
-            CheckJump(gameTime);
+            CheckMove();
+            CheckJump();
         }
 
-        private void CheckMove(GameTime gameTime)
+        private void CheckMove()
         {
 
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
@@ -199,7 +197,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             }
         }
 
-        private void CheckJump(GameTime gameTime)
+        private void CheckJump()
         {
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {

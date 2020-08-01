@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Drawing;
-using System.Runtime.Intrinsics.X86;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -10,28 +9,28 @@ namespace brackeys_2020_2_jam.Component.Controls
 {
     public class Progressbar : Component
     {
-        private float internalValue { get; set; }
-        private float internalMaxValue { get; set; } = 1;
+        private float InternalValue { get; set; }
+        private float InternalMaxValue { get; set; } = 1;
 
         public float MaxValue
         {
-            get => internalMaxValue;
+            get => InternalMaxValue;
             set
             {
-                internalMaxValue = value;
+                InternalMaxValue = value;
 
-                if (value < 1) internalMaxValue = 1;
+                if (value < 1) InternalMaxValue = 1;
             }
         }
         public float Value
         {
-            get => internalValue;
+            get => InternalValue;
             set
             {
-                internalValue = value;
+                InternalValue = value;
 
-                if (value < 0) internalValue = 0;
-                if (value > MaxValue) internalValue = MaxValue;
+                if (value < 0) InternalValue = 0;
+                if (value > MaxValue) InternalValue = MaxValue;
             }
         }
 

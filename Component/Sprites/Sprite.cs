@@ -7,7 +7,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
     {
         public Vector2 GRAVITY = new Vector2(0, 9.8f);
         public Vector2 Speed { get; set; }
-        public Vector2 MaxSpeed { get;  set; }
+        public Vector2 MaxSpeed { get; set; }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -36,6 +36,10 @@ namespace brackeys_2020_2_jam.Component.Sprites
         }
 
         public Texture2D Texture { get; set; }
+
+        public virtual void OnCollision(Sprite sprite, GameTime gameTime)
+        {
+        }
 
         #region Collision
 
