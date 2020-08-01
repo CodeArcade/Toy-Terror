@@ -16,7 +16,11 @@ namespace brackeys_2020_2_jam
 
         public JamGame()
         {
-            Graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this)
+            {
+               PreferredBackBufferHeight = 720,
+                PreferredBackBufferWidth = 1280
+            };
             Content.RootDirectory = "Content";
         }
 
@@ -24,10 +28,7 @@ namespace brackeys_2020_2_jam
         {
             Window.Title = "Jam Game!";
             IsMouseVisible = true;
-
-            Graphics.PreferredBackBufferHeight = 720;
-            Graphics.PreferredBackBufferWidth = 1280;
-
+            
             base.Initialize();
         }
 
