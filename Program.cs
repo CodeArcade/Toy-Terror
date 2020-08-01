@@ -1,7 +1,9 @@
-﻿using brackeys_2020_2_jam.Models;
+﻿using brackeys_2020_2_jam.Manager;
+using brackeys_2020_2_jam.Models;
 using brackeys_2020_2_jam.States;
 using System;
 using Unity;
+using Unity.Injection;
 
 namespace brackeys_2020_2_jam
 {
@@ -22,7 +24,11 @@ namespace brackeys_2020_2_jam
         {
             UnityContainer.RegisterType<MenuState>();
             UnityContainer.RegisterType<GameState>();
+
             UnityContainer.RegisterType<StateManager>();
+            UnityContainer.RegisterType<AnimationManager>(new InjectionConstructor()); // creates new manager object at resolve
+            UnityContainer.RegisterType<ContentManager>();
+
             UnityContainer.RegisterInstance(new JamGame());
         }
 

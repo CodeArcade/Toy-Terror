@@ -1,4 +1,5 @@
-﻿using brackeys_2020_2_jam.Models;
+﻿using brackeys_2020_2_jam.Manager;
+using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Unity;
@@ -20,7 +21,6 @@ namespace brackeys_2020_2_jam
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             Window.Title = "Jam Game!";
             IsMouseVisible = false;
 
@@ -35,8 +35,6 @@ namespace brackeys_2020_2_jam
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
