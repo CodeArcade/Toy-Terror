@@ -25,7 +25,7 @@ namespace brackeys_2020_2_jam.States
             {
                 MaxSpeed = new Vector2(10, 10),
                 MaxAcceleration = 5,
-                Acceleration = 0.5f,
+                Acceleration = 0.1f,
                 Position = new Vector2(250, 250)
             };
 
@@ -39,14 +39,8 @@ namespace brackeys_2020_2_jam.States
             Components.Add(Player);
 
             Components.Add(new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(20, 400) });
-#if DEBUG
-            debugComponents = new List<Component.Component>();
-            debugComponents.Add(new Label(ContentManager.ButtonFont)
-            {
-                Text = $"Player Position: {Player.Position.X}X; {Player.Position.Y}Y",
-                Position = new Vector2(0, 0)
-            });
-#endif
+            
+            AddDebugInfo();
         }
 
         public override void Update(GameTime gameTime)
@@ -60,9 +54,7 @@ namespace brackeys_2020_2_jam.States
                 if (Player.Rectangle.Intersects(sprite.Rectangle)) Player.OnCollision(sprite);
             }
 
-#if DEBUG
-            ((Label)debugComponents[0]).Text = $"Player Position: {Player.Position.X}X; {Player.Position.Y}Y";
-#endif
+            UpdateDebugInfo();
         }
 
 #if DEBUG
@@ -75,6 +67,46 @@ namespace brackeys_2020_2_jam.States
             base.Draw(gameTime, spriteBatch);
         }
 #endif
+
+        private void UpdateDebugInfo()
+        {
+#if DEBUG
+            ((Label)debugComponents[0]).Text = $"Position: {Player.Position.X}X; {Player.Position.Y}Y";
+            ((Label)debugComponents[1]).Text = $"Acceleration: {Player.CurrentAcceleration}X | {Player.FallAcceleration}Y";
+            ((Label)debugComponents[1]).Text = $"Speed: {Player.Speed}X";
+            ((Label)debugComponents[1]).Text = $"In Air: {Player.IsInAir}X";
+#endif
+        }
+
+        private void AddDebugInfo()
+        {
+#if DEBUG
+            debugComponents = new List<Component.Component>();
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"Position: {Player.Position.X}X | {Player.Position.Y}Y",
+                Position = new Vector2(0, 0)
+            });
+
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"Acceleration: {Player.CurrentAcceleration}X | {Player.FallAcceleration}Y",
+                Position = new Vector2(0, 15)
+            });
+
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"Speed: {Player.Speed}X",
+                Position = new Vector2(0, 30)
+            });
+
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"In Air: {Player.IsInAir}X",
+                Position = new Vector2(0, 45)
+            });
+#endif
+        }
 
     }
 }
