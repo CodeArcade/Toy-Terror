@@ -82,20 +82,28 @@ namespace brackeys_2020_2_jam.States
         private void Spawn()
         {
 
-            Components.Add(new StickyObstacle()
+            //Components.Add(new StickyObstacle()
+            //{
+            //    Texture = ContentManager.ButtonTexture,
+            //    Position = new Vector2(Conveyor.Position.X + (Conveyor.Rectangle.Width * 4), Conveyor.Position.Y - Conveyor.Rectangle.Height),
+            //    Speed = new Vector2(3, 0),
+            //    ImmunityDuration = 1,
+            //    StickDuration = 3
+            //});
+
+            Components.Add(new MovingObstacle()
             {
                 Texture = ContentManager.ButtonTexture,
                 Position = new Vector2(Conveyor.Position.X + (Conveyor.Rectangle.Width * 4), Conveyor.Position.Y - Conveyor.Rectangle.Height),
-                Speed = new Vector2(3, 0),
-                ImmunityDuration = 1,
-                StickDuration = 3
+                Speed = new Vector2(Player.conveyorSpeed, 0),
+                AdditionalSpeed = 2
             });
 
         }
 
         public override void PostUpdate(GameTime gameTime)
         {
-            foreach(Component.Component component in Components)
+            foreach (Component.Component component in Components)
             {
                 if (component.Position.X < 0) component.IsRemoved = true;
             }
@@ -123,6 +131,8 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[1]).Text = $"Acceleration: {Player.CurrentAcceleration}X | {Player.FallAcceleration}Y";
             ((Label)debugComponents[2]).Text = $"Speed: {Player.Speed}";
             ((Label)debugComponents[3]).Text = $"In Air: {Player.IsInAir}";
+            ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
+            ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
 #endif
         }
 
@@ -133,6 +143,7 @@ namespace brackeys_2020_2_jam.States
             {
                 new Label(ContentManager.ButtonFont)
                 {
+
                     Text = $"Position: {Player.Position}",
                     Position = new Vector2(0, 0)
                 },
@@ -153,6 +164,18 @@ namespace brackeys_2020_2_jam.States
                 {
                     Text = $"In Air: {Player.IsInAir}",
                     Position = new Vector2(0, 45)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Winding Up: {Player.IsWindingUp}",
+                    Position = new Vector2(0, 60)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"On Conveyor: {Player.IsOnConveyor}",
+                    Position = new Vector2(0, 75)
                 }
             };
 #endif

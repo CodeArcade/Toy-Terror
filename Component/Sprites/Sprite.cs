@@ -62,7 +62,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         protected bool IsTouchingTop(Sprite sprite)
         {
             return this.Rectangle.Bottom > sprite.Rectangle.Top &&
-              this.Rectangle.Top < sprite.Rectangle.Top &&
+              this.Rectangle.Top < sprite.Rectangle.Bottom &&
               this.Rectangle.Right > sprite.Rectangle.Left &&
               this.Rectangle.Left < sprite.Rectangle.Right;
         }
