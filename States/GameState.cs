@@ -51,7 +51,8 @@ namespace brackeys_2020_2_jam.States
 
             foreach (Sprite sprite in Components.Where(x => x is Sprite && x != Player).Select(x => x))
             {
-                if (Player.Rectangle.Intersects(sprite.Rectangle)) Player.OnCollision(sprite);
+                if (Player.Rectangle.Intersects(sprite.Rectangle))
+                    Player.OnCollision(sprite);
             }
 
             UpdateDebugInfo();
@@ -75,6 +76,8 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[1]).Text = $"Acceleration: {Player.CurrentAcceleration}X | {Player.FallAcceleration}Y";
             ((Label)debugComponents[2]).Text = $"Speed: {Player.Speed}";
             ((Label)debugComponents[3]).Text = $"In Air: {Player.IsInAir}";
+            ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
+            ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
 #endif
         }
 
@@ -104,6 +107,18 @@ namespace brackeys_2020_2_jam.States
             {
                 Text = $"In Air: {Player.IsInAir}",
                 Position = new Vector2(0, 45)
+            });
+
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"Winding Up: {Player.IsWindingUp}",
+                Position = new Vector2(0, 60)
+            });
+
+            debugComponents.Add(new Label(ContentManager.ButtonFont)
+            {
+                Text = $"On Conveyor: {Player.IsOnConveyor}",
+                Position = new Vector2(0, 75)
             });
 #endif
         }

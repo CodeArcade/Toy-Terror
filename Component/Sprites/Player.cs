@@ -16,7 +16,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public const float jumpVelocity = 25f;
         public const float terminalVelocity = 25f;
-        public const float conveyorSpeed = 0.1f;
+        public const float conveyorSpeed = 1f;
 
         public const float ALIVE_CHARGE = 5f;
         public const float ALIVE_MAX = 1000f;
@@ -30,6 +30,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public bool IsGoingLeft => Speed.X < 0;
         public bool IsGoingRight => Speed.X > 0;
         public bool IsStandingStill => Speed.X == 0;
+        public bool IsOnConveyor { get; private set; }
 
         public float Acceleration { get; set; }
         public float CurrentAcceleration { get; private set; }
@@ -44,6 +45,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             Input = input;
             Texture = ContentManager.ProgressBarBackground;
             Speed = new Vector2(0, -1);
+            IsOnConveyor = false;
         }
 
         public void OnCollision(Sprite sprite)
@@ -52,19 +54,21 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (IsTouchingTop(sprite))
             {
                 // TODO
-                // Speed = new Vector2(Speed.X - conveyorSpeed, 0);
+                //Speed = new Vector2(Speed.X - conveyorSpeed, 0);
                 Speed = new Vector2(Speed.X, 0);
-                Position = new Vector2(Position.X, sprite.Position.Y - Rectangle.Height);
+                Position = new Vector2(Position.X - conveyorSpeed, sprite.Position.Y - Rectangle.Height);
                 FallAcceleration = 0;
+                IsOnConveyor = true;
             }
             else if (IsTouchingBottom(sprite))
             {
+                Position = new Vector2(Position.X, Position.Y + 1);
                 Speed = new Vector2(Speed.X, 0);
             }
             else if (IsTouchingRight(sprite))
             {
                 Speed = new Vector2(0, Speed.Y);
-                Position = new Vector2(sprite.Position.X, Position.Y);
+                Position = new Vector2(sprite.Position.X + sprite.Rectangle.Width, Position.Y);
             }
             else if (IsTouchingLeft(sprite))
             {
@@ -80,9 +84,12 @@ namespace brackeys_2020_2_jam.Component.Sprites
             CurrentKeyboard = Keyboard.GetState();
 
             if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
+            //if (IsOnConveyor) Speed = new Vector2(Speed.X - conveyorSpeed, 0);
 
-            FallDown();
+            if (IsInAir) IsOnConveyor = false;
+
             Windup(gameTime);
+            FallDown();
             Move(gameTime);
 
             Position += Speed;
@@ -104,7 +111,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private void Windup(GameTime gameTime)
         {
-            if ((Speed.X != 0 || Speed.Y != 0) && IsInAir)
+            if (Speed.X != 0 || Speed.Y != 0 || IsInAir)
             {
                 IsWindingUp = false;
                 return;
@@ -127,7 +134,6 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private void CheckMove(GameTime gameTime)
         {
-
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
             {
                 if (IsGoingLeft)
@@ -201,10 +207,12 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private void CheckJump(GameTime gameTime)
         {
+            if (!IsOnConveyor || IsWindingUp) return;
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
                 Speed = Vector2.UnitY * -jumpVelocity;
                 FallAcceleration = 0;
+                IsOnConveyor = false;
             }
         }
 

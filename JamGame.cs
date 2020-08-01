@@ -13,6 +13,11 @@ namespace brackeys_2020_2_jam
         private SpriteBatch SpriteBatch;
 
         public StateManager StateManager { get; set; }
+#if DEBUG
+        bool AdvanceSlowly;
+        KeyboardState PreviousKeyboard { get; set; }
+        KeyboardState CurrentKeyboard { get; set; }
+#endif
 
         public JamGame()
         {
@@ -28,7 +33,10 @@ namespace brackeys_2020_2_jam
         {
             Window.Title = "Jam Game!";
             IsMouseVisible = true;
-            
+#if DEBUG
+            AdvanceSlowly = false;
+#endif
+
             base.Initialize();
         }
 
@@ -42,12 +50,32 @@ namespace brackeys_2020_2_jam
 
         protected override void Update(GameTime gameTime)
         {
-            StateManager.Update(gameTime);
+
+
 #if DEBUG
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            PreviousKeyboard = CurrentKeyboard;
+            CurrentKeyboard = Keyboard.GetState();
+            if (CurrentKeyboard.IsKeyDown(Keys.R) && PreviousKeyboard.IsKeyUp(Keys.R))
             {
                 StateManager.Reload();
+                AdvanceSlowly = false;
             }
+
+            if (CurrentKeyboard.IsKeyDown(Keys.Pause) && PreviousKeyboard.IsKeyUp(Keys.Pause))
+            {
+                AdvanceSlowly = !AdvanceSlowly;
+            }
+
+            if (!AdvanceSlowly) StateManager.Update(gameTime);
+            else
+            {
+                if (CurrentKeyboard.IsKeyDown(Keys.Right) && PreviousKeyboard.IsKeyUp(Keys.Right))
+                {
+                    StateManager.Update(gameTime);
+                }
+            }
+#else
+            StateManager.Update(gameTime);
 #endif
             base.Update(gameTime);
         }
