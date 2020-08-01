@@ -6,14 +6,13 @@ namespace brackeys_2020_2_jam
 {
     public class JamGame : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager Graphics;
+        private SpriteBatch SpriteBatch;
 
         public JamGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -21,14 +20,15 @@ namespace brackeys_2020_2_jam
             // TODO: Add your initialization logic here
             Window.Title = "Jam Game!";
             IsMouseVisible = false;
-            Window.AllowUserResizing = true;
-
+            
+            Graphics.PreferredBackBufferHeight = 720;
+            Graphics.PreferredBackBufferWidth = 1280;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
