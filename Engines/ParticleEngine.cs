@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using brackeys_2020_2_jam.Models;
+using brackeys_2020_2_jam.Component;
 
-namespace brackeys_2020_2_jam
+namespace brackeys_2020_2_jam.Engines
 {
-    public class ParticleEngine : Component {
-        private Random Random;
+    public class ParticleEngine : Component.Component {
+        private readonly Random Random;
         public Vector2 EmitterLocation { get; set; }
-        private List<Particle> Particles;
-        private List<Texture2D> Textures;
+        private readonly List<Particle> Particles;
+        private readonly List<Texture2D> Textures;
 
         public ParticleEngine(Vector2 emitterLocation, List<Texture2D> textures)
         {

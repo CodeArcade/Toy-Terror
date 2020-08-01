@@ -11,6 +11,10 @@ namespace brackeys_2020_2_jam.States
         {
         }
 
+        public override void Load()
+        {
+        }
+
         public override void PostUpdate(GameTime gameTime)
         {
         }
