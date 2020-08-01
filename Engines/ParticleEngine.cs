@@ -16,6 +16,7 @@ namespace brackeys_2020_2_jam
         {
 
         }
+
         public ParticleEngine(Vector2 emitterLocation, List<Texture2D> textures)
         {
             Random = new Random();
