@@ -5,9 +5,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
 {
     public class Sprite : Component
     {
+        public Vector2 GRAVITY = new Vector2(0, -9.8f);
         public Vector2 Velocity { get; set; }
-        public float MaxSpeed { get; protected set; }
-        public float Speed { get; set; }
+        public Vector2 MaxSpeed { get; protected set; }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
