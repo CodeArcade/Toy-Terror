@@ -1,12 +1,7 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Unity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace brackeys_2020_2_jam.Models
 {
@@ -14,10 +9,10 @@ namespace brackeys_2020_2_jam.Models
     {
         #region Fields
 
-        [Dependency]
-        public ContentManager Content;
+        protected List<Component> Components { get; set; } = new List<Component>();
 
-        protected GraphicsDevice GraphicsDevice;
+        [Dependency]
+        public Manager.ContentManager Content;
 
         [Dependency]
         public JamGame Game { get; set; }
@@ -25,12 +20,6 @@ namespace brackeys_2020_2_jam.Models
         #endregion
 
         #region Methods
-        public State( GraphicsDevice graphicsDevice, ContentManager content)
-        {
-            GraphicsDevice = graphicsDevice;
-
-            Content = content;
-        }
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 

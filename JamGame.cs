@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using brackeys_2020_2_jam.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Unity;
 
 namespace brackeys_2020_2_jam
 {
@@ -8,6 +9,8 @@ namespace brackeys_2020_2_jam
     {
         private GraphicsDeviceManager Graphics;
         private SpriteBatch SpriteBatch;
+
+        public StateManager StateManager { get; set; }
 
         public JamGame()
         {
@@ -20,7 +23,10 @@ namespace brackeys_2020_2_jam
             // TODO: Add your initialization logic here
             Window.Title = "Jam Game!";
             IsMouseVisible = false;
-            
+
+            StateManager = Program.UnityContainer.Resolve<StateManager>();
+            StateManager.ChangeToMenu();
+
             Graphics.PreferredBackBufferHeight = 720;
             Graphics.PreferredBackBufferWidth = 1280;
             base.Initialize();
@@ -35,10 +41,7 @@ namespace brackeys_2020_2_jam
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
+            StateManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -46,9 +49,11 @@ namespace brackeys_2020_2_jam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            SpriteBatch.Begin();
 
-            // TODO: Add your drawing code here
+            StateManager.Draw(gameTime, SpriteBatch);
 
+            SpriteBatch.End();
             base.Draw(gameTime);
         }
     }

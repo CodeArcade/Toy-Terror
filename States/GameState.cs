@@ -1,12 +1,12 @@
+﻿using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using brackeys_2020_2_jam.Models;
+using System;
 
 namespace brackeys_2020_2_jam.States
 {
-    public class MenuState : State
+    public class GameState : State
     {
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
         }
@@ -19,5 +19,4 @@ namespace brackeys_2020_2_jam.States
         {
         }
     }
-
 }

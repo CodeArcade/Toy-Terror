@@ -1,4 +1,6 @@
-﻿using System;
+﻿using brackeys_2020_2_jam.Models;
+using brackeys_2020_2_jam.States;
+using System;
 using Unity;
 
 namespace brackeys_2020_2_jam
@@ -12,15 +14,16 @@ namespace brackeys_2020_2_jam
         {
             Register();
 
-            using (var game = new JamGame())
-                UnityContainer.Resolve<JamGame>().Run();
+            using JamGame game = UnityContainer.Resolve<JamGame>();
+            game.Run();
         }
 
         static void Register()
         {
-            UnityContainer.RegisterType<JamGame>();
-            UnityContainer.RegisterType<>();
-
+            UnityContainer.RegisterType<MenuState>();
+            UnityContainer.RegisterType<GameState>();
+            UnityContainer.RegisterType<StateManager>();
+            UnityContainer.RegisterInstance(new JamGame());
         }
 
     }
