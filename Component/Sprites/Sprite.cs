@@ -25,7 +25,20 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (AnimationManager.IsPlaying) AnimationManager.Update(gameTime);
         }
 
+        public Rectangle Rectangle
+        {
+            get
+            {
+                if (AnimationManager.IsPlaying) return AnimationManager.AnimationRectangle;
+
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+            }
+        }
+
+        public Texture2D Texture { get; set; }
+
         #region Collision
+
         protected bool IsTouchingLeft(Sprite sprite)
         {
             return this.Rectangle.Right + this.Velocity.X > sprite.Rectangle.Left &&
