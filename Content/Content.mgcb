@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin C:/Users/larsg/OneDrive/Desktop/ProgressBarOutline.png
+#begin Sprites/ProgressBarOutline.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:C:/Users/larsg/OneDrive/Desktop/ProgressBarOutline.png;Sprites/ProgressBarOutline.png
+/build:Sprites/ProgressBarOutline.png
 
-#begin C:/Users/larsg/OneDrive/Desktop/ProgressBarValue.png
+#begin Sprites/ProgressBarValue.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,7 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:C:/Users/larsg/OneDrive/Desktop/ProgressBarValue.png;Sprites/ProgressBarValue.png
+/build:Sprites/ProgressBarValue.png
 
 #begin Fonts/ButtonFont.spritefont
 /importer:FontDescriptionImporter
