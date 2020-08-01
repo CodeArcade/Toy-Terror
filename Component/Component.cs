@@ -1,9 +1,6 @@
 using brackeys_2020_2_jam.Manager;
-using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Unity;
 
 namespace brackeys_2020_2_jam.Component
@@ -20,7 +17,7 @@ namespace brackeys_2020_2_jam.Component
 
         #region Private Properties
 
-        private Vector2 position { get; set; }
+        private Vector2 InternalPosition { get; set; }
 
         #endregion
 
@@ -28,11 +25,21 @@ namespace brackeys_2020_2_jam.Component
         
         public Vector2 Position
         {
-            get { return position; }
+            get { return InternalPosition; }
             set
             {
-                position = value;
-                if (AnimationManager != null) AnimationManager.Position = position;
+                InternalPosition = value;
+                if (AnimationManager != null) AnimationManager.Position = InternalPosition;
+            }
+        }
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                if (AnimationManager.IsPlaying) return AnimationManager.AnimationRectangle;
+            
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
             }
         }
 

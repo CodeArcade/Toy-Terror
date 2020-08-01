@@ -9,10 +9,12 @@ namespace brackeys_2020_2_jam.Models
     {
         #region Fields
 
-        protected List<Component> Components { get; set; } = new List<Component>();
+        public bool HasLoaded { get; protected set; }
+
+        protected List<Component.Component> Components { get; set; } = new List<Component.Component>();
 
         [Dependency]
-        public Manager.ContentManager Content;
+        public Manager.ContentManager Content { get; set; }
 
         [Dependency]
         public JamGame Game { get; set; }
@@ -20,6 +22,8 @@ namespace brackeys_2020_2_jam.Models
         #endregion
 
         #region Methods
+
+        public virtual void Load() { HasLoaded = true; }
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 

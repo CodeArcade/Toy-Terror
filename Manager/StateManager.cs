@@ -10,7 +10,7 @@ namespace brackeys_2020_2_jam.Manager
     {
         private State CurrentState { get; set; }
         private State NextState { get; set; }
-        
+
         [Dependency]
         public MenuState MenuState { get; set; }
 
@@ -25,10 +25,11 @@ namespace brackeys_2020_2_jam.Manager
             CurrentState.Update(gameTime);
             CurrentState.PostUpdate(gameTime);
         }
-       
+
         private void ChangeState()
         {
             if (NextState is null) return;
+            if (!NextState.HasLoaded) NextState.Load();
 
             CurrentState = NextState;
             NextState = null;

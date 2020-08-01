@@ -1,12 +1,16 @@
 ﻿using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace brackeys_2020_2_jam.Manager
 {
     public class AnimationManager
     {
         private Animation Animation { get; set; }
+        public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, Animation.FrameWidth, Animation.FrameHeight);
+
         private float Timer { get; set; }
 
         public Vector2 Position { get; set; }

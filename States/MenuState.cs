@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using brackeys_2020_2_jam.Models;
+using brackeys_2020_2_jam.Component.Controls;
 
 namespace brackeys_2020_2_jam.States
 {
@@ -8,6 +9,10 @@ namespace brackeys_2020_2_jam.States
     {
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+        }
+
+        public override void Load()
         {
         }
 

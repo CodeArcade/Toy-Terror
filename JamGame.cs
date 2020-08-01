@@ -8,7 +8,7 @@ namespace brackeys_2020_2_jam
 {
     public class JamGame : Game
     {
-        private GraphicsDeviceManager Graphics;
+        private readonly GraphicsDeviceManager Graphics;
         private SpriteBatch SpriteBatch;
 
         public StateManager StateManager { get; set; }

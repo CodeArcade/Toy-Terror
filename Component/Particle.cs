@@ -1,12 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace brackeys_2020_2_jam.Models
+namespace brackeys_2020_2_jam.Component
 {
     public class Particle : Component
     {
-        public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         public float Angle { get; set; }
         public float AngularVelocity { get; set; }
