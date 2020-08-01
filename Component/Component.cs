@@ -10,7 +10,7 @@ namespace brackeys_2020_2_jam.Component
         #region Dependencies
 
         public AnimationManager AnimationManager => Program.UnityContainer.Resolve<AnimationManager>();
-        public AnimationManager ContentManager => Program.UnityContainer.Resolve<AnimationManager>();
+        public ContentManager ContentManager => Program.UnityContainer.Resolve<ContentManager>();
         public AudioManager AudioManager => Program.UnityContainer.Resolve<AudioManager>();
 
         #endregion
@@ -33,19 +33,9 @@ namespace brackeys_2020_2_jam.Component
             }
         }
 
-        public Rectangle Rectangle
-        {
-            get
-            {
-                if (AnimationManager.IsPlaying) return AnimationManager.AnimationRectangle;
-            
-                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-            }
-        }
-
-        public Texture2D Texture { get; set; }
-
         public bool IsRemoved { get; set; }
+
+        public Component Parent { get; set; }
 
         #endregion
 

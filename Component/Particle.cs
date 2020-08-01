@@ -11,6 +11,7 @@ namespace brackeys_2020_2_jam.Component
         public Color Color { get; set; }
         public float Size { get; set; }
         public int TTL { get; set; }
+        public Texture2D Texture { get; set; }
 
         public Particle(Texture2D texture, Vector2 position, Vector2 velocity, float angle, float angularVelocity, Color color, float size, int ttl)
         {

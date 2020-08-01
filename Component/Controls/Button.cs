@@ -15,6 +15,16 @@ namespace brackeys_2020_2_jam.Component.Controls
         public SpriteFont Font { get; set; }
         public string Text { get; set; }
         public bool Clicked { get; private set; }
+        public Rectangle Rectangle
+        {
+            get
+            {
+                if (AnimationManager.IsPlaying) return AnimationManager.AnimationRectangle;
+
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+            }
+        }
+        public Texture2D Texture { get; set; }
 
         public event EventHandler OnClick;
 
