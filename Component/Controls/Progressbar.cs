@@ -10,10 +10,10 @@ namespace brackeys_2020_2_jam.Component.Controls
 {
     public class Progressbar : Component
     {
-        private int internalValue { get; set; }
-        private int internalMaxValue { get; set; } = 1;
+        private float internalValue { get; set; }
+        private float internalMaxValue { get; set; } = 1;
 
-        public int MaxValue
+        public float MaxValue
         {
             get => internalMaxValue;
             set
@@ -23,7 +23,7 @@ namespace brackeys_2020_2_jam.Component.Controls
                 if (value < 1) internalMaxValue = 1;
             }
         }
-        public int Value
+        public float Value
         {
             get => internalValue;
             set
@@ -66,7 +66,7 @@ namespace brackeys_2020_2_jam.Component.Controls
             if (sizeInPercent <= 0)
                 destinationRectangle = new Rectangle((int)Position.X + OffSet, (int)Position.Y + OffSet, 0, 0);
             else
-                destinationRectangle = new Rectangle((int)Position.X + OffSet, (int)Position.Y + OffSet, (int)(Size.Width - (OffSet * 2) / sizeInPercent), Size.Height - (OffSet * 2));
+                destinationRectangle = new Rectangle((int)Position.X + OffSet, (int)Position.Y + OffSet, (int)((Size.Width - (OffSet * 2)) * sizeInPercent), Size.Height - (OffSet * 2));
             
             spriteBatch.Draw(ValueTexture, destinationRectangle, Color.White);
         }

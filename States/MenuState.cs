@@ -44,7 +44,7 @@ namespace brackeys_2020_2_jam.States
 
         public override void Update(GameTime gameTime)
         {
-            progressbar.Value -= 1;
+            progressbar.Value -= 0.3f;
             if (progressbar.Value == 0) progressbar.Value = 100;
             base.Update(gameTime);
         }
