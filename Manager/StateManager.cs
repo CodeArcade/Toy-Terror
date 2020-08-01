@@ -1,9 +1,10 @@
+using brackeys_2020_2_jam.Models;
 using brackeys_2020_2_jam.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using DependencyAttribute = Unity.DependencyAttribute;
 
-namespace brackeys_2020_2_jam.Models
+namespace brackeys_2020_2_jam.Manager
 {
     public class StateManager
     {
