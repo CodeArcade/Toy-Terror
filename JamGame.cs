@@ -2,6 +2,7 @@
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Unity;
 
 namespace brackeys_2020_2_jam
@@ -41,7 +42,12 @@ namespace brackeys_2020_2_jam
         protected override void Update(GameTime gameTime)
         {
             StateManager.Update(gameTime);
-
+#if DEBUG
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                StateManager.Reload();
+            }
+#endif
             base.Update(gameTime);
         }
 

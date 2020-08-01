@@ -34,6 +34,11 @@ namespace brackeys_2020_2_jam.Manager
             CurrentState = NextState;
         }
 
+        public void Reload()
+        {
+            CurrentState.Load();
+        }
+
         public void ChangeToMenu() => NextState = MenuState;
 
         public void ChangeToGame() => NextState = GameState;
