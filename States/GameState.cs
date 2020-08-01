@@ -1,4 +1,5 @@
-﻿using brackeys_2020_2_jam.Component.Sprites;
+﻿using brackeys_2020_2_jam.Component.Controls;
+using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -10,6 +11,7 @@ namespace brackeys_2020_2_jam.States
     {
 
         private Player Player;
+        private Progressbar Progressbar;
 
         public override void Load()
         {
@@ -22,14 +24,25 @@ namespace brackeys_2020_2_jam.States
                 Position = new Vector2(250, 250)
             };
 
+            Progressbar = new Progressbar(Player, new System.Drawing.Size(80, 20))
+            {
+                MaxValue = Player.ALIVE_MAX,
+                Value = 0
+            };
+
+            Components.Add(Progressbar);
             Components.Add(Player);
+
+            Components.Add(new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(20, 400) });
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            foreach(Sprite sprite in Components.Where(x => x is Sprite).Select(x=> x))
+            Progressbar.Value = Player.AliveTimer;
+
+            foreach (Sprite sprite in Components.Where(x => x is Sprite && x != Player).Select(x => x))
             {
                 if (Player.Rectangle.Intersects(sprite.Rectangle)) Player.OnCollision(sprite);
             }

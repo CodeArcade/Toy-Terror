@@ -5,7 +5,7 @@ using System.Text;
 
 namespace brackeys_2020_2_jam.Models
 {
-    class PlayerInput
+    public class PlayerInput
     {
         public Keys Left { get; set; }
         public Keys Right { get; set; }

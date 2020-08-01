@@ -7,22 +7,23 @@ using System.Text;
 
 namespace brackeys_2020_2_jam.Component.Sprites
 {
-    class Player : Sprite
+    public class Player : Sprite
     {
-        private const float fallMultiplier = 2.5f;
-        private const float lowJumpMultiplier = 2f;
-        private const float jumpVelocity = 10f;
-        private const float runVelocity = 10f;
-        private const float terminalVelocity = 25f;
-        private const float brake = 2f;
-        private const float conveyorSpeed = 2f;
+        public const float fallMultiplier = 2.5f;
+        public const float lowJumpMultiplier = 2f;
+        public const float jumpVelocity = 35f;
+        public const float runVelocity = 10f;
+        public const float terminalVelocity = 25f;
+        public const float brake = 2f;
+        public const float conveyorSpeed = 0.1f;
 
-        private const float ALIVE_CHARGE = 50f;
-        private const float ALIVE_MAX = 1000f;
-        private const float ALIVE_DRAIN = 5f;
+        public const float ALIVE_CHARGE = 50f;
+        public const float ALIVE_MAX = 1000f;
+        public const float ALIVE_DRAIN = 5f;
+
         public float AliveTimer { get; set; }
         public bool AllowMovement;
-        public bool IsInAir { get; set; }
+        public bool IsInAir => Speed.Y != 0;
         public bool IsWindingUp { get; set; }
         public PlayerInput Input { get; set; }
 
@@ -35,25 +36,27 @@ namespace brackeys_2020_2_jam.Component.Sprites
             AliveTimer = 0;
             AllowMovement = false;
             Input = input;
-            IsInAir = false;
             MaxSpeed = new Vector2(500f, 0);
             Texture = ContentManager.ProgressBarBackground;
+            Speed = new Vector2(0, -1);
         }
 
         public void OnCollision(Sprite sprite)
         {
             if (sprite is null) return;
-            if (IsTouchingBottom(sprite))
+            if (IsTouchingTop(sprite))
             {
-                IsInAir = false;
-                Speed = new Vector2(Speed.X - conveyorSpeed);
+                // TODO
+                // Speed = new Vector2(Speed.X - conveyorSpeed, 0);
+                Speed = new Vector2(Speed.X, 0);
+                Position = new Vector2(Position.X, Position.Y - Rectangle.Height);
             }
-            else IsInAir = true;
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN * gameTime.ElapsedGameTime.Seconds;
+            if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
 
             Windup(gameTime);
             Move(gameTime);
@@ -76,7 +79,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (Keyboard.GetState().IsKeyDown(Input.Windup))
             {
                 IsWindingUp = true;
-                AliveTimer += ALIVE_CHARGE * gameTime.ElapsedGameTime.Seconds;
+                AliveTimer += ALIVE_CHARGE;
+                if (AliveTimer > ALIVE_MAX) AliveTimer = ALIVE_MAX;
             }
             else IsWindingUp = false;
         }
@@ -108,7 +112,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
                 return;
             }
-            else if (Keyboard.GetState().IsKeyDown(Input.Left) &&  AliveTimer > 0)
+            else if (Keyboard.GetState().IsKeyDown(Input.Left) && AliveTimer > 0)
             {
                 if (CurrentAcceleration < MaxAcceleration)
                     CurrentAcceleration += Acceleration;
@@ -150,7 +154,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         {
             if (Keyboard.GetState().IsKeyDown(Input.Jump) && AliveTimer > 0)
             {
-                Speed = Vector2.UnitY * jumpVelocity;
+                Speed = Vector2.UnitY * -jumpVelocity;
             }
         }
     }
