@@ -23,10 +23,13 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public const float ALIVE_DRAIN = 1f;
 
         public float AliveTimer { get; set; }
-        public bool AllowMovement;
         public bool IsInAir => Speed.Y != 0;
         public bool IsWindingUp { get; set; }
         public PlayerInput Input { get; set; }
+
+        public bool IsGoingLeft => Speed.X < 0;
+        public bool IsGoingRight => Speed.X > 0;
+        public bool IsStandingStill => Speed.X == 0;
 
         public float Acceleration { get; set; }
         public float CurrentAcceleration { get; private set; }
@@ -38,9 +41,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public Player(PlayerInput input)
         {
             AliveTimer = 0;
-            AllowMovement = false;
             Input = input;
-            MaxSpeed = new Vector2(500f, 0);
             Texture = ContentManager.ProgressBarBackground;
             Speed = new Vector2(0, -1);
         }
@@ -103,7 +104,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private void Windup(GameTime gameTime)
         {
-            if ((Speed.X > 0 || Speed.Y > 0) && IsInAir)
+            if ((Speed.X != 0 || Speed.Y != 0) && IsInAir)
             {
                 IsWindingUp = false;
                 return;
@@ -129,58 +130,73 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
             {
-                if (CurrentAcceleration < MaxAcceleration)
-                    CurrentAcceleration += Acceleration;
-                else
-                    CurrentAcceleration = MaxAcceleration;
+                if (IsGoingLeft)
+                {
+                    Break();
+                    return;
+                }
+
+                Accelerate();
 
                 if (Speed.X < MaxSpeed.X)
                     Speed = new Vector2(Speed.X + CurrentAcceleration, Speed.Y);
                 else
                     Speed = new Vector2(MaxSpeed.X, Speed.Y);
-
-                return;
             }
             else if (Keyboard.GetState().IsKeyDown(Input.Left) && AliveTimer > 0 && !IsWindingUp)
             {
-                if (CurrentAcceleration < MaxAcceleration)
-                    CurrentAcceleration += Acceleration;
-                else
-                    CurrentAcceleration = MaxAcceleration;
+                if (IsGoingRight)
+                {
+                    Break();
+                    return;
+                }
+
+                Accelerate();
 
                 if (Speed.X < -MaxSpeed.X)
                     Speed = new Vector2(Speed.X - CurrentAcceleration, Speed.Y);
                 else
                     Speed = new Vector2(-MaxSpeed.X, Speed.Y);
+            }
+            else Break();
+        }
 
+        private void Accelerate()
+        {
+            if (CurrentAcceleration < MaxAcceleration)
+                CurrentAcceleration += Acceleration;
+            else
+                CurrentAcceleration = MaxAcceleration;
+        }
+
+        private void Decelerate()
+        {
+            if (CurrentAcceleration <= 0)
+                CurrentAcceleration = 0;
+            else
+                CurrentAcceleration -= Acceleration;
+        }
+
+        private void Break()
+        {
+            if (IsStandingStill)
+            {
+                CurrentAcceleration = 0;
                 return;
             }
-            else
+
+            Decelerate();
+
+            if (IsGoingRight)
             {
-                bool isLeft = Speed.X < 0;
-                if (Speed.X == 0)
-                {
-                    CurrentAcceleration = 0;
-                    return;
-                }
-
-                if (CurrentAcceleration <= 0)
-                    CurrentAcceleration = 0;
-                else
-                    CurrentAcceleration -= Acceleration;
-
-                if (Speed.X > 0)
-                {
-                    Speed = new Vector2(Speed.X - CurrentAcceleration - Acceleration, Speed.Y);
-                    if (isLeft) Speed = new Vector2(0, Speed.Y);
-                }
-                else if (Speed.X < 0)
-                {
-                    Speed = new Vector2(Speed.X + CurrentAcceleration + Acceleration, Speed.Y);
-                    if (!isLeft) Speed = new Vector2(0, Speed.Y);
-                }
+                Speed = new Vector2(Speed.X - CurrentAcceleration - Acceleration, Speed.Y);
+                if (IsGoingLeft) Speed = new Vector2(0, Speed.Y);
             }
-
+            else if (IsGoingLeft)
+            {
+                Speed = new Vector2(Speed.X + CurrentAcceleration + Acceleration, Speed.Y);
+                if (IsGoingRight) Speed = new Vector2(0, Speed.Y);
+            }
         }
 
         private void CheckJump(GameTime gameTime)

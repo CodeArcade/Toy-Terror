@@ -24,8 +24,8 @@ namespace brackeys_2020_2_jam.States
             Player = new Player(new PlayerInput() { Jump = Keys.W, Left = Keys.A, Right = Keys.D, Windup = Keys.Space })
             {
                 MaxSpeed = new Vector2(10, 10),
-                MaxAcceleration = 5,
-                Acceleration = 0.1f,
+                MaxAcceleration = 3,
+                Acceleration = 1f,
                 Position = new Vector2(250, 250)
             };
 
@@ -71,10 +71,10 @@ namespace brackeys_2020_2_jam.States
         private void UpdateDebugInfo()
         {
 #if DEBUG
-            ((Label)debugComponents[0]).Text = $"Position: {Player.Position.X}X; {Player.Position.Y}Y";
+            ((Label)debugComponents[0]).Text = $"Position: {Player.Position}";
             ((Label)debugComponents[1]).Text = $"Acceleration: {Player.CurrentAcceleration}X | {Player.FallAcceleration}Y";
-            ((Label)debugComponents[1]).Text = $"Speed: {Player.Speed}X";
-            ((Label)debugComponents[1]).Text = $"In Air: {Player.IsInAir}X";
+            ((Label)debugComponents[2]).Text = $"Speed: {Player.Speed}";
+            ((Label)debugComponents[3]).Text = $"In Air: {Player.IsInAir}";
 #endif
         }
 
@@ -84,7 +84,7 @@ namespace brackeys_2020_2_jam.States
             debugComponents = new List<Component.Component>();
             debugComponents.Add(new Label(ContentManager.ButtonFont)
             {
-                Text = $"Position: {Player.Position.X}X | {Player.Position.Y}Y",
+                Text = $"Position: {Player.Position}",
                 Position = new Vector2(0, 0)
             });
 
@@ -96,13 +96,13 @@ namespace brackeys_2020_2_jam.States
 
             debugComponents.Add(new Label(ContentManager.ButtonFont)
             {
-                Text = $"Speed: {Player.Speed}X",
+                Text = $"Speed: {Player.Speed}",
                 Position = new Vector2(0, 30)
             });
 
             debugComponents.Add(new Label(ContentManager.ButtonFont)
             {
-                Text = $"In Air: {Player.IsInAir}X",
+                Text = $"In Air: {Player.IsInAir}",
                 Position = new Vector2(0, 45)
             });
 #endif
