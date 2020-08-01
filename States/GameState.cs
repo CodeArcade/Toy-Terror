@@ -1,7 +1,6 @@
 ﻿using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace brackeys_2020_2_jam.States
 {

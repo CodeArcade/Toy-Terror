@@ -1,5 +1,4 @@
 ﻿using brackeys_2020_2_jam.Manager;
-using brackeys_2020_2_jam.Models;
 using brackeys_2020_2_jam.States;
 using System;
 using Unity;
@@ -28,6 +27,7 @@ namespace brackeys_2020_2_jam
             UnityContainer.RegisterType<StateManager>();
             UnityContainer.RegisterType<AnimationManager>(new InjectionConstructor()); // creates new manager object at resolve
             UnityContainer.RegisterType<ContentManager>();
+            UnityContainer.RegisterType<AudioManager>();
 
             UnityContainer.RegisterInstance(new JamGame());
         }

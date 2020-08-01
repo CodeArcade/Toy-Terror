@@ -2,34 +2,54 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Unity;
 using System.Collections.Generic;
+using brackeys_2020_2_jam.Manager;
 
 namespace brackeys_2020_2_jam.Models
 {
     public abstract class State
     {
         #region Fields
+        protected List<Component.Component> Components { get; set; }
+
+        [Dependency]
+        public ContentManager ContentManager { get; set; }
+
+        public StateManager StateManager => Program.UnityContainer.Resolve<StateManager>();
+
+        [Dependency]
+        public Manager.AudioManager AudioManager { get; set; }
 
         public bool HasLoaded { get; protected set; }
-
-        protected List<Component.Component> Components { get; set; } = new List<Component.Component>();
-
-        [Dependency]
-        public Manager.ContentManager Content { get; set; }
-
-        [Dependency]
-        public JamGame Game { get; set; }
-
+        
         #endregion
 
         #region Methods
 
-        public virtual void Load() { HasLoaded = true; }
+        public virtual void Load() { Components = new List<Component.Component>(); HasLoaded = true; }
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            foreach (Component.Component component in Components)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
+        }
 
-        public abstract void PostUpdate(GameTime gameTime);
+        public virtual void PostUpdate(GameTime gameTime)
+        {
+            for(int i = Components.Count - 1; i >= 0; i--)
+            {
+                if (Components[i].IsRemoved) Components.RemoveAt(i);
+            }
+        }
 
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            foreach (Component.Component component in Components)
+            {
+                component.Update(gameTime);
+            }
+        }
 
         #endregion
     }

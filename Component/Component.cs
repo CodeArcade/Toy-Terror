@@ -11,7 +11,7 @@ namespace brackeys_2020_2_jam.Component
 
         public AnimationManager AnimationManager => Program.UnityContainer.Resolve<AnimationManager>();
         public AnimationManager ContentManager => Program.UnityContainer.Resolve<AnimationManager>();
-        public AnimationManager StateManager => Program.UnityContainer.Resolve<AnimationManager>();
+        public AudioManager AudioManager => Program.UnityContainer.Resolve<AudioManager>();
 
         #endregion
 

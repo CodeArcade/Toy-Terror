@@ -51,7 +51,7 @@ namespace brackeys_2020_2_jam.Engines
 
         public override void Update(GameTime gameTime)
         {
-            for (int i = Particles.Count; i >= 0; i--) {
+            for (int i = Particles.Count - 1; i >= 0; i--) {
                 Particles[i].Update(gameTime);
                 if (Particles[i].TTL <= 0) {
                     Particles.RemoveAt(i);

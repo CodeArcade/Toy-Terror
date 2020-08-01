@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using NAudio;
 
 namespace brackeys_2020_2_jam.Manager
 {
-    class AudioManager
+   public class AudioManager
     {
         private Song CurrentSong;
         private Song NextSong;

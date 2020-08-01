@@ -22,19 +22,20 @@ namespace brackeys_2020_2_jam
         protected override void Initialize()
         {
             Window.Title = "Jam Game!";
-            IsMouseVisible = false;
-
-            StateManager = Program.UnityContainer.Resolve<StateManager>();
-            StateManager.ChangeToMenu();
+            IsMouseVisible = true;
 
             Graphics.PreferredBackBufferHeight = 720;
             Graphics.PreferredBackBufferWidth = 1280;
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            StateManager = Program.UnityContainer.Resolve<StateManager>();
+            StateManager.ChangeToMenu();
         }
 
         protected override void Update(GameTime gameTime)
@@ -47,11 +48,13 @@ namespace brackeys_2020_2_jam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             SpriteBatch.Begin();
 
             StateManager.Draw(gameTime, SpriteBatch);
 
             SpriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

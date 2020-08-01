@@ -8,8 +8,8 @@ namespace brackeys_2020_2_jam.Manager
 {
     public class StateManager
     {
-        private State CurrentState { get; set; }
-        private State NextState { get; set; }
+        private static State CurrentState { get; set; }
+        private static State NextState { get; set; }
 
         [Dependency]
         public MenuState MenuState { get; set; }
@@ -28,11 +28,10 @@ namespace brackeys_2020_2_jam.Manager
 
         private void ChangeState()
         {
-            if (NextState is null) return;
+            if (NextState == CurrentState) return;
             if (!NextState.HasLoaded) NextState.Load();
 
             CurrentState = NextState;
-            NextState = null;
         }
 
         public void ChangeToMenu() => NextState = MenuState;
