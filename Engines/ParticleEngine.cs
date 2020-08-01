@@ -9,9 +9,14 @@ namespace brackeys_2020_2_jam.Engines
     public class ParticleEngine : Component.Component {
         private readonly Random Random;
         public Vector2 EmitterLocation { get; set; }
-        private readonly List<Particle> Particles;
-        private readonly List<Texture2D> Textures;
 
+        private readonly List<Particle> Particles;
+        public List<Texture2D> Textures { get; set; }
+
+        public ParticleEngine()
+        {
+
+        }
         public ParticleEngine(Vector2 emitterLocation, List<Texture2D> textures)
         {
             Random = new Random();
@@ -34,10 +39,6 @@ namespace brackeys_2020_2_jam.Engines
 
             Particle p = new Particle(texture, position, velocity, angle, angularVelocity, color, size, ttl);
             Particles.Add(p);
-        }
-
-        public void Update() {
-
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
