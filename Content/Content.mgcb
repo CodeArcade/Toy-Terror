@@ -140,6 +140,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/MotorStart.wav
 
+#begin SoundEffects/Schredder.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Schredder.wav
+
 #begin SoundEffects/Select.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
