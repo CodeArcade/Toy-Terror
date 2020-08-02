@@ -8,7 +8,7 @@ namespace brackeys_2020_2_jam.Manager
 {
     public class StateManager
     {
-        private static State CurrentState { get; set; }
+        public static State CurrentState { get; private set; }
         private static State NextState { get; set; }
 
         [Dependency]
