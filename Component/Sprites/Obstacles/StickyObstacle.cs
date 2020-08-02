@@ -8,7 +8,6 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 {
     public class StickyObstacle : StaticObstacle
     {
-        private double Timer { get; set; }
         public float Damage { get; set; }
         public double ImmunityDuration { get; set; }
 

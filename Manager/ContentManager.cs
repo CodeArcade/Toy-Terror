@@ -43,6 +43,20 @@ namespace brackeys_2020_2_jam.Manager
                 return hurtParticles;
             }
         }
+        public List<Texture2D> DustParticles
+        {
+            get
+            {
+                List<Texture2D> dustParticles = new List<Texture2D>
+                {
+                    JamGame.Content.Load<Texture2D>("Particle/DustParticle1"),
+                    JamGame.Content.Load<Texture2D>("Particle/DustParticle2"),
+                    JamGame.Content.Load<Texture2D>("Particle/DustParticle3"),
+                    JamGame.Content.Load<Texture2D>("Particle/DustParticle4"),
+                };
+                return dustParticles;
+            }
+        }
 
         public List<Texture2D> Clock
         {
