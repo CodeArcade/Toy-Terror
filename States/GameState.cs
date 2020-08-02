@@ -2,6 +2,7 @@
 using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Environment;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
+using brackeys_2020_2_jam.Factory;
 using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
@@ -9,21 +10,27 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using Unity;
 
 namespace brackeys_2020_2_jam.States
 {
     public class GameState : State
     {
-        private double Timer { get; set; }
-        private double SpawnIntervall { get; set; } = 6;
+        [Dependency]
+        public ObstacleFactory ObstacleFactory { get; set; }
 
         public float ConveyorSpeed { get; set; } = 0f;
         public bool GameStarted { get; set; } = false;
         public double GameStartTimer { get; set; } = 0;
+        private double SpawnTimer { get; set; }
+        private double SpawnIntervall { get; set; } = 6;
+        private int Level { get; set; }
+        private double LevelTimer { get; set; }
 
         private Player Player;
         private Progressbar Progressbar;
         private Sprite Conveyor;
+
 #if DEBUG
         private List<Component.Component> debugComponents;
 #endif
@@ -60,18 +67,63 @@ namespace brackeys_2020_2_jam.States
             GameStarted = false;
             GameStartTimer = 0;
 
+            Level = 1;
+
             AddDebugInfo();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Timer += gameTime.ElapsedGameTime.TotalSeconds;
+            SpawnTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            LevelTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             base.Update(gameTime);
 
+            PlayerUpdate();
+            CollisionCheck(gameTime);
+            HandleLevel();
+            HandleSpawnTimer();
+            UpdateDebugInfo();
+        }
+
+        private void HandleLevel()
+        {
+            if (LevelTimer >= 0 && LevelTimer < 30)
+                Level = 1;
+            else if (LevelTimer >= 30 && LevelTimer < 90)
+                Level = 2;
+            else if (LevelTimer >= 90 && LevelTimer < 180)
+                Level = 3;
+
+            switch (Level)
+            {
+                case 1:
+                    ConveyorSpeed = 2;
+                    SpawnIntervall = 10;
+                    break;
+                case 2:
+                    ConveyorSpeed = 3;
+                    SpawnIntervall = 7;
+                    break;
+                case 3:
+                    ConveyorSpeed = 4;
+                    SpawnIntervall = 5;
+                    break;
+                default:
+                    ConveyorSpeed = 2;
+                    SpawnIntervall = 10;
+                    break;
+            }
+        }
+
+        private void PlayerUpdate()
+        {
             Progressbar.Value = Player.AliveTimer;
             Player.ConveyorSpeed = ConveyorSpeed;
+        }
 
+        private void CollisionCheck(GameTime gameTime)
+        {
             IEnumerable<Sprite> sprites = Components.Where(x => x is Sprite).Select(x => x as Sprite);
             foreach (Sprite sprite in sprites)
             {
@@ -86,10 +138,13 @@ namespace brackeys_2020_2_jam.States
                     }
                 }
             }
+        }
 
-            if (Timer > SpawnIntervall)
+        private void HandleSpawnTimer()
+        {
+            if (SpawnTimer > SpawnIntervall)
             {
-                Timer = 0;
+                SpawnTimer = 0;
                 Spawn();
             }
 
@@ -109,12 +164,27 @@ namespace brackeys_2020_2_jam.States
 
         private void Spawn()
         {
-            Components.Add(new StickyObstacle(Player.ALIVE_CHARGE)
+            StaticObstacle obstacle = new StaticObstacle();
+
+            switch (Level)
             {
-                Texture = ContentManager.ButtonTexture,
-                Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height),
-                Size = new System.Drawing.Size(50, 50)
-            });
+                case 1:
+                    obstacle = ObstacleFactory.GetStaticObstacle();
+                    break;
+
+                case 2:
+                    obstacle = ObstacleFactory.GetStaticOrStickyObstacle();
+                    break;
+
+                case 3:
+                    obstacle = ObstacleFactory.GetRandomObstacle();
+                    break;
+
+                default:
+                    break;
+            }
+            obstacle.Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height);
+            Components.Add(obstacle);
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -133,9 +203,9 @@ namespace brackeys_2020_2_jam.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-#if DEBUG
             base.Draw(gameTime, spriteBatch);
 
+#if DEBUG
             foreach (Component.Component c in debugComponents)
             {
                 c.Draw(gameTime, spriteBatch);
@@ -153,6 +223,10 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
             ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
             ((Label)debugComponents[6]).Text = $"Alive Timer: {Player.AliveTimer}";
+            ((Label)debugComponents[7]).Text = $"On Conveyor: {Player.IsOnConveyor}";
+            ((Label)debugComponents[8]).Text = $"Level: {Level}";
+            ((Label)debugComponents[9]).Text = $"Time: {LevelTimer}";
+            ((Label)debugComponents[10]).Text = $"Next Spawn: {SpawnTimer}";
 #endif
         }
 
@@ -202,6 +276,26 @@ namespace brackeys_2020_2_jam.States
                 {
                     Text = $"Alive Timer: {Player.AliveTimer}",
                     Position = new Vector2(0, 90)
+                    Text = $"Level: {Level}",
+                    Position = new Vector2(0, 95)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Level: {Level}",
+                    Position = new Vector2(0, 110)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Time: {LevelTimer}",
+                    Position = new Vector2(0, 125)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Next Spawn: {SpawnTimer}",
+                    Position = new Vector2(0, 140)
                 }
             };
 #endif

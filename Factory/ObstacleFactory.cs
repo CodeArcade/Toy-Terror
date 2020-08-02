@@ -1,14 +1,20 @@
 ﻿using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
+using brackeys_2020_2_jam.Manager;
 using System;
+using System.Collections.Generic;
+using Unity;
 
 namespace brackeys_2020_2_jam.Factory
 {
     public class ObstacleFactory
     {
+        [Dependency]
+        public ContentManager ContentManager { get; set; }
+
         private Random Random { get; } = new Random();
 
-        public Sprite GetMovingObstacle()
+        public StaticObstacle GetMovingObstacle()
         {
             int pick = Random.Next(0, Enum.GetNames(typeof(MovingObstacles)).Length);
             return pick switch
@@ -17,12 +23,54 @@ namespace brackeys_2020_2_jam.Factory
                 _ => GetSpiral(),
             };
         }
+        public StaticObstacle GetStaticObstacle()
+        {
+            int pick = Random.Next(0, Enum.GetNames(typeof(StaticObstacles)).Length);
+            return pick switch
+            {
+                (int)StaticObstacles.Block => GetBlock(),
+                (int)StaticObstacles.Furby => GetFurby(),
+                (int)StaticObstacles.Pez => GetPez(),
+                _ => GetTeddy(),
+            };
+        }
+        public StaticObstacle GetStickyObstacle()
+        {
+            int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacle)).Length);
+            return pick switch
+            {
+                (int)StickyObstacles.Shark => GetShark(),
+                _ => GetHedgehog(),
+            };
+        }
+        public StaticObstacle GetStaticOrStickyObstacle()
+        {
+            List<StaticObstacle> obstacles = new List<StaticObstacle>
+            {
+                GetStaticObstacle(),
+                GetStickyObstacle()
+            };
 
-        public Sprite GetTrain()
+            return obstacles[Random.Next(0,2)];
+        }
+        public StaticObstacle GetRandomObstacle()
+        {
+            List<StaticObstacle> obstacles = new List<StaticObstacle>
+            {
+                GetStaticObstacle(),
+                GetStickyObstacle(),
+                GetMovingObstacle()
+            };
+
+            return obstacles[Random.Next(0, 3)];
+        }
+
+        public StaticObstacle GetTrain()
         {
             MovingObstacle obstacle = new MovingObstacle()
             {
-                AdditionalSpeed = 4f
+                AdditionalSpeed = 4f,
+                Texture = ContentManager.ProgressBarBackground
             };
             // load animation
             // apply animation
@@ -30,7 +78,7 @@ namespace brackeys_2020_2_jam.Factory
             return obstacle;
         }
 
-        public Sprite GetSpiral()
+        public StaticObstacle GetSpiral()
         {
             MovingObstacle obstacle = new MovingObstacle()
             {
@@ -43,64 +91,42 @@ namespace brackeys_2020_2_jam.Factory
             return obstacle;
         }
 
-        public Sprite GetStaticObstacle()
-        {
-            int pick = Random.Next(0, Enum.GetNames(typeof(StaticObstacles)).Length);
-            return pick switch
-            {
-                (int)StaticObstacles.Block => GetBlock(),
-                (int)StaticObstacles.Furby => GetFurby(),
-                (int)StaticObstacles.Pez => GetPez(),
-                _ => GetTeddy(),
-            };
-        }
-
-        public Sprite GetBlock()
+        public StaticObstacle GetBlock()
         {
             StaticObstacle obstacle = new StaticObstacle();
             // load texture
             return obstacle;
         }
 
-        public Sprite GetPez()
+        public StaticObstacle GetPez()
         {
             StaticObstacle obstacle = new StaticObstacle();
             // load texture
             return obstacle;
         }
 
-        public Sprite GetFurby()
+        public StaticObstacle GetFurby()
         {
             StaticObstacle obstacle = new StaticObstacle();
             // load texture
             return obstacle;
         }
 
-        public Sprite GetTeddy()
+        public StaticObstacle GetTeddy()
         {
             StaticObstacle obstacle = new StaticObstacle();
             // load texture
             return obstacle;
         }
 
-        public Sprite GetStickyObstacle()
-        {
-            int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacle)).Length);
-            return pick switch
-            {
-                (int)StickyObstacles.Shark => GetShark(),
-                _ => GetHedgehog(),
-            };
-        }
-
-        public Sprite GetShark()
+        public StaticObstacle GetShark()
         {
             StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE);
             // load texture
             return obstacle;
         }
 
-        public Sprite GetHedgehog()
+        public StaticObstacle GetHedgehog()
         {
             StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE / 2);
             // load texture
