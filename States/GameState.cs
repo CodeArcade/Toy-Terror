@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Unity;
 
 namespace brackeys_2020_2_jam.States
@@ -95,28 +96,46 @@ namespace brackeys_2020_2_jam.States
         {
             if (LevelTimer >= 0 && LevelTimer < 30)
                 Level = 1;
-            else if (LevelTimer >= 30 && LevelTimer < 90)
+            else if (LevelTimer >= 30 && LevelTimer < 60)
                 Level = 2;
-            else if (LevelTimer >= 90 && LevelTimer < 180)
+            else if (LevelTimer >= 60 && LevelTimer < 90)
                 Level = 3;
+            else if (LevelTimer >= 90 && LevelTimer < 120)
+                Level = 4;
+            else if (LevelTimer >= 120 && LevelTimer < 150)
+                Level = 5;
+            else if (LevelTimer >= 150 && LevelTimer < 180)
+                Level = 6;
 
             switch (Level)
             {
                 case 1:
                     ConveyorSpeed = 2;
-                    SpawnIntervall = 10;
+                    SpawnIntervall = 6;
                     break;
                 case 2:
                     ConveyorSpeed = 3;
-                    SpawnIntervall = 7;
+                    SpawnIntervall = 5;
                     break;
                 case 3:
                     ConveyorSpeed = 4;
-                    SpawnIntervall = 5;
+                    SpawnIntervall = 4;
+                    break;
+                case 4:
+                    ConveyorSpeed = 5;
+                    SpawnIntervall = 3;
+                    break;
+                case 5:
+                    ConveyorSpeed = 6;
+                    SpawnIntervall = 2;
+                    break;
+                case 6:
+                    ConveyorSpeed = 7;
+                    SpawnIntervall = 1;
                     break;
                 default:
                     ConveyorSpeed = 2;
-                    SpawnIntervall = 10;
+                    SpawnIntervall = 6;
                     break;
             }
         }
@@ -180,14 +199,23 @@ namespace brackeys_2020_2_jam.States
                     break;
 
                 case 2:
-                    obstacle = ObstacleFactory.GetStaticOrStickyObstacle();
+                    obstacle = ObstacleFactory.GetStickyObstacle();
                     break;
 
                 case 3:
+                    obstacle = ObstacleFactory.GetStaticOrStickyObstacle();
+                    break;
+
+                case 4:
                     obstacle = ObstacleFactory.GetRandomObstacle();
                     break;
 
-                default:
+                case 5:
+                    obstacle = ObstacleFactory.GetRandomObstacle();
+                    break;
+
+                case 6:
+                    obstacle = ObstacleFactory.GetMovingOrStickyObstacle();
                     break;
             }
             obstacle.Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height);
@@ -230,9 +258,10 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
             ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
             ((Label)debugComponents[6]).Text = $"Alive Timer: {Player.AliveTimer}";
-            ((Label)debugComponents[8]).Text = $"Level: {Level}";
-            ((Label)debugComponents[9]).Text = $"Time: {LevelTimer}";
-            ((Label)debugComponents[10]).Text = $"Next Spawn: {SpawnTimer}";
+            ((Label)debugComponents[7]).Text = $"Level: {Level}";
+            ((Label)debugComponents[8]).Text = $"Time: {LevelTimer}";
+            ((Label)debugComponents[9]).Text = $"Next Spawn: {SpawnTimer}";
+            ((Label)debugComponents[10]).Text = $"Conveyor Speed: {Player.ConveyorSpeed}";
 #endif
         }
 
@@ -281,7 +310,7 @@ namespace brackeys_2020_2_jam.States
                 new Label(ContentManager.ButtonFont)
                 {
                     Text = $"Alive Timer: {Player.AliveTimer}",
-                    Position = new Vector2(0, 90)
+                    Position = new Vector2(0, 95)
                 },
 
                 new Label(ContentManager.ButtonFont)
@@ -300,6 +329,12 @@ namespace brackeys_2020_2_jam.States
                 {
                     Text = $"Next Spawn: {SpawnTimer}",
                     Position = new Vector2(0, 140)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Converyor Speed: {Player.ConveyorSpeed}",
+                    Position = new Vector2(0, 155)
                 }
             };
 #endif

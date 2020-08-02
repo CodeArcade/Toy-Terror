@@ -36,7 +36,7 @@ namespace brackeys_2020_2_jam.Factory
         }
         public StaticObstacle GetStickyObstacle()
         {
-            int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacle)).Length);
+            int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacles)).Length);
             return pick switch
             {
                 (int)StickyObstacles.Shark => GetShark(),
@@ -52,6 +52,16 @@ namespace brackeys_2020_2_jam.Factory
             };
 
             return obstacles[Random.Next(0,2)];
+        }
+        public StaticObstacle GetMovingOrStickyObstacle()
+        {
+            List<StaticObstacle> obstacles = new List<StaticObstacle>
+            {
+                GetMovingObstacle(),
+                GetStickyObstacle()
+            };
+
+            return obstacles[Random.Next(0, 2)];
         }
         public StaticObstacle GetRandomObstacle()
         {
@@ -69,7 +79,7 @@ namespace brackeys_2020_2_jam.Factory
         {
             MovingObstacle obstacle = new MovingObstacle()
             {
-                AdditionalSpeed = 4f,
+                AdditionalSpeed = 0.1f,
                 Texture = ContentManager.ProgressBarBackground
             };
             // load animation
@@ -82,7 +92,8 @@ namespace brackeys_2020_2_jam.Factory
         {
             MovingObstacle obstacle = new MovingObstacle()
             {
-                AdditionalSpeed = 2f
+                AdditionalSpeed = 0.05f,
+                Texture = ContentManager.ProgressBarBackground
             };
 
             // load animation
@@ -93,42 +104,60 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetBlock()
         {
-            StaticObstacle obstacle = new StaticObstacle();
+            StaticObstacle obstacle = new StaticObstacle()
+            {
+                Texture = ContentManager.ProgressBarValue
+            };
             // load texture
             return obstacle;
         }
 
         public StaticObstacle GetPez()
         {
-            StaticObstacle obstacle = new StaticObstacle();
+            StaticObstacle obstacle = new StaticObstacle()
+            {
+                Texture = ContentManager.ProgressBarValue
+            };
             // load texture
             return obstacle;
         }
 
         public StaticObstacle GetFurby()
         {
-            StaticObstacle obstacle = new StaticObstacle();
+            StaticObstacle obstacle = new StaticObstacle()
+            {
+                Texture = ContentManager.ProgressBarValue
+            };
             // load texture
             return obstacle;
         }
 
         public StaticObstacle GetTeddy()
         {
-            StaticObstacle obstacle = new StaticObstacle();
+            StaticObstacle obstacle = new StaticObstacle()
+            {
+                Texture = ContentManager.ProgressBarValue
+            };
             // load texture
             return obstacle;
         }
 
         public StaticObstacle GetShark()
         {
-            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE);
+            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE)
+            {
+                Texture = ContentManager.ProgressBarOutline
+            };
             // load texture
             return obstacle;
         }
 
         public StaticObstacle GetHedgehog()
         {
-            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE / 2);
+            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE / 2)
+            {
+                Texture = ContentManager.ProgressBarOutline
+            };
             // load texture
             return obstacle;
         }
