@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 {
-    public class MovingObstacle : Sprite
+    public class MovingObstacle : StaticObstacle
     {
         public float AdditionalSpeed { get; set; }
 

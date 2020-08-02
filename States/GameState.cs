@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace brackeys_2020_2_jam.States
 {
@@ -43,7 +44,7 @@ namespace brackeys_2020_2_jam.States
                 Value = 0
             };
 
-            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(20, 600) };
+            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 -1100, 620), Size = new System.Drawing.Size(1100, 100) };
 
             Components.Add(Progressbar);
             Components.Add(Player);
@@ -113,16 +114,18 @@ namespace brackeys_2020_2_jam.States
 
         #region Debug
 
-#if DEBUG
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+#if DEBUG
             foreach (Component.Component c in debugComponents)
             {
                 c.Draw(gameTime, spriteBatch);
             }
             base.Draw(gameTime, spriteBatch);
-        }
 #endif
+        }
+
 
         private void UpdateDebugInfo()
         {

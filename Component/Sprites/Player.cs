@@ -14,7 +14,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public const float fallMultiplier = 0.5f;
 
-        public const float jumpVelocity = 25f;
+        public const float jumpVelocity = -25f;
         public const float terminalVelocity = 25f;
         public const float conveyorSpeed = 1f;
 
@@ -51,27 +51,23 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public override void OnCollision(Sprite sprite, GameTime gameTime)
         {
             if (sprite is null) return;
-            if (IsTouchingTop(sprite))
+
+            if (IsTouchingRight(sprite))
+            {
+                Speed = new Vector2(0, Speed.Y);
+                Position = new Vector2(sprite.Position.X - Rectangle.Width, Position.Y);
+            }
+            else if (IsTouchingLeft(sprite))
+            {
+                Speed = new Vector2(0, Speed.Y);
+                Position = new Vector2(sprite.Position.X + sprite.Rectangle.Width, Position.Y);
+            }
+            else if (IsTouchingTop(sprite))
             {
                 Speed = new Vector2(Speed.X, 0);
                 Position = new Vector2(Position.X - conveyorSpeed, sprite.Position.Y - Rectangle.Height);
                 FallAcceleration = 0;
                 IsOnConveyor = true;
-            }
-            else if (IsTouchingBottom(sprite))
-            {
-                Position = new Vector2(Position.X, Position.Y + 1);
-                Speed = new Vector2(Speed.X, 0);
-            }
-            else if (IsTouchingRight(sprite))
-            {
-                Speed = new Vector2(0, Speed.Y);
-                Position = new Vector2(sprite.Position.X + sprite.Rectangle.Width, Position.Y);
-            }
-            else if (IsTouchingLeft(sprite))
-            {
-                Speed = new Vector2(0, Speed.Y);
-                Position = new Vector2(sprite.Position.X - Rectangle.Width, Position.Y);
             }
 
         }
@@ -84,7 +80,6 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
 
             if (IsInAir) IsOnConveyor = false;
-
 
             Windup();
             FallDown();
@@ -208,7 +203,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (!IsOnConveyor || IsWindingUp) return;
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
-                Speed = Vector2.UnitY * -jumpVelocity;
+                Speed = Vector2.UnitY * jumpVelocity;
                 FallAcceleration = 0;
                 IsOnConveyor = false;
             }

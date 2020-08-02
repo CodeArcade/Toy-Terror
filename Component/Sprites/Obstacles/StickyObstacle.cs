@@ -2,7 +2,7 @@
 
 namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 {
-    public class StickyObstacle : Sprite
+    public class StickyObstacle : StaticObstacle
     {
         private double Timer { get; set; }
         public double StickDuration { get; set; }
@@ -24,13 +24,6 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
                 if (Timer > StickDuration + ImmunityDuration) Timer = 0;
             }
 
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-            Position = new Vector2(Position.X - Speed.X, Position.Y);
         }
 
     }

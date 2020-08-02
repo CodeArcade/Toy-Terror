@@ -23,7 +23,7 @@ namespace brackeys_2020_2_jam
             Graphics = new GraphicsDeviceManager(this)
             {
                PreferredBackBufferHeight = 720,
-                PreferredBackBufferWidth = 1280
+               PreferredBackBufferWidth = 1280
             };
             Content.RootDirectory = "Content";
         }
