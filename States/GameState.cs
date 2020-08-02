@@ -26,8 +26,8 @@ namespace brackeys_2020_2_jam.States
         public double GameStartTimer { get; set; } = 0;
         private double SpawnTimer { get; set; }
         private double SpawnIntervall { get; set; } = 6;
-        private int Level { get; set; }
-        private double LevelTimer { get; set; }
+        public int Level { get; private set; }
+        public double LevelTimer { get; set; }
 
         private Player Player;
         private Progressbar Progressbar;
