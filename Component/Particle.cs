@@ -36,9 +36,9 @@ namespace brackeys_2020_2_jam.Component
 
         public override void Update(GameTime gameTime)
         {
-            TTL -= 1 * gameTime.ElapsedGameTime.Seconds;
-            Position += Velocity * gameTime.ElapsedGameTime.Seconds;
-            Angle += AngularVelocity * gameTime.ElapsedGameTime.Seconds;
+            TTL -= 1;
+            Position = new Vector2(Position.X + Velocity.X , Position.Y + Velocity.Y);
+            Position = new Vector2(Position.X + AngularVelocity, Position.Y + AngularVelocity);
         }
     }
 }

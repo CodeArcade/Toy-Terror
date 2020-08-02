@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using brackeys_2020_2_jam.Manager;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 {
@@ -26,6 +30,11 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
             Player player = (Player)sprite;
             if (Timer < ImmunityDuration) return;
 
+            if (ParticleManager.Textures is null) ParticleManager.Textures = new List<Texture2D>() { ContentManager.ProgressBarValue };
+            ParticleManager.EmitterLocation = player.Rectangle.Center.ToVector2();
+            ParticleManager.GenerateNewParticle(Color.White, 10, 10);
+
+            AudioManager.PlayEffect(ContentManager.HurtSoundEffect);
             player.AliveTimer -= Damage;
             Timer = 0;
         }

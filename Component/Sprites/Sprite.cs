@@ -58,6 +58,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            ParticleManager.Draw(gameTime, spriteBatch);
+
             if (AnimationManager.IsPlaying)
             {
                 AnimationManager.Draw(spriteBatch);
@@ -69,6 +71,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Update(GameTime gameTime)
         {
+            AudioManager.Update();
+            ParticleManager.Update(gameTime);
+
             if (AnimationManager.IsPlaying) AnimationManager.Update(gameTime);
         }
 
