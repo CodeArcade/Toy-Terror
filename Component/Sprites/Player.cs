@@ -37,6 +37,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public bool IsGoingRight => Speed.X > 0;
         public bool IsStandingStill => Speed.X == 0;
         public bool IsOnConveyor { get; private set; }
+        public bool IsJumping { get; private set; }
 
         public float Acceleration { get; set; }
         public float CurrentAcceleration { get; private set; }
@@ -59,13 +60,13 @@ namespace brackeys_2020_2_jam.Component.Sprites
             {
                 { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.03f} },
                 { "standing", new Animation(ContentManager.StandingAnimation, 1) },
-                { "jump", new Animation(ContentManager.JumpAnimation, 21) { FrameSpeed = 0.1f} }
+                { "jump", new Animation(ContentManager.JumpAnimation, 12) { FrameSpeed = 0.001f} }
             };
             AnimationManager.Scale = 0.2f;
             AnimationManager.Parent = this;
             AnimationManager.Play(Animations["standing"]);
             Size = new Size(AnimationManager.AnimationRectangle.Size.X, AnimationManager.AnimationRectangle.Size.Y);
-          
+
             IFramesTimer = IFrames;
         }
 
@@ -75,13 +76,15 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
             if (IsTouchingRight(sprite))
             {
+                if (!IsJumping) AnimationManager.Play(Animations["standing"]);
                 Speed = new Vector2(0, Speed.Y);
-                Position = new Vector2(sprite.Position.X - Rectangle.Width, Position.Y);
+                Position = new Vector2(sprite.Position.X + sprite.Rectangle.Width, Position.Y);
             }
             else if (IsTouchingLeft(sprite))
             {
+                if (!IsJumping) AnimationManager.Play(Animations["standing"]);
                 Speed = new Vector2(0, Speed.Y);
-                Position = new Vector2(sprite.Position.X + sprite.Rectangle.Width, Position.Y);
+                Position = new Vector2(sprite.Position.X - Rectangle.Width, Position.Y);
             }
             else if (IsTouchingTop(sprite))
             {
@@ -95,7 +98,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Update(GameTime gameTime)
         {
-            if (IsStandingStill && !IsInAir) AnimationManager.Play(Animations["standing"]);
+            if (IsStandingStill & !IsInAir && !IsJumping) AnimationManager.Play(Animations["standing"]);
+            IFramesTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
@@ -160,7 +164,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
             {
                 AnimationManager.Flip = true;
-                if (!IsInAir) AnimationManager.Play(Animations["walk"]);
+                if (!IsInAir && !IsJumping) AnimationManager.Play(Animations["walk"]);
 
                 if (IsGoingLeft)
                 {
@@ -178,7 +182,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else if (Keyboard.GetState().IsKeyDown(Input.Left) && AliveTimer > 0 && !IsWindingUp)
             {
                 AnimationManager.Flip = false;
-                if (!IsInAir) AnimationManager.Play(Animations["walk"]);
+                if (!IsInAir && !IsJumping) AnimationManager.Play(Animations["walk"]);
+
                 if (IsGoingRight)
                 {
                     Break();
@@ -239,9 +244,12 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
                 AnimationManager.Play(Animations["jump"]);
+                IsJumping = true;
+
                 Speed = Vector2.UnitY * JUMP_VELOCITY;
                 FallAcceleration = 0;
                 IsOnConveyor = false;
+                IsJumping = false;
             }
         }
 

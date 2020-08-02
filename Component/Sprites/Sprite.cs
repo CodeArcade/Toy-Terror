@@ -79,27 +79,27 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         #region Collision
 
-        protected bool IsTouchingLeft(Sprite sprite)
+        protected bool IsTouchingRight(Sprite sprite)
         {
-            return Rectangle.Left < sprite.Rectangle.Right && // Sides collide
+            return Rectangle.Left < sprite.Rectangle.Right && Rectangle.Left > sprite.Rectangle.Left &&  // Sides collide
                   !IsAbove(sprite) && !IsBelow(sprite) && !IsLeft(sprite);
         }
 
-        protected bool IsTouchingRight(Sprite sprite)
+        protected bool IsTouchingLeft(Sprite sprite)
         {
-            return Rectangle.Right > sprite.Rectangle.Left && // Sides collide
-                   !IsAbove(sprite) && !IsBelow(sprite) && !IsRight(sprite); ;
+            return Rectangle.Right > sprite.Rectangle.Left && Rectangle.Right < sprite.Rectangle.Right && // Sides collide
+                   !IsAbove(sprite) && !IsBelow(sprite) && !IsRight(sprite);
         }
 
         protected bool IsTouchingBottom(Sprite sprite)
         {
-            return Rectangle.Top < sprite.Rectangle.Bottom && // Sides collide
+            return Rectangle.Top < sprite.Rectangle.Bottom && Rectangle.Top > sprite.Rectangle.Top && // Sides collide
                    !IsRight(sprite) && !IsLeft(sprite) && IsBelow(sprite);
         }
 
         protected bool IsTouchingTop(Sprite sprite)
         {
-            return Rectangle.Bottom > sprite.Rectangle.Top && // Sides collide
+            return Rectangle.Bottom > sprite.Rectangle.Top && Rectangle.Bottom < sprite.Rectangle.Bottom && // Sides collide
                    !IsRight(sprite) && !IsLeft(sprite) && IsAbove(sprite);
         }
 
@@ -108,9 +108,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
         private bool IsBelow(Sprite sprite)
         { return Rectangle.Top + -Speed.Y > sprite.Rectangle.Bottom; }
         private bool IsRight(Sprite sprite)
-        { return Rectangle.Left + -Speed.X > sprite.Rectangle.Right; }
+        { return Rectangle.Left >= sprite.Rectangle.Right; }
         private bool IsLeft(Sprite sprite)
-        { return Rectangle.Right + -Speed.X < sprite.Rectangle.Left; }
+        { return Rectangle.Right <= sprite.Rectangle.Left; }
 
         #endregion
 

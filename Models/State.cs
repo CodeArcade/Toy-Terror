@@ -32,6 +32,8 @@ namespace brackeys_2020_2_jam.Models
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+
             foreach (Component.Component component in Components)
             {
                 component.Draw(gameTime, spriteBatch);

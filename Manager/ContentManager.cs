@@ -43,5 +43,7 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D WalkingAnimation => JamGame.Content.Load<Texture2D>("Animations/Walking");
         public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
         public Texture2D JumpAnimation => JamGame.Content.Load<Texture2D>("Animations/Jump");
+
+        public Texture2D Background => JamGame.Content.Load<Texture2D>("Background");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using brackeys_2020_2_jam.Component.Controls;
 using brackeys_2020_2_jam.Component.Sprites;
+using brackeys_2020_2_jam.Component.Sprites.Environment;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
 using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
@@ -15,7 +16,7 @@ namespace brackeys_2020_2_jam.States
     public class GameState : State
     {
         private double Timer { get; set; }
-        private double SpawnIntervall { get; set; } = 1;
+        private double SpawnIntervall { get; set; } = 6;
         private Random Random { get; } = new Random();
 
         public float ConveyorSpeed { get; set; } = 2f;
@@ -46,6 +47,8 @@ namespace brackeys_2020_2_jam.States
             };
 
             Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 - 1100, 620), Size = new System.Drawing.Size(2000, 100) };
+
+            Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(200, 200), Size = new System.Drawing.Size(50, 50) });
 
             Components.Add(Progressbar);
             Components.Add(Player);
@@ -111,18 +114,17 @@ namespace brackeys_2020_2_jam.States
 
         #region Debug
 
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 #if DEBUG
+            base.Draw(gameTime, spriteBatch);
+
             foreach (Component.Component c in debugComponents)
             {
                 c.Draw(gameTime, spriteBatch);
             }
-            base.Draw(gameTime, spriteBatch);
 #endif
         }
-
 
         private void UpdateDebugInfo()
         {

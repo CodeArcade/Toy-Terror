@@ -23,9 +23,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 
             if (sprite.GetType() != typeof(Player)) return;
 
-
             Player player = (Player)sprite;
-            player.IFramesTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (!player.CanTakeDamage) return;
 

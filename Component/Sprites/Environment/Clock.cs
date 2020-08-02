@@ -29,7 +29,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
         {
             Timer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if(Timer > SecondsBetweenState)
+            if(Timer >= SecondsBetweenState)
             {
                 CurrentClockState++;
                 if (CurrentClockState >= ClockStates.Count) CurrentClockState = 0;

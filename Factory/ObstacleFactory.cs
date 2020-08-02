@@ -1,13 +1,10 @@
 ﻿using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
-using brackeys_2020_2_jam.Manager;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace brackeys_2020_2_jam.Factory
 {
-    class ObstacleFactory
+    public class ObstacleFactory
     {
         private Random Random { get; } = new Random();
 
@@ -117,7 +114,7 @@ namespace brackeys_2020_2_jam.Factory
         Train,
         Spiral
     }
-    
+
     enum StaticObstacles
     {
         Block,
