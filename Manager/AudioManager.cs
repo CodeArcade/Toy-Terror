@@ -11,7 +11,7 @@ namespace brackeys_2020_2_jam.Manager
 
         public void PlayEffect(SoundEffect effect)
         {
-            effect.Play();
+            effect.Play(1, 0, 0);
         }
 
         public void Update()
@@ -27,6 +27,7 @@ namespace brackeys_2020_2_jam.Manager
 
             MediaPlayer.IsRepeating = Loop;
             MediaPlayer.Stop();
+            MediaPlayer.Volume = 0.1f;
             MediaPlayer.Play(CurrentSong);
         }
 

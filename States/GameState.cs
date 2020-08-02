@@ -8,7 +8,6 @@ using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -21,9 +20,11 @@ namespace brackeys_2020_2_jam.States
         [Dependency]
         public ObstacleFactory ObstacleFactory { get; set; }
 
+        public float ConveyorSpeed { get; set; } = 0f;
+        public bool GameStarted { get; set; } = false;
+        public double GameStartTimer { get; set; } = 0;
         private double SpawnTimer { get; set; }
         private double SpawnIntervall { get; set; } = 6;
-        private float ConveyorSpeed { get; set; } = 2f;
         private int Level { get; set; }
         private double LevelTimer { get; set; }
 
@@ -64,6 +65,8 @@ namespace brackeys_2020_2_jam.States
             Components.Add(Progressbar);
             Components.Add(Player);
             Components.Add(Conveyor);
+            GameStarted = false;
+            GameStartTimer = 0;
 
             Level = 1;
 
@@ -80,7 +83,7 @@ namespace brackeys_2020_2_jam.States
             PlayerUpdate();
             CollisionCheck(gameTime);
             HandleLevel();
-            HandleSpawnTimer();
+            HandleSpawnTimer(gameTime);
             UpdateDebugInfo();
         }
 
@@ -156,13 +159,26 @@ namespace brackeys_2020_2_jam.States
             }
         }
 
-        private void HandleSpawnTimer()
+        private void HandleSpawnTimer(GameTime gameTime)
         {
             if (SpawnTimer > SpawnIntervall)
             {
                 SpawnTimer = 0;
                 Spawn();
             }
+
+            if (!GameStarted && Player.AliveTimer > 0)
+            {
+                GameStartTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if (GameStartTimer > 3)
+                {
+                    GameStarted = true;
+                    ConveyorSpeed = 2f;
+                    AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
+                }
+            }
+
+            UpdateDebugInfo();
         }
 
         private void Spawn()
@@ -234,11 +250,11 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[3]).Text = $"In Air: {Player.IsInAir}";
             ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
             ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
-            ((Label)debugComponents[6]).Text = $"On Conveyor: {Player.IsOnConveyor}";
             ((Label)debugComponents[7]).Text = $"Level: {Level}";
             ((Label)debugComponents[8]).Text = $"Time: {LevelTimer}";
             ((Label)debugComponents[9]).Text = $"Next Spawn: {SpawnTimer}";
             ((Label)debugComponents[10]).Text = $"Conveyor Speed: {Player.ConveyorSpeed}";
+
 #endif
         }
 
@@ -286,7 +302,7 @@ namespace brackeys_2020_2_jam.States
 
                 new Label(ContentManager.ButtonFont)
                 {
-                    Text = $"Level: {Level}",
+                    Text = $"Alive Timer: {Player.AliveTimer}",
                     Position = new Vector2(0, 95)
                 },
 
