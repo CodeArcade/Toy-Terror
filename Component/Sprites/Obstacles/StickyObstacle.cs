@@ -33,6 +33,8 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 
             AudioManager.PlayEffect(ContentManager.HurtSoundEffect);
             player.AliveTimer -= Damage;
+            if (player.AliveTimer < 0)
+                player.AliveTimer = 0;
             player.IFramesTimer = 0;
         }
 
