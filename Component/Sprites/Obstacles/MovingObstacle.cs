@@ -9,7 +9,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
         {
             base.Update(gameTime);
 
-            Position = new Vector2(Position.X - AdditionalSpeed - Speed.X, Position.Y);
+            Position = new Vector2(Position.X - AdditionalSpeed - ConveyorSpeed, Position.Y);
         }
 
     }

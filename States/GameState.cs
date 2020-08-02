@@ -1,5 +1,4 @@
-﻿using brackeys_2020_2_jam.Component;
-using brackeys_2020_2_jam.Component.Controls;
+﻿using brackeys_2020_2_jam.Component.Controls;
 using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
 using brackeys_2020_2_jam.Manager;
@@ -10,15 +9,16 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace brackeys_2020_2_jam.States
 {
     public class GameState : State
     {
         private double Timer { get; set; }
-        private double SpawnIntervall { get; set; } = 5;
+        private double SpawnIntervall { get; set; } = 10;
         private Random Random { get; } = new Random();
+
+        public float ConveyorSpeed { get; set; } = 1f;
 
         private Player Player;
         private Progressbar Progressbar;
@@ -44,7 +44,7 @@ namespace brackeys_2020_2_jam.States
                 Value = 0
             };
 
-            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 -1100, 620), Size = new System.Drawing.Size(1100, 100) };
+            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 - 1100, 620), Size = new System.Drawing.Size(1100, 100) };
 
             Components.Add(Progressbar);
             Components.Add(Player);
@@ -60,14 +60,20 @@ namespace brackeys_2020_2_jam.States
             base.Update(gameTime);
 
             Progressbar.Value = Player.AliveTimer;
+            Player.ConveyorSpeed = ConveyorSpeed;
 
-            IEnumerable<Sprite> sprites = (IEnumerable<Sprite>)Components.Where(x => x is Sprite).Select(x => x as Sprite);
+            IEnumerable<Sprite> sprites = Components.Where(x => x is Sprite).Select(x => x as Sprite);
             foreach (Sprite sprite in sprites)
             {
+                if (sprite is StaticObstacle obstacle) obstacle.ConveyorSpeed = ConveyorSpeed;
                 foreach (Sprite sprite2 in sprites)
                 {
                     if (sprite == sprite2) continue;
-                    if (sprite.Rectangle.Intersects(sprite2.Rectangle)) sprite.OnCollision(sprite2, gameTime);
+                    if (sprite.Rectangle.Intersects(sprite2.Rectangle))
+                    {
+                        sprite.OnCollision(sprite2, gameTime);
+                        sprite2.OnCollision(sprite, gameTime);
+                    }
                 }
             }
 
@@ -83,22 +89,18 @@ namespace brackeys_2020_2_jam.States
         private void Spawn()
         {
 
-            //Components.Add(new StickyObstacle()
+            Components.Add(new StickyObstacle(Player.ALIVE_CHARGE, 3)
+            {
+                Texture = ContentManager.ButtonTexture,
+                Position = new Vector2(Conveyor.Position.X + (Conveyor.Size.Width), Conveyor.Position.Y - Conveyor.Size.Height)
+            });
+
+            //Components.Add(new MovingObstacle()
             //{
             //    Texture = ContentManager.ButtonTexture,
             //    Position = new Vector2(Conveyor.Position.X + (Conveyor.Rectangle.Width * 4), Conveyor.Position.Y - Conveyor.Rectangle.Height),
-            //    Speed = new Vector2(3, 0),
-            //    ImmunityDuration = 1,
-            //    StickDuration = 3
+            //    AdditionalSpeed = 2
             //});
-
-            Components.Add(new MovingObstacle()
-            {
-                Texture = ContentManager.ButtonTexture,
-                Position = new Vector2(Conveyor.Position.X + (Conveyor.Rectangle.Width * 4), Conveyor.Position.Y - Conveyor.Rectangle.Height),
-                Speed = new Vector2(Player.conveyorSpeed, 0),
-                AdditionalSpeed = 2
-            });
 
         }
 
