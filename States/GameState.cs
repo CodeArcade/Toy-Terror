@@ -44,7 +44,7 @@ namespace brackeys_2020_2_jam.States
                 MaxSpeed = new Vector2(10, 10),
                 MaxAcceleration = 3,
                 Acceleration = 1f,
-                Position = new Vector2(500, 250),
+                Position = new Vector2(1000, 250),
                 ConveyorSpeed = ConveyorSpeed
             };
 
@@ -75,9 +75,8 @@ namespace brackeys_2020_2_jam.States
 
         public override void Update(GameTime gameTime)
         {
-            
-
             base.Update(gameTime);
+            if (Player.Position.X > JamGame.ScreenWidth - Player.Rectangle.Width) Player.Position = new Vector2(JamGame.ScreenWidth - Player.Rectangle.Width, Player.Position.Y);
 
             PlayerUpdate();
             CollisionCheck(gameTime);
@@ -87,7 +86,8 @@ namespace brackeys_2020_2_jam.States
                 LevelTimer += gameTime.ElapsedGameTime.TotalSeconds;
                 HandleLevel();
                 HandleSpawnTimer();
-            } else HandleGameStart(gameTime);
+            }
+            else HandleGameStart(gameTime);
 
             UpdateDebugInfo();
         }
@@ -106,16 +106,34 @@ namespace brackeys_2020_2_jam.States
                 Level = 5;
             else if (LevelTimer >= 150 && LevelTimer < 180)
                 Level = 6;
+            else if (LevelTimer >= 180 && LevelTimer < 181)
+            { Level = 7; ConveyorSpeed = 6; }
+            else if (LevelTimer >= 182 && LevelTimer < 183)
+                ConveyorSpeed = 5;
+            else if (LevelTimer >= 184 && LevelTimer < 185)
+                ConveyorSpeed = 4;
+            else if (LevelTimer >= 186 && LevelTimer < 187)
+                ConveyorSpeed = 3;
+            else if (LevelTimer >= 188 && LevelTimer < 189)
+                ConveyorSpeed = 2;
+            else if (LevelTimer >= 190 && LevelTimer < 191)
+                ConveyorSpeed = 1;
+            else if (LevelTimer >= 192 && LevelTimer < 193)
+                ConveyorSpeed = 0;
+            else if (LevelTimer >= 197)
+            { HandleGameEnd(); return; }
 
             switch (Level)
             {
                 case 1:
                     ConveyorSpeed = 2;
                     SpawnIntervall = 6;
+                    Player.AliveDrain = 1;
                     break;
                 case 2:
                     ConveyorSpeed = 3;
                     SpawnIntervall = 5;
+                    Player.AliveDrain = 1.2f;
                     break;
                 case 3:
                     ConveyorSpeed = 4;
@@ -124,18 +142,21 @@ namespace brackeys_2020_2_jam.States
                 case 4:
                     ConveyorSpeed = 5;
                     SpawnIntervall = 3;
+                    Player.AliveDrain = 1.4f;
                     break;
                 case 5:
                     ConveyorSpeed = 6;
                     SpawnIntervall = 2;
+                    Player.AliveDrain = 1.6f;
                     break;
                 case 6:
                     ConveyorSpeed = 7;
                     SpawnIntervall = 1;
+                    Player.AliveDrain = 1.8f;
                     break;
                 default:
-                    ConveyorSpeed = 2;
-                    SpawnIntervall = 6;
+                    SpawnIntervall = 0;
+                    Player.AliveDrain = 1;
                     break;
             }
         }
@@ -179,6 +200,12 @@ namespace brackeys_2020_2_jam.States
             }
         }
 
+        private void HandleGameEnd()
+        {
+            GameStarted = false;
+            AudioManager.StopMusic();
+        }
+
         private void HandleSpawnTimer()
         {
             if (SpawnTimer > SpawnIntervall)
@@ -190,6 +217,8 @@ namespace brackeys_2020_2_jam.States
 
         private void Spawn()
         {
+            if (SpawnIntervall == 0) return;
+
             StaticObstacle obstacle = new StaticObstacle();
 
             switch (Level)
@@ -218,7 +247,7 @@ namespace brackeys_2020_2_jam.States
                     obstacle = ObstacleFactory.GetMovingOrStickyObstacle();
                     break;
             }
-            obstacle.Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height);
+            obstacle.Position = new Vector2(JamGame.ScreenWidth, Conveyor.Position.Y - Conveyor.Size.Height);
             Components.Add(obstacle);
         }
 
