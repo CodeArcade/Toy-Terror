@@ -7,7 +7,6 @@ using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +17,9 @@ namespace brackeys_2020_2_jam.States
         private double Timer { get; set; }
         private double SpawnIntervall { get; set; } = 6;
 
-        public float ConveyorSpeed { get; set; } = 2f;
+        public float ConveyorSpeed { get; set; } = 0f;
+        public bool GameStarted { get; set; } = false;
+        public double GameStartTimer { get; set; } = 0;
 
         private Player Player;
         private Progressbar Progressbar;
@@ -56,6 +57,8 @@ namespace brackeys_2020_2_jam.States
             Components.Add(Progressbar);
             Components.Add(Player);
             Components.Add(Conveyor);
+            GameStarted = false;
+            GameStartTimer = 0;
 
             AddDebugInfo();
         }
@@ -88,6 +91,17 @@ namespace brackeys_2020_2_jam.States
             {
                 Timer = 0;
                 Spawn();
+            }
+
+            if (!GameStarted && Player.AliveTimer > 0)
+            {
+                GameStartTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if (GameStartTimer > 3)
+                {
+                    GameStarted = true;
+                    ConveyorSpeed = 2f;
+                    AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
+                }
             }
 
             UpdateDebugInfo();
@@ -138,6 +152,7 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[3]).Text = $"In Air: {Player.IsInAir}";
             ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
             ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
+            ((Label)debugComponents[6]).Text = $"Alive Timer: {Player.AliveTimer}";
 #endif
         }
 
@@ -181,6 +196,12 @@ namespace brackeys_2020_2_jam.States
                 {
                     Text = $"On Conveyor: {Player.IsOnConveyor}",
                     Position = new Vector2(0, 75)
+                },
+
+                new Label(ContentManager.ButtonFont)
+                {
+                    Text = $"Alive Timer: {Player.AliveTimer}",
+                    Position = new Vector2(0, 90)
                 }
             };
 #endif

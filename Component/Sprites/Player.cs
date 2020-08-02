@@ -22,7 +22,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public const float ALIVE_CHARGE = 200f;
         public const float ALIVE_MAX = 1000f;
-        public const float ALIVE_DRAIN = 1f;
+        public const float ALIVE_DRAIN = 3f;
         public const double WINDUP_TIME_IN_SECONDS = 1;
 
         public float AliveTimer { get; set; }
@@ -108,7 +108,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
 
-            //if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
+            if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
 
             if (IsInAir) IsOnConveyor = false;
 
