@@ -1,8 +1,10 @@
-﻿using brackeys_2020_2_jam.Manager;
+﻿using brackeys_2020_2_jam.Component.Sprites.Environment;
+using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -25,7 +27,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public float AliveTimer { get; set; }
         public double CurrentWindupTime { get; set; }
-        public double IFrames { get; } = 1;
+        public double IFrames { get; } = 2;
         public double IFramesTimer { get; set; }
         public bool CanTakeDamage => IFramesTimer > IFrames;
 
@@ -73,6 +75,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public override void OnCollision(Sprite sprite, GameTime gameTime)
         {
             if (sprite is null) return;
+            if (sprite is Clock) return;
 
             if (IsTouchingRight(sprite))
             {
@@ -92,6 +95,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 Position = new Vector2(Position.X - (ConveyorSpeed * 2), sprite.Position.Y - Rectangle.Height); // speed needs to be doubled to be as fast as the obstacles - dont ask me why
                 FallAcceleration = 0;
                 IsOnConveyor = true;
+                if (sprite is Chopper) IsRemoved = true;
             }
 
         }
