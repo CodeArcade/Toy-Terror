@@ -1,6 +1,10 @@
-﻿using brackeys_2020_2_jam.Models;
+﻿using brackeys_2020_2_jam.Manager;
+using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace brackeys_2020_2_jam.Component.Sprites
 {
@@ -38,13 +42,26 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public float MaxFallAcceleration => 0.3f;
         public float FallAcceleration { get; set; }
 
+        private Dictionary<string, Animation> Animations { get; set; }
+
         public Player(PlayerInput input)
         {
             AliveTimer = 0;
             Input = input;
-            Texture = ContentManager.ProgressBarBackground;
+            Texture = ContentManager.StandingAnimation;
             Speed = new Vector2(0, -1);
             IsOnConveyor = false;
+
+            Animations = new Dictionary<string, Animation>
+            {
+                { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.03f} },
+                { "standing", new Animation(ContentManager.StandingAnimation, 1) },
+                { "jump", new Animation(ContentManager.JumpAnimation, 21) { FrameSpeed = 0.1f} }
+            };
+            AnimationManager.Scale = 0.2f;
+            AnimationManager.Parent = this;
+            AnimationManager.Play(Animations["standing"]);
+            Size = new Size(AnimationManager.AnimationRectangle.Size.X, AnimationManager.AnimationRectangle.Size.Y);
         }
 
         public override void OnCollision(Sprite sprite, GameTime gameTime)
@@ -73,6 +90,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Update(GameTime gameTime)
         {
+            if (IsStandingStill && !IsInAir) AnimationManager.Play(Animations["standing"]);
+
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
 
@@ -112,7 +131,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (Keyboard.GetState().IsKeyDown(Input.Windup))
             {
                 IsWindingUp = true;
-                if(CurrentWindupTime > WINDUP_TIME_IN_SECONDS)
+                if (CurrentWindupTime > WINDUP_TIME_IN_SECONDS)
                 {
                     AliveTimer += ALIVE_CHARGE;
                     if (AliveTimer > ALIVE_MAX) AliveTimer = ALIVE_MAX;
@@ -120,7 +139,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 }
 
                 CurrentWindupTime += gameTime.ElapsedGameTime.TotalSeconds;
-              
+
             }
             else IsWindingUp = false;
         }
@@ -135,6 +154,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
         {
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
             {
+                AnimationManager.Flip = true;
+                if (!IsInAir) AnimationManager.Play(Animations["walk"]);
+
                 if (IsGoingLeft)
                 {
                     Break();
@@ -150,6 +172,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             }
             else if (Keyboard.GetState().IsKeyDown(Input.Left) && AliveTimer > 0 && !IsWindingUp)
             {
+                AnimationManager.Flip = false;
+                if (!IsInAir) AnimationManager.Play(Animations["walk"]);
                 if (IsGoingRight)
                 {
                     Break();
@@ -209,6 +233,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (!IsOnConveyor || IsWindingUp) return;
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
+                AnimationManager.Play(Animations["jump"]);
                 Speed = Vector2.UnitY * JUMP_VELOCITY;
                 FallAcceleration = 0;
                 IsOnConveyor = false;

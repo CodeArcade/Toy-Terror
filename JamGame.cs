@@ -54,7 +54,6 @@ namespace brackeys_2020_2_jam
         protected override void Update(GameTime gameTime)
         {
 
-
 #if DEBUG
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
@@ -86,12 +85,11 @@ namespace brackeys_2020_2_jam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             SpriteBatch.Begin();
-
             StateManager.Draw(gameTime, SpriteBatch);
-
             SpriteBatch.End();
+
 
             base.Draw(gameTime);
         }

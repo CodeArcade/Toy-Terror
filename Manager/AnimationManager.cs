@@ -1,6 +1,8 @@
-﻿using brackeys_2020_2_jam.Models;
+﻿using brackeys_2020_2_jam.Component.Sprites;
+using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -9,26 +11,39 @@ namespace brackeys_2020_2_jam.Manager
     public class AnimationManager
     {
         private Animation Animation { get; set; }
-        public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, Animation.FrameWidth, Animation.FrameHeight);
+        public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, (int)(Animation.FrameWidth * Scale), (int)(Animation.FrameHeight* Scale));
 
         private float Timer { get; set; }
 
         public Vector2 Position { get; set; }
+        public float Scale { get; set; }
         public bool IsPlaying { get; set; }
+        public bool Flip { get; set; }
+        public Sprite Parent { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Animation.Texture,
-                             Position,
-                             new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
-                                           0,
-                                           Animation.FrameWidth,
-                                           Animation.FrameHeight),
-                             Color.White);
+            if (Parent != null) Position = Parent.Position;
+            if (Flip)
+            {
+                spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                                               0,
+                                               Animation.FrameWidth,
+                                               Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                                               0,
+                                               Animation.FrameWidth,
+                                               Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
+            }
+
         }
 
         public void Update(GameTime gameTime)
         {
+            if (Parent != null) Position = Parent.Position;
             Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Timer > Animation.FrameSpeed)

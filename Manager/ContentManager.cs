@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 using Unity;
 
 namespace brackeys_2020_2_jam.Manager
@@ -20,5 +21,27 @@ namespace brackeys_2020_2_jam.Manager
         public SoundEffect SelectSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Select");
 
         public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
+
+        public List<Texture2D> HurtParticles
+        {
+            get
+            {
+                List<Texture2D> hurtParticles = new List<Texture2D>
+                {
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle1"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle1"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle2"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle2"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle3"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle3"),
+                    JamGame.Content.Load<Texture2D>("Particle/HurtParticle4")
+                };
+                return hurtParticles;
+            }
+        }
+
+        public Texture2D WalkingAnimation => JamGame.Content.Load<Texture2D>("Animations/Walking");
+        public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
+        public Texture2D JumpAnimation => JamGame.Content.Load<Texture2D>("Animations/Jump");
     }
 }

@@ -90,19 +90,7 @@ namespace brackeys_2020_2_jam.States
         private void Spawn()
         {
 
-            Components.Add(new StickyObstacle(Player.ALIVE_CHARGE, 3)
-            {
-                Texture = ContentManager.ButtonTexture,
-                Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height),
-                Size = new System.Drawing.Size(50, 50)
-            });
-
-            //Components.Add(new MovingObstacle()
-            //{
-            //    Texture = ContentManager.ButtonTexture,
-            //    Position = new Vector2(Conveyor.Position.X + (Conveyor.Rectangle.Width * 4), Conveyor.Position.Y - Conveyor.Rectangle.Height),
-            //    AdditionalSpeed = 2
-            //});
+ 
 
         }
 

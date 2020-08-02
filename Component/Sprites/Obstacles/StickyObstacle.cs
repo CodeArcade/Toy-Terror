@@ -30,7 +30,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
             Player player = (Player)sprite;
             if (Timer < ImmunityDuration) return;
 
-            if (ParticleManager.Textures is null) ParticleManager.Textures = new List<Texture2D>() { ContentManager.ProgressBarValue };
+            if (ParticleManager.Textures is null) ParticleManager.Textures = ContentManager.HurtParticles;
             ParticleManager.EmitterLocation = player.Rectangle.Center.ToVector2();
             ParticleManager.GenerateNewParticle(Color.White, 10, 10);
 
