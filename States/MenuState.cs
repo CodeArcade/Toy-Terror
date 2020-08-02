@@ -2,52 +2,69 @@ using Microsoft.Xna.Framework;
 using brackeys_2020_2_jam.Models;
 using brackeys_2020_2_jam.Component.Controls;
 using System;
+using brackeys_2020_2_jam.Component.Sprites;
+using System.Drawing;
+using Microsoft.Xna.Framework.Input;
 
 namespace brackeys_2020_2_jam.States
 {
     public class MenuState : State
     {
-        Progressbar progressbar;
-
         public override void Load()
         {
             base.Load();
 
-            Button button = new Button(ContentManager.ButtonTexture, ContentManager.ButtonFont)
+            Size tempSize = new Size(500, 125);
+            Sprite title = new Sprite()
             {
-                Text = "Start Game",
-                Position = new Vector2(0, 50)
+                Texture = ContentManager.ProgressBarBackground, //TODO
+                Size = tempSize,
+                Position = new Vector2((JamGame.ScreenWidth - tempSize.Width) / 2, 25)
             };
-            button.OnClick += StartButtonClicked;
+            Components.Add(title);
 
+            Button button = new Button(ContentManager.ButtonTexture, ContentManager.ButtonFont);
+            button.Position = new Vector2((JamGame.ScreenWidth - button.Texture.Width) / 2, title.Position.Y + title.Size.Height + 50);
+            button.OnClick += StartButtonClicked;
             Components.Add(button);
 
-            progressbar = new Progressbar(button, new System.Drawing.Size(80, 20))
+            tempSize = new Size(350, 350);
+            Sprite controls1 = new Sprite()
             {
-                MaxValue = 100,
-                Value = 100
+                Texture = ContentManager.ProgressBarBackground, //TODO
+                Size = tempSize,
+                Position = new Vector2(tempSize.Width / 1.8f, button.Position.Y + button.Texture.Height + 50)
             };
-            Components.Add(progressbar);
+            Components.Add(controls1);
 
-            Label label = new Label(ContentManager.ButtonFont)
+            tempSize = new Size(350, 350);
+            Sprite controls2 = new Sprite()
             {
-                Text = "Game Title Here",
-                Position = new Vector2(0, 0)
+                Texture = ContentManager.ProgressBarBackground, //TODO
+                Size = tempSize,
+                Position = new Vector2(JamGame.ScreenWidth - (tempSize.Width / 1.8f) - tempSize.Width, button.Position.Y + button.Texture.Height + 50)
             };
-            Components.Add(label);
+            Components.Add(controls2);
+            
+            AudioManager.ChangeSong(ContentManager.MenuMusic, true);
         }
 
         private void StartButtonClicked(object sender, EventArgs e)
         {
-            StateManager.ChangeToGame();
+            ChangeToGame();
         }
 
         public override void Update(GameTime gameTime)
         {
-            progressbar.Value -= 0.3f;
-            if (progressbar.Value == 0) progressbar.Value = 100;
+            if(Keyboard.GetState().GetPressedKeyCount() > 0) ChangeToGame();
             base.Update(gameTime);
         }
-    }
 
+        private void ChangeToGame()
+        {
+            StateManager.ChangeToGame();
+            AudioManager.StopMusic();
+        }
+
+    }
 }

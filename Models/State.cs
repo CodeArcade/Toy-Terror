@@ -48,6 +48,7 @@ namespace brackeys_2020_2_jam.Models
 
         public virtual void Update(GameTime gameTime)
         {
+            AudioManager.Update();
             foreach (Component.Component component in Components)
             {
                 component.Update(gameTime);

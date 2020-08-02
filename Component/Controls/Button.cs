@@ -10,6 +10,7 @@ namespace brackeys_2020_2_jam.Component.Controls
         private MouseState CurrentMouse { get; set; }
         private MouseState PreviousMouse { get; set; }
         private bool IsMouseOver { get; set; }
+        private bool HasPlayedSound { get; set; }
 
         public Color FontColor { get; set; }
         public SpriteFont Font { get; set; }
@@ -60,12 +61,20 @@ namespace brackeys_2020_2_jam.Component.Controls
             CurrentMouse = Mouse.GetState();
 
             Rectangle mouseRectangle = new Rectangle(CurrentMouse.X, CurrentMouse.Y, 1, 1);
+            Rectangle previousMouseRectangle = new Rectangle(CurrentMouse.X, CurrentMouse.Y, 1, 1);
 
             IsMouseOver = false;
+            if (!previousMouseRectangle.Intersects(Rectangle)) HasPlayedSound = false;
 
             if (mouseRectangle.Intersects(Rectangle))
             {
                 IsMouseOver = true;
+
+                if (!HasPlayedSound)
+                {
+                    AudioManager.PlayEffect(ContentManager.SelectSoundEffect);
+                    HasPlayedSound = true;
+                }
 
                 if (CurrentMouse.LeftButton == ButtonState.Released && PreviousMouse.LeftButton == ButtonState.Pressed)
                     OnClick?.Invoke(this, new EventArgs());

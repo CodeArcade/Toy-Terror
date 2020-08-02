@@ -20,11 +20,23 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ButtonFont.spritefont
 
+#begin Music/MenuMusic.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/MenuMusic.wav
+
 #begin SoundEffects/Hurt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/Hurt.wav
+
+#begin SoundEffects/Select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Select.wav
 
 #begin Sprites/Button.png
 /importer:TextureImporter

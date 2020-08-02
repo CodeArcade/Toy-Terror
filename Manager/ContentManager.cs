@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using Unity;
-using DependencyAttribute = Unity.DependencyAttribute;
 
 namespace brackeys_2020_2_jam.Manager
 {
@@ -17,6 +17,8 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D ProgressBarBackground => JamGame.Content.Load<Texture2D>("Sprites/ProgressBarBackground");
 
         public SoundEffect HurtSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Hurt");
+        public SoundEffect SelectSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Select");
 
+        public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
     }
 }

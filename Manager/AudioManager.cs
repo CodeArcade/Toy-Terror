@@ -9,6 +9,8 @@ namespace brackeys_2020_2_jam.Manager
     {
         private Song CurrentSong;
         private Song NextSong;
+        private bool Loop;
+
         public void PlayEffect(SoundEffect effect)
         {
             effect.Play();
@@ -24,12 +26,13 @@ namespace brackeys_2020_2_jam.Manager
             if (NextSong is null) return;
             CurrentSong = NextSong;
             NextSong = null;
-            
+
+            MediaPlayer.IsRepeating = Loop;
             MediaPlayer.Stop();
             MediaPlayer.Play(CurrentSong);
         }
 
-        public void ChangeSong(Song song) => NextSong = song;
+        public void ChangeSong(Song song, bool loop = false) { NextSong = song; Loop = loop; }
 
         public void StopMusic() => MediaPlayer.Stop();
     }
