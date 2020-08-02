@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace brackeys_2020_2_jam.Component.Sprites
@@ -117,10 +118,28 @@ namespace brackeys_2020_2_jam.Component.Sprites
             Windup(gameTime);
             FallDown();
             Move();
+            MoveParticle();
 
             Position += Speed;
 
             base.Update(gameTime);
+        }
+
+        private void MoveParticle()
+        {
+            if (IsInAir || IsStandingStill) return;
+
+            ParticleManager.Textures = ContentManager.DustParticles;
+            if (IsGoingLeft)
+            {
+                ParticleManager.EmitterLocation = new Vector2(Position.X + Rectangle.Width, Position.Y + Rectangle.Height);
+            }
+            else if (IsGoingRight)
+            {
+                ParticleManager.EmitterLocation = new Vector2(Position.X, Position.Y + Rectangle.Height);
+            }
+
+            ParticleManager.GenerateNewParticle(Microsoft.Xna.Framework.Color.White, 5, 5);
         }
 
         private void FallDown()
@@ -250,12 +269,20 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
                 AnimationManager.Play(Animations["standing"]);
+                JumpLandingAnimation();
                 IsJumping = true;
                 Speed = Vector2.UnitY * JUMP_VELOCITY;
                 FallAcceleration = 0;
                 IsOnConveyor = false;
                 IsJumping = false;
             }
+        }
+
+        private void JumpLandingAnimation()
+        {
+            ParticleManager.Textures = ContentManager.DustParticles;
+            ParticleManager.EmitterLocation = new Vector2(Position.X + (Rectangle.Width / 2), Position.Y + Rectangle.Height - 10);
+            ParticleManager.GenerateNewParticle(Microsoft.Xna.Framework.Color.White, 15, 10);
         }
 
     }
