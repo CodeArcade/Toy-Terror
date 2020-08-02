@@ -24,7 +24,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
                 ParticleManager.EmitterLocation = new Vector2(sprite.Position.X - (sprite.Rectangle.Width / 2),
                     sprite.Position.Y);
                 ParticleManager.GenerateNewParticle(Color.White, 20);
-                
+                AudioManager.PlayEffect(ContentManager.GrindingSoundEffect);
             }
         }
     }
