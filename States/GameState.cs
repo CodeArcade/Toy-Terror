@@ -58,7 +58,7 @@ namespace brackeys_2020_2_jam.States
 
             Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
 
-            Clock = new Clock(ContentManager.HurtParticles, 30) { Position = new Vector2(JamGame.ScreenWidth - 580, 130), Size = new System.Drawing.Size(150, 150) };
+            Clock = new Clock(ContentManager.Clock, 30) { Position = new Vector2(JamGame.ScreenWidth - 592, 115), Size = new System.Drawing.Size(175, 175) };
             Components.Add(Clock);
             // Häcksler
             Components.Add(new Chopper() { Position = new Vector2(0, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
