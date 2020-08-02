@@ -206,6 +206,7 @@ namespace brackeys_2020_2_jam.States
             GameEnded = false;
             Clock.Run = false;
             AudioManager.StopMusic();
+            StateManager.ChangeToEndGame();
         }
 
         private void HandleSpawnTimer()

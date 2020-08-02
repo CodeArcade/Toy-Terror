@@ -17,6 +17,9 @@ namespace brackeys_2020_2_jam.Manager
         [Dependency]
         public GameState GameState { get; set; }
 
+        [Dependency]
+        public GameState EndGameState { get; set; }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) => CurrentState.Draw(gameTime, spriteBatch);
 
         public void Update(GameTime gameTime)
@@ -43,5 +46,6 @@ namespace brackeys_2020_2_jam.Manager
 
         public void ChangeToGame() => NextState = GameState;
 
+        public void ChangeToEndGame() => NextState = EndGameState;
     }
 }

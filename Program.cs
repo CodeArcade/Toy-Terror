@@ -24,6 +24,7 @@ namespace brackeys_2020_2_jam
         {
             UnityContainer.RegisterType<MenuState>();
             UnityContainer.RegisterType<GameState>();
+            UnityContainer.RegisterType<EndGameState>();
 
             UnityContainer.RegisterType<StateManager>();
             UnityContainer.RegisterType<AnimationManager>(new InjectionConstructor()); // creates new manager object at resolve
