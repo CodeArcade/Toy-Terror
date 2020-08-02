@@ -43,6 +43,24 @@ namespace brackeys_2020_2_jam.Manager
             }
         }
 
+        public List<Texture2D> Clock
+        {
+            get
+            {
+                List<Texture2D> hurtParticles = new List<Texture2D>
+                {
+                    JamGame.Content.Load<Texture2D>("Textures/12_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/13_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/14_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/15_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/16_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/17_Uhr"),
+                    JamGame.Content.Load<Texture2D>("Textures/18_Uhr"),
+                };
+                return hurtParticles;
+            }
+        }
+
         public Texture2D WalkingAnimation => JamGame.Content.Load<Texture2D>("Animations/Walking");
         public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
         public Texture2D JumpAnimation => JamGame.Content.Load<Texture2D>("Animations/Jump");
