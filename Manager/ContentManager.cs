@@ -22,6 +22,7 @@ namespace brackeys_2020_2_jam.Manager
         public SoundEffect MotorStartSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/MotorStart");
 
         public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
+        public Song GameMusic => JamGame.Content.Load<Song>("Music/GameMusic");
 
         public List<Texture2D> HurtParticles
         {

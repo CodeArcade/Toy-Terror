@@ -68,6 +68,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ButtonFont.spritefont
 
+#begin Music/GameMusic.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/GameMusic.wav
+
 #begin Music/MenuMusic.wav
 /importer:WavImporter
 /processor:SongProcessor

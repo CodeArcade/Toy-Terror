@@ -74,15 +74,20 @@ namespace brackeys_2020_2_jam.States
 
         public override void Update(GameTime gameTime)
         {
-            SpawnTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            LevelTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            
 
             base.Update(gameTime);
 
             PlayerUpdate();
             CollisionCheck(gameTime);
-            HandleLevel();
-            HandleSpawnTimer();
+            if (GameStarted)
+            {
+                SpawnTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                LevelTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                HandleLevel();
+                HandleSpawnTimer();
+            } else HandleGameStart(gameTime);
+
             UpdateDebugInfo();
         }
 
@@ -140,14 +145,8 @@ namespace brackeys_2020_2_jam.States
             }
         }
 
-        private void HandleSpawnTimer()
+        private void HandleGameStart(GameTime gameTime)
         {
-            if (SpawnTimer > SpawnIntervall)
-            {
-                SpawnTimer = 0;
-                Spawn();
-            }
-
             if (!GameStarted && Player.AliveTimer > 0)
             {
                 GameStartTimer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -156,10 +155,18 @@ namespace brackeys_2020_2_jam.States
                     GameStarted = true;
                     ConveyorSpeed = 2f;
                     AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
+                    AudioManager.ChangeSong(ContentManager.GameMusic);
                 }
             }
+        }
 
-            UpdateDebugInfo();
+        private void HandleSpawnTimer()
+        {
+            if (SpawnTimer > SpawnIntervall)
+            {
+                SpawnTimer = 0;
+                Spawn();
+            }
         }
 
         private void Spawn()
@@ -223,7 +230,6 @@ namespace brackeys_2020_2_jam.States
             ((Label)debugComponents[4]).Text = $"Winding Up: {Player.IsWindingUp}";
             ((Label)debugComponents[5]).Text = $"On Conveyor: {Player.IsOnConveyor}";
             ((Label)debugComponents[6]).Text = $"Alive Timer: {Player.AliveTimer}";
-            ((Label)debugComponents[7]).Text = $"On Conveyor: {Player.IsOnConveyor}";
             ((Label)debugComponents[8]).Text = $"Level: {Level}";
             ((Label)debugComponents[9]).Text = $"Time: {LevelTimer}";
             ((Label)debugComponents[10]).Text = $"Next Spawn: {SpawnTimer}";
@@ -276,8 +282,6 @@ namespace brackeys_2020_2_jam.States
                 {
                     Text = $"Alive Timer: {Player.AliveTimer}",
                     Position = new Vector2(0, 90)
-                    Text = $"Level: {Level}",
-                    Position = new Vector2(0, 95)
                 },
 
                 new Label(ContentManager.ButtonFont)
