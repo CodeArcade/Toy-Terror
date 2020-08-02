@@ -17,7 +17,6 @@ namespace brackeys_2020_2_jam.States
     {
         private double Timer { get; set; }
         private double SpawnIntervall { get; set; } = 6;
-        private Random Random { get; } = new Random();
 
         public float ConveyorSpeed { get; set; } = 2f;
 
@@ -46,13 +45,13 @@ namespace brackeys_2020_2_jam.States
                 Value = 0
             };
 
-            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(JamGame.ScreenWidth - 1000, 550), Size = new System.Drawing.Size(2000, 100) };
+            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
 
-            Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(JamGame.ScreenWidth - 700, 200), Size = new System.Drawing.Size(100, 100) });
+            Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(JamGame.ScreenWidth - 500, 150), Size = new System.Drawing.Size(100, 100) });
             // Häcksler
-            Components.Add(new Chopper() { Position = new Vector2(0, Conveyor.Position.Y + (Conveyor.Rectangle.Height / 2)), Size = new System.Drawing.Size(JamGame.ScreenWidth - 1000, 500) });
+            Components.Add(new Chopper() { Position = new Vector2(0, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
             // Window
-            Components.Add(new Sprite() { Texture = ContentManager.ProgressBarBackground });
+            Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(200, 100), Size = new System.Drawing.Size(200, 250) });
 
             Components.Add(Progressbar);
             Components.Add(Player);

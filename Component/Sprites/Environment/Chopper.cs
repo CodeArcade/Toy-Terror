@@ -7,7 +7,8 @@
             Texture = ContentManager.ProgressBarBackground;
             AnimationManager.Scale = 0.2f;
             AnimationManager.Parent = this;
-            AnimationManager.Play(new Models.Animation(ContentManager.JumpAnimation, 12));
+            Texture = ContentManager.ProgressBarBackground;
+           // AnimationManager.Play(new Models.Animation(ContentManager.ProgressBarOutline, 1));
         }
     }
 }
