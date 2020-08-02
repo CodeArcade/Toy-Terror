@@ -15,10 +15,10 @@ namespace brackeys_2020_2_jam.States
     public class GameState : State
     {
         private double Timer { get; set; }
-        private double SpawnIntervall { get; set; } = 10;
+        private double SpawnIntervall { get; set; } = 1;
         private Random Random { get; } = new Random();
 
-        public float ConveyorSpeed { get; set; } = 1f;
+        public float ConveyorSpeed { get; set; } = 2f;
 
         private Player Player;
         private Progressbar Progressbar;
@@ -35,7 +35,8 @@ namespace brackeys_2020_2_jam.States
                 MaxSpeed = new Vector2(10, 10),
                 MaxAcceleration = 3,
                 Acceleration = 1f,
-                Position = new Vector2(250, 250)
+                Position = new Vector2(500, 250),
+                ConveyorSpeed = ConveyorSpeed
             };
 
             Progressbar = new Progressbar(Player, new System.Drawing.Size(80, 20))
@@ -44,7 +45,7 @@ namespace brackeys_2020_2_jam.States
                 Value = 0
             };
 
-            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 - 1100, 620), Size = new System.Drawing.Size(1100, 100) };
+            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(1280 - 1100, 620), Size = new System.Drawing.Size(2000, 100) };
 
             Components.Add(Progressbar);
             Components.Add(Player);
@@ -92,7 +93,8 @@ namespace brackeys_2020_2_jam.States
             Components.Add(new StickyObstacle(Player.ALIVE_CHARGE, 3)
             {
                 Texture = ContentManager.ButtonTexture,
-                Position = new Vector2(Conveyor.Position.X + (Conveyor.Size.Width), Conveyor.Position.Y - Conveyor.Size.Height)
+                Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height),
+                Size = new System.Drawing.Size(50, 50)
             });
 
             //Components.Add(new MovingObstacle()
@@ -108,8 +110,10 @@ namespace brackeys_2020_2_jam.States
         {
             foreach (Component.Component component in Components)
             {
-                if (component.Position.X < 0) component.IsRemoved = true;
+                if (component.Position.X < 0 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
             }
+
+            if (Player.IsRemoved) StateManager.ChangeToMenu();
 
             base.PostUpdate(gameTime);
         }

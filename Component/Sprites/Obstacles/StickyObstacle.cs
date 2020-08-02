@@ -17,6 +17,8 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 
         public override void OnCollision(Sprite sprite, GameTime gameTime)
         {
+            base.OnCollision(sprite, gameTime);
+
             if (sprite.GetType() != typeof(Player)) return;
 
             Timer += gameTime.ElapsedGameTime.TotalSeconds;

@@ -12,6 +12,10 @@ namespace brackeys_2020_2_jam
         private SpriteBatch SpriteBatch;
 
         public StateManager StateManager { get; set; }
+
+        public int ScreenWidth => 1280;
+        public int ScreenHeight => 720;
+
 #if DEBUG
         bool AdvanceSlowly;
         KeyboardState PreviousKeyboard { get; set; }
@@ -22,8 +26,8 @@ namespace brackeys_2020_2_jam
         {
             Graphics = new GraphicsDeviceManager(this)
             {
-               PreferredBackBufferHeight = 720,
-               PreferredBackBufferWidth = 1280
+               PreferredBackBufferHeight = ScreenHeight,
+               PreferredBackBufferWidth = ScreenWidth
             };
             Content.RootDirectory = "Content";
         }

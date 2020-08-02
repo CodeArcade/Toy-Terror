@@ -10,9 +10,11 @@ namespace brackeys_2020_2_jam.Component.Sprites
     {
         private Size InternalSize { get; set; }
 
-        public Vector2 GRAVITY => new Vector2(0, 9.8f);
+        public const float TERMINAL_VELOCITY = 25f;
+
+        public Vector2 GRAVITY => new Vector2(0, 9.83f);
         public Vector2 Speed { get; set; }
-        public Vector2 MaxSpeed { get; set; }
+        public virtual Vector2 MaxSpeed { get; set; }
         public Texture2D Texture { get; set; }
 
         public Size Size

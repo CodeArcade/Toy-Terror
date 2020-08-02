@@ -11,7 +11,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public const float FALL_MULTIPLIER = 0.5f;
         public const float JUMP_VELOCITY = -25f;
-        public const float TERMINAL_VELOCITY = 25f;
+
         public float ConveyorSpeed { get; set; }
 
         public const float ALIVE_CHARGE = 200f;
@@ -64,7 +64,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else if (IsTouchingTop(sprite))
             {
                 Speed = new Vector2(Speed.X, 0);
-                Position = new Vector2(Position.X - ConveyorSpeed, sprite.Position.Y - Rectangle.Height);
+                Position = new Vector2(Position.X - (ConveyorSpeed * 2), sprite.Position.Y - Rectangle.Height); // speed needs to be doubled to be as fast as the obstacles - dont ask me why
                 FallAcceleration = 0;
                 IsOnConveyor = true;
             }
