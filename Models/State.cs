@@ -33,7 +33,8 @@ namespace brackeys_2020_2_jam.Models
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-
+            
+            if (Components is null) return;
             foreach (Component.Component component in Components)
             {
                 component.Draw(gameTime, spriteBatch);
@@ -42,7 +43,8 @@ namespace brackeys_2020_2_jam.Models
 
         public virtual void PostUpdate(GameTime gameTime)
         {
-            for(int i = Components.Count - 1; i >= 0; i--)
+            if (Components is null) return;
+            for (int i = Components.Count - 1; i >= 0; i--)
             {
                 if (Components[i].IsRemoved) Components.RemoveAt(i);
             }
@@ -51,6 +53,7 @@ namespace brackeys_2020_2_jam.Models
         public virtual void Update(GameTime gameTime)
         {
             AudioManager.Update();
+            if (Components is null) return;
             foreach (Component.Component component in Components)
             {
                 component.Update(gameTime);

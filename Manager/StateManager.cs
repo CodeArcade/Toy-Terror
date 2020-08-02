@@ -18,7 +18,10 @@ namespace brackeys_2020_2_jam.Manager
         public GameState GameState { get; set; }
 
         [Dependency]
-        public GameState EndGameState { get; set; }
+        public EndGameStateLose EndGameStateLose { get; set; }
+
+        [Dependency]
+        public EndGameStateWin EndGameStateWin { get; set; }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) => CurrentState.Draw(gameTime, spriteBatch);
 
@@ -31,10 +34,12 @@ namespace brackeys_2020_2_jam.Manager
 
         private void ChangeState()
         {
+            if (NextState is null) return;
             if (NextState == CurrentState) return;
             if (!NextState.HasLoaded) NextState.Load();
 
             CurrentState = NextState;
+            NextState = null;
         }
 
         public void Reload()
@@ -46,6 +51,7 @@ namespace brackeys_2020_2_jam.Manager
 
         public void ChangeToGame() => NextState = GameState;
 
-        public void ChangeToEndGame() => NextState = EndGameState;
+        public void ChangeToEndGameWin() => NextState = EndGameStateWin;
+        public void ChangeToEndGameLose() => NextState = EndGameStateLose;
     }
 }

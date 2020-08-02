@@ -8,7 +8,9 @@ using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using Unity;
@@ -20,6 +22,7 @@ namespace brackeys_2020_2_jam.States
         [Dependency]
         public ObstacleFactory ObstacleFactory { get; set; }
 
+        private Random Random { get; } = new Random(DateTime.Now.Millisecond);
         public float ConveyorSpeed { get; set; } = 0f;
         public bool GameStarted { get; set; } = false;
         public bool GameEnded { get; set; } = false;
@@ -109,7 +112,7 @@ namespace brackeys_2020_2_jam.States
             else if (LevelTimer >= 150 && LevelTimer < 180)
                 Level = 6;
             else if (LevelTimer >= 180 && LevelTimer < 181)
-            { Level = 7; ConveyorSpeed = 6; }
+            { Level = 7; ConveyorSpeed = 6; Clock.Run = false; }
             else if (LevelTimer >= 182 && LevelTimer < 183)
                 ConveyorSpeed = 5;
             else if (LevelTimer >= 184 && LevelTimer < 185)
@@ -204,14 +207,13 @@ namespace brackeys_2020_2_jam.States
         private void HandleGameEnd()
         {
             GameEnded = false;
-            Clock.Run = false;
             AudioManager.StopMusic();
-            StateManager.ChangeToEndGame();
+            StateManager.ChangeToEndGameWin();
         }
 
         private void HandleSpawnTimer()
         {
-            if (SpawnTimer > SpawnIntervall)
+            if (SpawnTimer > SpawnIntervall )
             {
                 SpawnTimer = 0;
                 Spawn();
@@ -261,7 +263,7 @@ namespace brackeys_2020_2_jam.States
                 if (component.Position.X < 0 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
             }
 
-            if (Player.IsRemoved) StateManager.ChangeToMenu();
+            if (Player.IsRemoved) StateManager.ChangeToEndGameLose();
 
             base.PostUpdate(gameTime);
         }
