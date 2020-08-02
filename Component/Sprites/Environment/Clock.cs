@@ -9,6 +9,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
         public List<Texture2D> ClockStates { get; private set; }
         public int SecondsBetweenState { get; private set; }
         public int CurrentClockState { get; private set; }
+        public bool Run { get; set; } = false;
 
         private double Timer { get; set; }
 
@@ -27,6 +28,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
 
         public override void Update(GameTime gameTime)
         {
+            if (!Run) return;
             Timer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if(Timer >= SecondsBetweenState)

@@ -22,6 +22,7 @@ namespace brackeys_2020_2_jam.States
 
         public float ConveyorSpeed { get; set; } = 0f;
         public bool GameStarted { get; set; } = false;
+        public bool GameEnded { get; set; } = false;
         public double GameStartTimer { get; set; } = 0;
         private double SpawnTimer { get; set; }
         private double SpawnIntervall { get; set; } = 6;
@@ -31,6 +32,7 @@ namespace brackeys_2020_2_jam.States
         private Player Player;
         private Progressbar Progressbar;
         private Sprite Conveyor;
+        private Clock Clock;
 
 #if DEBUG
         private List<Component.Component> debugComponents;
@@ -56,11 +58,10 @@ namespace brackeys_2020_2_jam.States
 
             Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
 
-            Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(JamGame.ScreenWidth - 580, 130), Size = new System.Drawing.Size(150, 150) });
+            Clock = new Clock(ContentManager.HurtParticles, 30) { Position = new Vector2(JamGame.ScreenWidth - 580, 130), Size = new System.Drawing.Size(150, 150) };
+            Components.Add(Clock);
             // Häcksler
             Components.Add(new Chopper() { Position = new Vector2(0, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
-            // Window
-            //Components.Add(new Clock(ContentManager.HurtParticles, 1) { Position = new Vector2(200, 100), Size = new System.Drawing.Size(200, 250) });
 
             Components.Add(Progressbar);
             Components.Add(Player);
@@ -80,8 +81,9 @@ namespace brackeys_2020_2_jam.States
 
             PlayerUpdate();
             CollisionCheck(gameTime);
-            if (GameStarted)
+            if (GameStarted && !GameEnded)
             {
+                Clock.Run = true;
                 SpawnTimer += gameTime.ElapsedGameTime.TotalSeconds;
                 LevelTimer += gameTime.ElapsedGameTime.TotalSeconds;
                 HandleLevel();
@@ -187,13 +189,12 @@ namespace brackeys_2020_2_jam.States
 
         private void HandleGameStart(GameTime gameTime)
         {
-            if (!GameStarted && Player.AliveTimer > 0)
+            if (!GameStarted && Player.AliveTimer > 0 && !GameEnded)
             {
                 GameStartTimer += gameTime.ElapsedGameTime.TotalSeconds;
                 if (GameStartTimer > 3)
                 {
                     GameStarted = true;
-                    ConveyorSpeed = 2f;
                     AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
                     AudioManager.ChangeSong(ContentManager.GameMusic);
                 }
@@ -202,7 +203,8 @@ namespace brackeys_2020_2_jam.States
 
         private void HandleGameEnd()
         {
-            GameStarted = false;
+            GameEnded = false;
+            Clock.Run = false;
             AudioManager.StopMusic();
         }
 

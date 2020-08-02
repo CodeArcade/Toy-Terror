@@ -9,9 +9,9 @@ namespace brackeys_2020_2_jam.Manager
         private Song NextSong;
         private bool Loop;
 
-        public void PlayEffect(SoundEffect effect)
+        public void PlayEffect(SoundEffect effect, float volume = 1)
         {
-            effect.Play(1, 0, 0);
+            effect.Play(volume, 0, 0);
         }
 
         public void Update()
