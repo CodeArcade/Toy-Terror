@@ -25,6 +25,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public float AliveTimer { get; set; }
         public double CurrentWindupTime { get; set; }
+        public double IFrames { get; } = 1;
+        public double IFramesTimer { get; set; }
+        public bool CanTakeDamage => IFramesTimer > IFrames;
 
         public bool IsInAir => Speed.Y != 0;
         public bool IsWindingUp { get; set; }
@@ -62,6 +65,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             AnimationManager.Parent = this;
             AnimationManager.Play(Animations["standing"]);
             Size = new Size(AnimationManager.AnimationRectangle.Size.X, AnimationManager.AnimationRectangle.Size.Y);
+          
+            IFramesTimer = IFrames;
         }
 
         public override void OnCollision(Sprite sprite, GameTime gameTime)
