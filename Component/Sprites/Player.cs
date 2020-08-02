@@ -60,7 +60,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             {
                 { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.03f} },
                 { "standing", new Animation(ContentManager.StandingAnimation, 1) },
-                { "jump", new Animation(ContentManager.JumpAnimation, 12) { FrameSpeed = 0.001f} }
+                { "jump", new Animation(ContentManager.JumpAnimation, 13) { FrameSpeed = 0.001f} }
             };
             AnimationManager.Scale = 0.2f;
             AnimationManager.Parent = this;
@@ -104,7 +104,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
 
-            if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
+            //if (AliveTimer > 0 && !IsWindingUp) AliveTimer -= ALIVE_DRAIN;
 
             if (IsInAir) IsOnConveyor = false;
 
@@ -243,9 +243,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (!IsOnConveyor || IsWindingUp) return;
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
-                AnimationManager.Play(Animations["jump"]);
+                AnimationManager.Play(Animations["standing"]);
                 IsJumping = true;
-
                 Speed = Vector2.UnitY * JUMP_VELOCITY;
                 FallAcceleration = 0;
                 IsOnConveyor = false;
