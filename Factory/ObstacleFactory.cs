@@ -98,14 +98,14 @@ namespace brackeys_2020_2_jam.Factory
 
         public Sprite GetShark()
         {
-            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE, 3);
+            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE);
             // load texture
             return obstacle;
         }
 
         public Sprite GetHedgehog()
         {
-            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE / 2, 3);
+            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE / 2);
             // load texture
             return obstacle;
         }

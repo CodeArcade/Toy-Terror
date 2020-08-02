@@ -90,7 +90,7 @@ namespace brackeys_2020_2_jam.States
         private void Spawn()
         {
 
-            Components.Add(new StickyObstacle(Player.ALIVE_CHARGE, 3)
+            Components.Add(new StickyObstacle(Player.ALIVE_CHARGE)
             {
                 Texture = ContentManager.ButtonTexture,
                 Position = new Vector2(1100, Conveyor.Position.Y - Conveyor.Size.Height),

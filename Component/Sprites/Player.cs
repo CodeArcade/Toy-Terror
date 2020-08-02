@@ -21,6 +21,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public float AliveTimer { get; set; }
         public double CurrentWindupTime { get; set; }
+        public double IFrames { get; } = 1;
+        public double IFramesTimer { get; set; }
+        public bool CanTakeDamage => IFramesTimer > IFrames;
 
         public bool IsInAir => Speed.Y != 0;
         public bool IsWindingUp { get; set; }
@@ -45,6 +48,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             Texture = ContentManager.ProgressBarBackground;
             Speed = new Vector2(0, -1);
             IsOnConveyor = false;
+            IFramesTimer = IFrames;
         }
 
         public override void OnCollision(Sprite sprite, GameTime gameTime)
