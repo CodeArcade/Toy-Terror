@@ -22,7 +22,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public const float ALIVE_CHARGE = 200f;
         public const float ALIVE_MAX = 1000f;
-        public const float ALIVE_DRAIN = 1f;
+        public const float ALIVE_DRAIN = 0f;
         public const double WINDUP_TIME_IN_SECONDS = 1;
 
         public float AliveTimer { get; set; }
