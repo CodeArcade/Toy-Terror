@@ -34,6 +34,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
             if(Timer >= SecondsBetweenState)
             {
                 CurrentClockState++;
+                AudioManager.PlayEffect(ContentManager.ClockSoundEffect);
                 if (CurrentClockState >= ClockStates.Count) CurrentClockState = 0;
                 Timer = 0;
             }

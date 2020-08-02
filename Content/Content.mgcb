@@ -128,6 +128,12 @@
 /processorParam:TextureFormat=Color
 /build:Particle/HurtParticle4.png
 
+#begin SoundEffects/Clock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Clock.wav
+
 #begin SoundEffects/Hurt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
