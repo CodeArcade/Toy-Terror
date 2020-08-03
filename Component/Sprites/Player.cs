@@ -2,12 +2,14 @@
 using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace brackeys_2020_2_jam.Component.Sprites
 {
@@ -52,6 +54,9 @@ namespace brackeys_2020_2_jam.Component.Sprites
         public float FallAcceleration { get; set; }
 
         private Dictionary<string, Animation> Animations { get; set; }
+        private SoundEffectInstance WalkSoundEffect { get; set; }
+        private double WalkSoundTimer { get; set; }
+        private double WalkSoundIntervall => 0.25;
 
         public Player(PlayerInput input)
         {
@@ -63,7 +68,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
             Animations = new Dictionary<string, Animation>
             {
-                { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.03f} },
+                { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.01f} },
                 { "standing", new Animation(ContentManager.StandingAnimation, 1) },
                 { "jump", new Animation(ContentManager.JumpAnimation, 13) { FrameSpeed = 0.001f} }
             };
@@ -71,6 +76,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             AnimationManager.Parent = this;
             AnimationManager.Play(Animations["standing"]);
             Size = new Size(AnimationManager.AnimationRectangle.Size.X, AnimationManager.AnimationRectangle.Size.Y);
+
+            WalkSoundEffect = ContentManager.StepSoundEffect.CreateInstance();
 
             IFramesTimer = IFrames;
         }
@@ -102,6 +109,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 if (IsJumping)
                 {
                     JumpLandingAnimation();
+                    AudioManager.PlayEffect(ContentManager.LandSoundEffect);
                     IsJumping = false;
                 }
             }
@@ -110,8 +118,10 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Update(GameTime gameTime)
         {
-            if (IsStandingStill & !IsInAir && !IsJumping) AnimationManager.Play(Animations["standing"]);
             IFramesTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            WalkSoundTimer += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (IsStandingStill & !IsInAir && !IsJumping) AnimationManager.Play(Animations["standing"]);
 
             PreviousKeyboard = CurrentKeyboard;
             CurrentKeyboard = Keyboard.GetState();
@@ -142,6 +152,12 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else if (IsGoingRight)
             {
                 ParticleManager.EmitterLocation = new Vector2(Position.X, Position.Y + Rectangle.Height);
+            }
+
+            if (WalkSoundEffect.State == SoundState.Stopped && WalkSoundTimer > WalkSoundIntervall)
+            {
+                WalkSoundEffect.Play();
+                WalkSoundTimer = 0;
             }
 
             ParticleManager.GenerateNewParticle(Microsoft.Xna.Framework.Color.White, 5, 5);
@@ -274,6 +290,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (CurrentKeyboard.IsKeyDown(Input.Jump) && PreviousKeyboard.IsKeyUp(Input.Jump) && AliveTimer > 0)
             {
                 AnimationManager.Play(Animations["standing"]);
+                AudioManager.PlayEffect(ContentManager.JumpSoundEffect);
                 JumpLandingAnimation();
                 IsJumping = true;
                 Speed = Vector2.UnitY * JUMP_VELOCITY;

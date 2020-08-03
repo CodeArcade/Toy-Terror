@@ -23,6 +23,9 @@ namespace brackeys_2020_2_jam.Manager
         public SoundEffect GrindingSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Schredder");
         public SoundEffect ClockSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Clock");
         public SoundEffect ConveyorSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Conveyor");
+        public SoundEffect JumpSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Jump");
+        public SoundEffect LandSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Land");
+        public SoundEffect StepSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Step");
 
         public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
         public Song GameMusic => JamGame.Content.Load<Song>("Music/GameMusic");

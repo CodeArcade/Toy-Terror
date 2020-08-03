@@ -194,6 +194,18 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Hurt.wav
 
+#begin SoundEffects/Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Jump.wav
+
+#begin SoundEffects/Land.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Land.wav
+
 #begin SoundEffects/MotorStart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -211,6 +223,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/Select.wav
+
+#begin SoundEffects/Step.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Step.wav
 
 #begin Sprites/Button.png
 /importer:TextureImporter
