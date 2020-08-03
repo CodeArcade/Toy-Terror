@@ -17,7 +17,7 @@ namespace brackeys_2020_2_jam.States
             Size tempSize = new Size(500, 125);
             Sprite title = new Sprite()
             {
-                Texture = ContentManager.ProgressBarBackground, //TODO
+                Texture = ContentManager.Logo,
                 Size = tempSize,
                 Position = new Vector2((JamGame.ScreenWidth - tempSize.Width) / 2, 25)
             };

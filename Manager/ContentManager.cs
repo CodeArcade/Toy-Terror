@@ -79,6 +79,7 @@ namespace brackeys_2020_2_jam.Manager
                 return hurtParticles;
             }
         }
+        public Texture2D Logo => JamGame.Content.Load<Texture2D>("Textures/logo_KEKW");
 
         public Texture2D WalkingAnimation => JamGame.Content.Load<Texture2D>("Animations/Walking");
         public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
