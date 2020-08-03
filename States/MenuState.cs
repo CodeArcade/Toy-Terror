@@ -7,6 +7,7 @@ using System.Drawing;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace brackeys_2020_2_jam.States
 {
@@ -67,6 +68,8 @@ namespace brackeys_2020_2_jam.States
             spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Microsoft.Xna.Framework.Color.White);
 
             base.Draw(gameTime, spriteBatch);
+
+            spriteBatch.Draw(ContentManager.Vignette, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
         }
 
         private void ChangeToGame()

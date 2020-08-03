@@ -69,8 +69,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             Animations = new Dictionary<string, Animation>
             {
                 { "walk", new Animation(ContentManager.WalkingAnimation, 29) {  FrameSpeed = 0.01f} },
-                { "standing", new Animation(ContentManager.StandingAnimation, 1) },
-                { "jump", new Animation(ContentManager.JumpAnimation, 13) { FrameSpeed = 0.001f} }
+                { "standing", new Animation(ContentManager.StandingAnimation, 1) }
             };
             AnimationManager.Scale = 0.2f;
             AnimationManager.Parent = this;

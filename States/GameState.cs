@@ -308,6 +308,7 @@ namespace brackeys_2020_2_jam.States
 
             base.Draw(gameTime, spriteBatch);
 
+            spriteBatch.Draw(ContentManager.Vignette, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 #if DEBUG
             foreach (Component.Component c in debugComponents)
             {
