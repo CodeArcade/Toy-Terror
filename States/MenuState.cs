@@ -5,6 +5,8 @@ using System;
 using brackeys_2020_2_jam.Component.Sprites;
 using System.Drawing;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace brackeys_2020_2_jam.States
 {
@@ -58,6 +60,13 @@ namespace brackeys_2020_2_jam.States
         {
             if(Keyboard.GetState().GetPressedKeyCount() > 0) ChangeToGame();
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Microsoft.Xna.Framework.Color.White);
+
+            base.Draw(gameTime, spriteBatch);
         }
 
         private void ChangeToGame()
