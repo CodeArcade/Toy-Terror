@@ -35,7 +35,8 @@ namespace brackeys_2020_2_jam.States
 
         private Player Player;
         private Progressbar Progressbar;
-        private Sprite Conveyor;
+        private Sprite ConveyorHitBox;
+        private Conveyor Conveyor;
         private Clock Clock;
 
         private SoundEffectInstance ConveyorSoundEffect;
@@ -65,7 +66,8 @@ namespace brackeys_2020_2_jam.States
                 Value = 0
             };
 
-            Conveyor = new Sprite() { Texture = ContentManager.ButtonTexture, Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
+            ConveyorHitBox = new Sprite() { Texture = ContentManager.ProgressBarBackground, Position = new Vector2(JamGame.ScreenWidth - 1000, 470), Size = new System.Drawing.Size(2000, 80) };
+            Conveyor = new Conveyor() { Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
 
             Clock = new Clock(ContentManager.Clock, 30) { Position = new Vector2(JamGame.ScreenWidth - 592, 115), Size = new System.Drawing.Size(175, 175) };
             Components.Add(Clock);
@@ -73,8 +75,9 @@ namespace brackeys_2020_2_jam.States
             Components.Add(new Chopper() { Position = new Vector2(0, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
 
             Components.Add(Progressbar);
-            Components.Add(Player);
+            Components.Add(ConveyorHitBox);
             Components.Add(Conveyor);
+            Components.Add(Player);
             GameStarted = false;
             GameStartTimer = 0;
 
@@ -259,7 +262,7 @@ namespace brackeys_2020_2_jam.States
                     obstacle = ObstacleFactory.GetMovingOrStickyObstacle();
                     break;
             }
-            obstacle.Position = new Vector2(JamGame.ScreenWidth, Conveyor.Position.Y - Conveyor.Size.Height);
+            obstacle.Position = new Vector2(JamGame.ScreenWidth, ConveyorHitBox.Position.Y - ConveyorHitBox.Size.Height);
             Components.Add(obstacle);
         }
 

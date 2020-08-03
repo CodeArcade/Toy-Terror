@@ -86,6 +86,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         {
             if (sprite is null) return;
             if (sprite is Clock) return;
+            if (sprite is Conveyor) return;
 
             if (IsTouchingRight(sprite))
             {
@@ -148,11 +149,11 @@ namespace brackeys_2020_2_jam.Component.Sprites
             ParticleManager.Textures = ContentManager.DustParticles;
             if (IsGoingLeft)
             {
-                ParticleManager.EmitterLocation = new Vector2(Position.X + Rectangle.Width, Position.Y + Rectangle.Height);
+                ParticleManager.EmitterLocation = new Vector2(Position.X + Rectangle.Width - 15, Position.Y + Rectangle.Height - 5);
             }
             else if (IsGoingRight)
             {
-                ParticleManager.EmitterLocation = new Vector2(Position.X, Position.Y + Rectangle.Height);
+                ParticleManager.EmitterLocation = new Vector2(Position.X + 15, Position.Y + Rectangle.Height - 5);
             }
 
             if (WalkSoundEffect.State == SoundState.Stopped && WalkSoundTimer > WalkSoundIntervall)
@@ -161,7 +162,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 WalkSoundTimer = 0;
             }
 
-            ParticleManager.GenerateNewParticle(Microsoft.Xna.Framework.Color.White, 5, 5);
+            ParticleManager.GenerateNewParticle(Microsoft.Xna.Framework.Color.White, 3, 2);
         }
 
         private void FallDown()

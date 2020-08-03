@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using brackeys_2020_2_jam.Component.Sprites.Environment;
+using Microsoft.Xna.Framework;
 
 namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
 {
@@ -14,6 +15,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
         public override void OnCollision(Sprite sprite, GameTime gameTime)
         {
             if (sprite == this) return;
+            if (sprite is Conveyor) return;
 
             if (IsTouchingTop(sprite))
             {
