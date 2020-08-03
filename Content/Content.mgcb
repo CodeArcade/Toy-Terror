@@ -182,6 +182,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Clock.wav
 
+#begin SoundEffects/Conveyor.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Conveyor.wav
+
 #begin SoundEffects/Hurt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

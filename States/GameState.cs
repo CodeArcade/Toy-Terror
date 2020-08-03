@@ -6,6 +6,7 @@ using brackeys_2020_2_jam.Factory;
 using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -37,12 +38,17 @@ namespace brackeys_2020_2_jam.States
         private Sprite Conveyor;
         private Clock Clock;
 
+        private SoundEffectInstance ConveyorSoundEffect;
+
 #if DEBUG
         private List<Component.Component> debugComponents;
 #endif
         public override void Load()
         {
             base.Load();
+
+            ConveyorSoundEffect = ContentManager.ConveyorSoundEffect.CreateInstance();
+            ConveyorSoundEffect.Volume = 0.4f;
 
             Player = new Player(new PlayerInput() { Jump = Keys.W, Left = Keys.A, Right = Keys.D, Windup = Keys.Space })
             {
@@ -126,7 +132,7 @@ namespace brackeys_2020_2_jam.States
             else if (LevelTimer >= 192 && LevelTimer < 193)
                 ConveyorSpeed = 0;
             else if (LevelTimer >= 197)
-            { HandleGameEnd(); return; }
+            { HandleGameEnd(); StateManager.ChangeToEndGameWin(); return; }
 
             switch (Level)
             {
@@ -199,6 +205,7 @@ namespace brackeys_2020_2_jam.States
                 {
                     GameStarted = true;
                     AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
+                    ConveyorSoundEffect.Play();
                     AudioManager.ChangeSong(ContentManager.GameMusic);
                 }
             }
@@ -208,12 +215,12 @@ namespace brackeys_2020_2_jam.States
         {
             GameEnded = false;
             AudioManager.StopMusic();
-            StateManager.ChangeToEndGameWin();
+            ConveyorSoundEffect.Stop();
         }
 
         private void HandleSpawnTimer()
         {
-            if (SpawnTimer > SpawnIntervall )
+            if (SpawnTimer > SpawnIntervall)
             {
                 SpawnTimer = 0;
                 Spawn();
@@ -263,7 +270,7 @@ namespace brackeys_2020_2_jam.States
                 if (component.Position.X < 0 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
             }
 
-            if (Player.IsRemoved) StateManager.ChangeToEndGameLose();
+            if (Player.IsRemoved) { HandleGameEnd(); StateManager.ChangeToEndGameLose(); }
 
             base.PostUpdate(gameTime);
         }
