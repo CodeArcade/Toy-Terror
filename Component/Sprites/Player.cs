@@ -58,8 +58,13 @@ namespace brackeys_2020_2_jam.Component.Sprites
         private double WalkSoundTimer { get; set; }
         private double WalkSoundIntervall => 0.25;
 
+        private AnimationManager WindUpAnimationManager;
+
         public Player(PlayerInput input)
         {
+            WindUpAnimationManager = new AnimationManager();
+            WindUpAnimationManager.Scale = 0.4f;
+
             AliveTimer = 0;
             Input = input;
             Texture = ContentManager.StandingAnimation;
@@ -136,9 +141,17 @@ namespace brackeys_2020_2_jam.Component.Sprites
             MoveParticle();
 
             Position += Speed;
-           if(IsOnConveyor) Position = new Vector2(Position.X - ConveyorSpeed , Position.Y);
+            if (IsOnConveyor) Position = new Vector2(Position.X - ConveyorSpeed, Position.Y);
 
+            if (WindUpAnimationManager.IsPlaying) WindUpAnimationManager.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (WindUpAnimationManager.IsPlaying) WindUpAnimationManager.Draw(spriteBatch);
+
+            base.Draw(gameTime, spriteBatch);
         }
 
         private void MoveParticle()
@@ -178,14 +191,29 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private void Windup(GameTime gameTime)
         {
+            if (WindUpAnimationManager.Flip)
+            {
+                WindUpAnimationManager.Position = new Vector2(Position.X - (Rectangle.Width / 1.3f), Position.Y + (Rectangle.Height / 4));
+            }
+            else
+            {
+                WindUpAnimationManager.Position = new Vector2(Position.X + (Rectangle.Width / 1.8f), Position.Y + (Rectangle.Height / 4));
+            }
+
             if (Speed.X != 0 || Speed.Y != 0 || IsInAir)
             {
                 IsWindingUp = false;
+                if (WindUpAnimationManager.IsPlaying) { WindUpAnimationManager.Stop(); }
                 return;
             }
 
             if (Keyboard.GetState().IsKeyDown(Input.Windup))
             {
+                if (!IsWindingUp)
+                {
+                    WindUpAnimationManager.Play(new Animation(ContentManager.WindupAnimation, 5) { FrameSpeed = 0.2f });
+                }
+
                 IsWindingUp = true;
                 if (CurrentWindupTime > WINDUP_TIME_IN_SECONDS)
                 {
@@ -197,7 +225,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 CurrentWindupTime += gameTime.ElapsedGameTime.TotalSeconds;
 
             }
-            else IsWindingUp = false;
+            else { IsWindingUp = false; if (WindUpAnimationManager.IsPlaying) { WindUpAnimationManager.Stop(); } }
         }
 
         private void Move()
@@ -211,6 +239,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (Keyboard.GetState().IsKeyDown(Input.Right) && AliveTimer > 0 && !IsWindingUp)
             {
                 AnimationManager.Flip = true;
+                WindUpAnimationManager.Flip = true;
                 if (!IsInAir && !IsJumping) AnimationManager.Play(Animations["walk"]);
 
                 if (IsGoingLeft)
@@ -229,6 +258,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else if (Keyboard.GetState().IsKeyDown(Input.Left) && AliveTimer > 0 && !IsWindingUp)
             {
                 AnimationManager.Flip = false;
+                WindUpAnimationManager.Flip = false;
                 if (!IsInAir && !IsJumping) AnimationManager.Play(Animations["walk"]);
 
                 if (IsGoingRight)
