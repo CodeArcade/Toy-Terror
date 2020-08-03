@@ -102,7 +102,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             else if (IsTouchingTop(sprite))
             {
                 Speed = new Vector2(Speed.X, 0);
-                Position = new Vector2(Position.X - (ConveyorSpeed * 2), sprite.Position.Y - Rectangle.Height); // speed needs to be doubled to be as fast as the obstacles - dont ask me why
+                Position = new Vector2(Position.X, sprite.Position.Y - Rectangle.Height);
                 FallAcceleration = 0;
                 IsOnConveyor = true;
                 if (sprite is Chopper) IsRemoved = true;
@@ -136,6 +136,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             MoveParticle();
 
             Position += Speed;
+           if(IsOnConveyor) Position = new Vector2(Position.X - ConveyorSpeed , Position.Y);
 
             base.Update(gameTime);
         }

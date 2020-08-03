@@ -138,31 +138,31 @@ namespace brackeys_2020_2_jam.States
             {
                 case 1:
                     ConveyorSpeed = 2;
-                    SpawnIntervall = 6;
+                    SpawnIntervall = 5;
                     Player.AliveDrain = 1;
                     break;
                 case 2:
                     ConveyorSpeed = 3;
-                    SpawnIntervall = 5;
+                    SpawnIntervall = 4;
                     Player.AliveDrain = 1.2f;
                     break;
                 case 3:
                     ConveyorSpeed = 4;
-                    SpawnIntervall = 4;
+                    SpawnIntervall = 3;
                     break;
                 case 4:
                     ConveyorSpeed = 5;
-                    SpawnIntervall = 3;
+                    SpawnIntervall = 2;
                     Player.AliveDrain = 1.4f;
                     break;
                 case 5:
                     ConveyorSpeed = 6;
-                    SpawnIntervall = 2;
+                    SpawnIntervall = 1;
                     Player.AliveDrain = 1.6f;
                     break;
                 case 6:
                     ConveyorSpeed = 7;
-                    SpawnIntervall = 1;
+                    SpawnIntervall = 1.5;
                     Player.AliveDrain = 1.8f;
                     break;
                 default:
