@@ -99,6 +99,11 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 FallAcceleration = 0;
                 IsOnConveyor = true;
                 if (sprite is Chopper) IsRemoved = true;
+                if (IsJumping)
+                {
+                    JumpLandingAnimation();
+                    IsJumping = false;
+                }
             }
 
         }
@@ -274,7 +279,6 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 Speed = Vector2.UnitY * JUMP_VELOCITY;
                 FallAcceleration = 0;
                 IsOnConveyor = false;
-                IsJumping = false;
             }
         }
 
