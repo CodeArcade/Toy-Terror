@@ -8,6 +8,8 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <RootNamespace>brackeys_2020_2_jam</RootNamespace>
+    <AssemblyName>Toy Terror</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
