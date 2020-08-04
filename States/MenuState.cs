@@ -59,7 +59,6 @@ namespace brackeys_2020_2_jam.States
 
         public override void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().GetPressedKeyCount() > 0) ChangeToGame();
             base.Update(gameTime);
         }
 
