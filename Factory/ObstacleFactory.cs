@@ -1,8 +1,10 @@
 ﻿using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
 using brackeys_2020_2_jam.Manager;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity;
 
 namespace brackeys_2020_2_jam.Factory
@@ -29,8 +31,8 @@ namespace brackeys_2020_2_jam.Factory
             return pick switch
             {
                 (int)StaticObstacles.Block => GetBlock(),
-                (int)StaticObstacles.Furby => GetFurby(),
                 (int)StaticObstacles.Pez => GetPez(),
+                (int)StaticObstacles.Furby => GetFurby(),
                 _ => GetTeddy(),
             };
         }
@@ -51,7 +53,7 @@ namespace brackeys_2020_2_jam.Factory
                 GetStickyObstacle()
             };
 
-            return obstacles[Random.Next(0,2)];
+            return obstacles[Random.Next(0, 2)];
         }
         public StaticObstacle GetMovingOrStickyObstacle()
         {
@@ -106,7 +108,10 @@ namespace brackeys_2020_2_jam.Factory
         {
             StaticObstacle obstacle = new StaticObstacle()
             {
-                Texture = ContentManager.ProgressBarValue
+                Texture = ContentManager.CubeTexture,
+                Size = new Size(100, 105),
+                HitboxSize = new Size(100, 40),
+                HitBoxYOffSet = 20
             };
             // load texture
             return obstacle;
@@ -116,9 +121,13 @@ namespace brackeys_2020_2_jam.Factory
         {
             StaticObstacle obstacle = new StaticObstacle()
             {
-                Texture = ContentManager.ProgressBarValue
+                Texture = ContentManager.PetzTexture,
+                Size = new Size(50, 110),
+                HitboxSize = new Size(33, 105),
+                HitBoxXOffSet = 12,
+                HitBoxYOffSet = -5
             };
-            // load texture
+
             return obstacle;
         }
 

@@ -10,7 +10,7 @@ namespace brackeys_2020_2_jam.Manager
     public class AnimationManager
     {
         private Animation Animation { get; set; }
-        public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, (int)(Animation.FrameWidth * Scale), (int)(Animation.FrameHeight* Scale));
+        public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, (int)(Animation.FrameWidth * Scale), (int)(Animation.FrameHeight * Scale));
         public int CurrentFrame => Animation.CurrentFrame;
 
         private float Timer { get; set; }
@@ -20,20 +20,35 @@ namespace brackeys_2020_2_jam.Manager
         public bool IsPlaying { get; set; }
         public bool Flip { get; set; }
         public Sprite Parent { get; set; }
+        public bool Reverse { get; set; }
+        public bool FlipVertically { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (Parent != null) Position = Parent.Position;
             if (Flip)
             {
-                spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                if (FlipVertically)
+                    spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                                                   0,
+                                                   Animation.FrameWidth,
+                                                   Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, 0);
+                else
+                    spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
                                                0,
                                                Animation.FrameWidth,
                                                Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
+
             }
             else
             {
-                spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                if (FlipVertically)
+                    spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
+                                               0,
+                                               Animation.FrameWidth,
+                                               Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None | SpriteEffects.FlipVertically, 0);
+                else
+                    spriteBatch.Draw(Animation.Texture, Position, new Rectangle(Animation.CurrentFrame * Animation.FrameWidth,
                                                0,
                                                Animation.FrameWidth,
                                                Animation.FrameHeight), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
@@ -50,9 +65,13 @@ namespace brackeys_2020_2_jam.Manager
             {
                 Timer = 0f;
 
-                Animation.CurrentFrame++;
+                if (Reverse)
+                    Animation.CurrentFrame--;
+                else
+                    Animation.CurrentFrame++;
 
                 if (Animation.CurrentFrame >= Animation.FrameCount) Animation.CurrentFrame = 0;
+                if (Animation.CurrentFrame < 0) Animation.CurrentFrame = Animation.FrameCount - 1;
             }
         }
 
@@ -75,6 +94,16 @@ namespace brackeys_2020_2_jam.Manager
             Timer = 0f;
 
             Animation.CurrentFrame = 0;
+        }
+
+        public void Pause()
+        {
+            IsPlaying = false;
+        }
+
+        public void Continue()
+        {
+            IsPlaying = true;
         }
 
     }

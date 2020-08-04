@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Unity;
 using System.Collections.Generic;
 using brackeys_2020_2_jam.Manager;
+using brackeys_2020_2_jam.Component.Sprites;
 
 namespace brackeys_2020_2_jam.Models
 {
@@ -37,6 +38,7 @@ namespace brackeys_2020_2_jam.Models
             {
                 component.Draw(gameTime, spriteBatch);
             }
+
         }
 
         public virtual void PostUpdate(GameTime gameTime)

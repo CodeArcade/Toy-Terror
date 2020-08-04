@@ -20,7 +20,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
             if (IsTouchingTop(sprite))
             {
                 Speed = new Vector2(Speed.X, 0);
-                Position = new Vector2(Position.X, sprite.Position.Y - Rectangle.Height);
+                Position = new Vector2(Position.X, sprite.Hitbox.Y - HitBoxYOffSet - Hitbox.Height);
             }
 
         }

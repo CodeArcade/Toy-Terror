@@ -262,7 +262,7 @@ namespace brackeys_2020_2_jam.States
                     obstacle = ObstacleFactory.GetMovingOrStickyObstacle();
                     break;
             }
-            obstacle.Position = new Vector2(JamGame.ScreenWidth, ConveyorHitBox.Position.Y - ConveyorHitBox.Size.Height);
+            obstacle.Position = new Vector2(JamGame.ScreenWidth - 100, ConveyorHitBox.Position.Y - ConveyorHitBox.Size.Height - obstacle.Hitbox.Height);
             Components.Add(obstacle);
         }
 
@@ -306,7 +306,17 @@ namespace brackeys_2020_2_jam.States
 
             spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 
-            base.Draw(gameTime, spriteBatch);
+            if (Components is null) return;
+            foreach (Component.Component component in Components)
+            {
+#if DEBUG
+                if (component is Sprite sprite)
+                    spriteBatch.Draw(ContentManager.ProgressBarValue, sprite.Hitbox, Color.White);
+#endif
+                component.Draw(gameTime, spriteBatch);
+            }
+
+            Player.Draw(gameTime, spriteBatch);
 
             spriteBatch.Draw(ContentManager.Vignette, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 #if DEBUG

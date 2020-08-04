@@ -230,6 +230,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Step.wav
 
+#begin SoundEffects/Windup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Windup.wav
+
 #begin Sprites/Button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -241,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Button.png
+
+#begin Sprites/Petz.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Petz.png
 
 #begin Sprites/ProgressBarBackground.png
 /importer:TextureImporter
@@ -277,6 +295,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/ProgressBarValue.png
+
+#begin Sprites/Rubik_Cube.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Rubik_Cube.png
 
 #begin Textures/12_Uhr.png
 /importer:TextureImporter

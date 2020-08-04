@@ -52,6 +52,21 @@ namespace brackeys_2020_2_jam.Component.Sprites
             }
         }
 
+        public int HitBoxXOffSet { get; set; }
+        public int HitBoxYOffSet { get; set; }
+        public Size HitboxSize { get; set; }
+
+        public Rectangle Hitbox
+        {
+            get
+            {
+                if (HitboxSize == Size.Empty)
+                    return new Rectangle((int)Position.X + HitBoxXOffSet, (int)Position.Y + HitBoxYOffSet, Size.Width, Size.Height);
+                else
+                    return new Rectangle((int)Position.X + HitBoxXOffSet, (int)Position.Y + HitBoxYOffSet, HitboxSize.Width, HitboxSize.Height);
+            }
+        }
+
         public virtual void OnCollision(Sprite sprite, GameTime gameTime)
         {
         }
@@ -81,36 +96,36 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         protected bool IsTouchingRight(Sprite sprite)
         {
-            return Rectangle.Left < sprite.Rectangle.Right && Rectangle.Left > sprite.Rectangle.Left &&  // Sides collide
+            return Hitbox.Left < sprite.Hitbox.Right && Hitbox.Left > sprite.Hitbox.Left &&  // Sides collide
                   !IsAbove(sprite) && !IsBelow(sprite) && !IsLeft(sprite);
         }
 
         protected bool IsTouchingLeft(Sprite sprite)
         {
-            return Rectangle.Right > sprite.Rectangle.Left && Rectangle.Right < sprite.Rectangle.Right && // Sides collide
+            return Hitbox.Right > sprite.Hitbox.Left && Hitbox.Right < sprite.Hitbox.Right && // Sides collide
                    !IsAbove(sprite) && !IsBelow(sprite) && !IsRight(sprite);
         }
 
         protected bool IsTouchingBottom(Sprite sprite)
         {
-            return Rectangle.Top < sprite.Rectangle.Bottom && Rectangle.Top > sprite.Rectangle.Top && // Sides collide
+            return Hitbox.Top < sprite.Hitbox.Bottom && Hitbox.Top > sprite.Hitbox.Top && // Sides collide
                    !IsRight(sprite) && !IsLeft(sprite) && IsBelow(sprite);
         }
 
         protected bool IsTouchingTop(Sprite sprite)
         {
-            return Rectangle.Bottom > sprite.Rectangle.Top && Rectangle.Bottom < sprite.Rectangle.Bottom && // Sides collide
+            return Hitbox.Bottom > sprite.Hitbox.Top && Hitbox.Bottom < sprite.Hitbox.Bottom && // Sides collide
                    !IsRight(sprite) && !IsLeft(sprite) && IsAbove(sprite);
         }
 
         private bool IsAbove(Sprite sprite)
-        { return Rectangle.Bottom + -Speed.Y < sprite.Rectangle.Top; }
+        { return Hitbox.Bottom + -Speed.Y <= sprite.Hitbox.Top + sprite.HitBoxYOffSet; }
         private bool IsBelow(Sprite sprite)
-        { return Rectangle.Top + -Speed.Y > sprite.Rectangle.Bottom; }
+        { return Hitbox.Top + -Speed.Y >= sprite.Hitbox.Bottom - sprite.HitBoxYOffSet; }
         private bool IsRight(Sprite sprite)
-        { return Rectangle.Left >= sprite.Rectangle.Right; }
+        { return Hitbox.Left + Speed.X >= sprite.Hitbox.Right; }
         private bool IsLeft(Sprite sprite)
-        { return Rectangle.Right <= sprite.Rectangle.Left; }
+        { return Hitbox.Right + Speed.X <= sprite.Hitbox.Left; }
 
         #endregion
 

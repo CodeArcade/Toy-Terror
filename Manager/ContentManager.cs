@@ -26,6 +26,7 @@ namespace brackeys_2020_2_jam.Manager
         public SoundEffect JumpSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Jump");
         public SoundEffect LandSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Land");
         public SoundEffect StepSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Step");
+        public SoundEffect WindupSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Windup");
 
         public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
         public Song GameMusic => JamGame.Content.Load<Song>("Music/GameMusic");
@@ -88,5 +89,8 @@ namespace brackeys_2020_2_jam.Manager
 
         public Texture2D Background => JamGame.Content.Load<Texture2D>("Background");
         public Texture2D Vignette => JamGame.Content.Load<Texture2D>("Textures/Vignette");
+
+        public Texture2D PetzTexture => JamGame.Content.Load<Texture2D>("Sprites/Petz");
+        public Texture2D CubeTexture => JamGame.Content.Load<Texture2D>("Sprites/Rubik_Cube");
     }
 }
