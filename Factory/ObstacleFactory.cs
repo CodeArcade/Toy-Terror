@@ -113,7 +113,7 @@ namespace brackeys_2020_2_jam.Factory
                 HitboxSize = new Size(100, 40),
                 HitBoxYOffSet = 20
             };
-            // load texture
+
             return obstacle;
         }
 
@@ -123,9 +123,9 @@ namespace brackeys_2020_2_jam.Factory
             {
                 Texture = ContentManager.PetzTexture,
                 Size = new Size(50, 110),
-                HitboxSize = new Size(33, 105),
+                HitboxSize = new Size(33, 90),
                 HitBoxXOffSet = 12,
-                HitBoxYOffSet = -5
+                HitBoxYOffSet = 20
             };
 
             return obstacle;
