@@ -106,12 +106,16 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetBlock()
         {
+            int width = 200;
+            int height = 210;
+            int hitboxHeight = 125;
+
             StaticObstacle obstacle = new StaticObstacle()
             {
                 Texture = ContentManager.CubeTexture,
-                Size = new Size(100, 105),
-                HitboxSize = new Size(100, 40),
-                HitBoxYOffSet = 20
+                Size = new Size(width, height),
+                HitboxSize = new Size(width, hitboxHeight),
+                HitBoxYOffSet = (height - hitboxHeight) / 2
             };
 
             return obstacle;
@@ -119,13 +123,18 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetPez()
         {
+            int width = 135;
+            int height = 250;
+            int hitboxHeight = 230;
+            int hitboxWidth = 72;
+
             StaticObstacle obstacle = new StaticObstacle()
             {
                 Texture = ContentManager.PetzTexture,
-                Size = new Size(50, 110),
-                HitboxSize = new Size(33, 90),
-                HitBoxXOffSet = 12,
-                HitBoxYOffSet = 20
+                Size = new Size(width, height),
+                HitboxSize = new Size(hitboxWidth, hitboxHeight),
+                HitBoxXOffSet = (int)((width - hitboxWidth) / 1.75),
+                HitBoxYOffSet = height - hitboxHeight
             };
 
             return obstacle;

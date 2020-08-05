@@ -19,7 +19,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         private KeyboardState PreviousKeyboard { get; set; }
 
         public const float FALL_MULTIPLIER = 0.5f;
-        public const float JUMP_VELOCITY = -25f;
+        public const float JUMP_VELOCITY = -35f;
 
         public float ConveyorSpeed { get; set; }
 
@@ -60,11 +60,20 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         private AnimationManager WindUpAnimationManager;
 
+        private SoundEffectInstance WindDownSoundEffect { get; set; }
+        private double WindDownSoundIntervall => 0.2;
+        private double WindDownSoundIntervallTimer { get; set; }
+
         public Player(PlayerInput input)
         {
-            WindUpAnimationManager = new AnimationManager();
-            WindUpAnimationManager.Scale = 0.4f;
-            WindUpAnimationManager.FlipVertically = true;
+            WindUpAnimationManager = new AnimationManager
+            {
+                Scale = 0.4f,
+                FlipVertically = true
+            };
+
+            WindDownSoundEffect = ContentManager.WinddownSoundEffect.CreateInstance();
+            WindDownSoundEffect.Volume = 0.25f;
 
             AliveTimer = 0;
             Input = input;
@@ -126,6 +135,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         {
             IFramesTimer += gameTime.ElapsedGameTime.TotalSeconds;
             WalkSoundTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            WindDownSoundIntervallTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (IsStandingStill & !IsInAir && !IsJumping) AnimationManager.Play(Animations["standing"]);
 
@@ -140,6 +150,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
             FallDown();
             Move();
             MoveParticle();
+            PlayWindDownSoundEffect();
 
             Position += Speed;
             if (IsOnConveyor) Position = new Vector2(Position.X - ConveyorSpeed, Position.Y);
@@ -189,6 +200,24 @@ namespace brackeys_2020_2_jam.Component.Sprites
                 FallAcceleration = MaxFallAcceleration;
 
             if (Speed.Y > TERMINAL_VELOCITY) Speed = new Vector2(Speed.X, TERMINAL_VELOCITY);
+        }
+
+        private void PlayWindDownSoundEffect()
+        {
+            if (AliveTimer == 0 || IsWindingUp)
+            {
+                WindDownSoundEffect.Stop();
+            }
+            else
+            {
+                if ( WindDownSoundIntervallTimer > WindDownSoundIntervall)
+                {
+                    if (WindDownSoundEffect.State == SoundState.Stopped)
+                        WindDownSoundEffect.Play();
+
+                    WindDownSoundIntervallTimer = 0;
+                }
+            }
         }
 
         private void WindUpAnimation()

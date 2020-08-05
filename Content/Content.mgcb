@@ -230,6 +230,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/Step.wav
 
+#begin SoundEffects/Winddown.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Winddown.wav
+
 #begin SoundEffects/Windup.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
