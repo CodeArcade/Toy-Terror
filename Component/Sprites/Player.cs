@@ -1,4 +1,5 @@
 ﻿using brackeys_2020_2_jam.Component.Sprites.Environment;
+using brackeys_2020_2_jam.Component.Sprites.Obstacles;
 using brackeys_2020_2_jam.Manager;
 using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
@@ -58,7 +59,7 @@ namespace brackeys_2020_2_jam.Component.Sprites
         private double WalkSoundTimer { get; set; }
         private double WalkSoundIntervall => 0.25;
 
-        private AnimationManager WindUpAnimationManager;
+        private readonly AnimationManager WindUpAnimationManager;
 
         private SoundEffectInstance WindDownSoundEffect { get; set; }
         private double WindDownSoundIntervall => 0.2;
@@ -101,6 +102,8 @@ namespace brackeys_2020_2_jam.Component.Sprites
             if (sprite is null) return;
             if (sprite is Clock) return;
             if (sprite is Conveyor) return;
+
+            if (sprite is StickyObstacle && CanTakeDamage) return;
 
             if (IsTouchingRight(sprite))
             {

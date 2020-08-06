@@ -9,14 +9,14 @@ namespace brackeys_2020_2_jam.Manager
 {
     public class AnimationManager
     {
-        private Animation Animation { get; set; }
+        public Animation Animation { get; set; }
         public Rectangle AnimationRectangle => new Rectangle((int)Position.X, (int)Position.Y, (int)(Animation.FrameWidth * Scale), (int)(Animation.FrameHeight * Scale));
         public int CurrentFrame => Animation.CurrentFrame;
 
         private float Timer { get; set; }
 
         public Vector2 Position { get; set; }
-        public float Scale { get; set; }
+        public float Scale { get; set; } 
         public bool IsPlaying { get; set; }
         public bool Flip { get; set; }
         public Sprite Parent { get; set; }

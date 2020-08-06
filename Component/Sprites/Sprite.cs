@@ -19,11 +19,15 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public Size Size
         {
+
             get
             {
                 if (InternalSize == Size.Empty)
                 {
-                    InternalSize = new Size(Texture.Width, Texture.Height);
+                    if (AnimationManager.IsPlaying)
+                        InternalSize = new Size(AnimationManager.AnimationRectangle.Width, AnimationManager.AnimationRectangle.Height);
+                    else
+                        InternalSize = new Size(Texture.Width, Texture.Height);
                 }
                 return InternalSize;
             }
@@ -73,15 +77,17 @@ namespace brackeys_2020_2_jam.Component.Sprites
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            ParticleManager.Draw(gameTime, spriteBatch);
 
             if (AnimationManager.IsPlaying)
             {
                 AnimationManager.Draw(spriteBatch);
+                ParticleManager.Draw(gameTime, spriteBatch);
                 return;
             }
 
             spriteBatch.Draw(Texture, Rectangle, Color.White);
+            ParticleManager.Draw(gameTime, spriteBatch);
+
         }
 
         public override void Update(GameTime gameTime)

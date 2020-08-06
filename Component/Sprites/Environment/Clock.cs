@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace brackeys_2020_2_jam.Component.Sprites.Environment
 {
@@ -18,6 +19,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Environment
         public Clock(List<Texture2D> clockStates, int secondsBetweenStates)
         {
             ClockStates = clockStates;
+            Texture = ClockStates.First();
             SecondsBetweenState = secondsBetweenStates;
             CurrentClockState = 0;
         }

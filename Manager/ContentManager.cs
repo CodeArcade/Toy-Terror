@@ -28,6 +28,7 @@ namespace brackeys_2020_2_jam.Manager
         public SoundEffect StepSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Step");
         public SoundEffect WindupSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Windup");
         public SoundEffect WinddownSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Winddown");
+        public SoundEffect ChopperSoundEffect => JamGame.Content.Load<SoundEffect>("SoundEffects/Chopper");
 
         public Song MenuMusic => JamGame.Content.Load<Song>("Music/MenuMusic");
         public Song GameMusic => JamGame.Content.Load<Song>("Music/GameMusic");
@@ -87,11 +88,15 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
         public Texture2D JumpAnimation => JamGame.Content.Load<Texture2D>("Animations/Jump");
         public Texture2D WindupAnimation => JamGame.Content.Load<Texture2D>("Animations/Windup");
+        public Texture2D ChopperAnimation => JamGame.Content.Load<Texture2D>("Animations/Chopper");
+        public Texture2D ConveyorAnimation => JamGame.Content.Load<Texture2D>("Animations/Conveyor");
+        public Texture2D SharkAnimation => JamGame.Content.Load<Texture2D>("Animations/Shark");
 
         public Texture2D Background => JamGame.Content.Load<Texture2D>("Background");
         public Texture2D Vignette => JamGame.Content.Load<Texture2D>("Textures/Vignette");
 
         public Texture2D PetzTexture => JamGame.Content.Load<Texture2D>("Sprites/Petz");
         public Texture2D CubeTexture => JamGame.Content.Load<Texture2D>("Sprites/Rubik_Cube");
+        public Texture2D TransparentTexture => JamGame.Content.Load<Texture2D>("Textures/Transparent");
     }
 }

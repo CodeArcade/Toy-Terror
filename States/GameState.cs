@@ -67,19 +67,21 @@ namespace brackeys_2020_2_jam.States
             };
 
             ConveyorHitBox = new Sprite() { Texture = ContentManager.ProgressBarBackground, Position = new Vector2(JamGame.ScreenWidth - 1000, 470), Size = new System.Drawing.Size(2000, 80) };
-            Conveyor = new Conveyor() { Position = new Vector2(JamGame.ScreenWidth - 1000, 450), Size = new System.Drawing.Size(2000, 100) };
+            Conveyor = new Conveyor() { Position = new Vector2(JamGame.ScreenWidth - 1080, 400), Size = new System.Drawing.Size(2000, 100) };
 
             Clock = new Clock(ContentManager.Clock, 30) { Position = new Vector2(JamGame.ScreenWidth - 592, 115), Size = new System.Drawing.Size(175, 175) };
             Components.Add(Clock);
             // Häcksler
-            Components.Add(new Chopper() { Position = new Vector2(0, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
+            Components.Add(new Chopper() { Position = new Vector2(25, 600), Size = new System.Drawing.Size(JamGame.ScreenWidth - 900, 600) });
 
             Components.Add(Progressbar);
             Components.Add(ConveyorHitBox);
             Components.Add(Conveyor);
             Components.Add(Player);
+
             GameStarted = false;
             GameStartTimer = 0;
+            Conveyor.AnimationManager.Animation.FrameSpeed = 999999;
 
             Level = 1;
 
@@ -121,19 +123,24 @@ namespace brackeys_2020_2_jam.States
             else if (LevelTimer >= 150 && LevelTimer < 180)
                 Level = 6;
             else if (LevelTimer >= 180 && LevelTimer < 181)
-            { Level = 7; ConveyorSpeed = 6; Clock.Run = false; }
+            {
+                Level = 7;
+                ConveyorSpeed = 6;
+                Clock.Run = false;
+                Conveyor.AnimationManager.Animation.FrameSpeed = 0.05f;
+            }
             else if (LevelTimer >= 182 && LevelTimer < 183)
-                ConveyorSpeed = 5;
+            { ConveyorSpeed = 5; Conveyor.AnimationManager.Animation.FrameSpeed = 0.1f; }
             else if (LevelTimer >= 184 && LevelTimer < 185)
-                ConveyorSpeed = 4;
+            { ConveyorSpeed = 4; Conveyor.AnimationManager.Animation.FrameSpeed = 0.15f; }
             else if (LevelTimer >= 186 && LevelTimer < 187)
-                ConveyorSpeed = 3;
+            { ConveyorSpeed = 3; Conveyor.AnimationManager.Animation.FrameSpeed = 0.2f; }
             else if (LevelTimer >= 188 && LevelTimer < 189)
-                ConveyorSpeed = 2;
+            { ConveyorSpeed = 2; Conveyor.AnimationManager.Animation.FrameSpeed = 0.25f; }
             else if (LevelTimer >= 190 && LevelTimer < 191)
-                ConveyorSpeed = 1;
+            { ConveyorSpeed = 1; Conveyor.AnimationManager.Animation.FrameSpeed = 0.3f; }
             else if (LevelTimer >= 192 && LevelTimer < 193)
-                ConveyorSpeed = 0;
+            { ConveyorSpeed = 0; Conveyor.AnimationManager.Animation.FrameSpeed = 999999f; }
             else if (LevelTimer >= 197)
             { HandleGameEnd(); StateManager.ChangeToEndGameWin(); return; }
 
@@ -142,31 +149,38 @@ namespace brackeys_2020_2_jam.States
                 case 1:
                     ConveyorSpeed = 2;
                     SpawnIntervall = 5;
-                    Player.AliveDrain = 1;
+                    Player.AliveDrain = 1.2f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.3f;
                     break;
                 case 2:
                     ConveyorSpeed = 3;
                     SpawnIntervall = 4;
-                    Player.AliveDrain = 1.2f;
+                    Player.AliveDrain = 1.4f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.25f;
                     break;
                 case 3:
                     ConveyorSpeed = 4;
                     SpawnIntervall = 3;
+                    Player.AliveDrain = 1.6f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.2f;
                     break;
                 case 4:
                     ConveyorSpeed = 5;
                     SpawnIntervall = 2;
-                    Player.AliveDrain = 1.4f;
+                    Player.AliveDrain = 1.8f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.15f;
                     break;
                 case 5:
                     ConveyorSpeed = 6;
                     SpawnIntervall = 1;
-                    Player.AliveDrain = 1.6f;
+                    Player.AliveDrain = 2f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.1f;
                     break;
                 case 6:
                     ConveyorSpeed = 7;
                     SpawnIntervall = 1.5;
-                    Player.AliveDrain = 1.8f;
+                    Player.AliveDrain = 2.2f;
+                    Conveyor.AnimationManager.Animation.FrameSpeed = 0.5f;
                     break;
                 default:
                     SpawnIntervall = 0;
@@ -270,6 +284,7 @@ namespace brackeys_2020_2_jam.States
         {
             foreach (Component.Component component in Components)
             {
+                if (component is Chopper) continue;
                 if (component.Position.X < 0 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
             }
 

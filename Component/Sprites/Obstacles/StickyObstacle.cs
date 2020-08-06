@@ -25,10 +25,11 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
             Player player = (Player)sprite;
 
             if (!player.CanTakeDamage) return;
+            if (!player.Rectangle.Intersects(Hitbox)) return;
 
             if (ParticleManager.Textures is null) ParticleManager.Textures = ContentManager.HurtParticles;
             ParticleManager.EmitterLocation = player.Rectangle.Center.ToVector2();
-            ParticleManager.GenerateNewParticle(Color.White, 10, 10);
+            ParticleManager.GenerateNewParticle(Color.White, 20, 10);
 
             AudioManager.PlayEffect(ContentManager.HurtSoundEffect);
             player.AliveTimer -= Damage;

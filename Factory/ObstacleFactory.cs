@@ -1,6 +1,7 @@
 ﻿using brackeys_2020_2_jam.Component.Sprites;
 using brackeys_2020_2_jam.Component.Sprites.Obstacles;
 using brackeys_2020_2_jam.Manager;
+using brackeys_2020_2_jam.Models;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -162,11 +163,16 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetShark()
         {
-            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE)
-            {
-                Texture = ContentManager.ProgressBarOutline
-            };
-            // load texture
+            int hitboxHeight = 70;
+            int hitboxWidth = 90;
+
+            StickyObstacle obstacle = new StickyObstacle(Player.ALIVE_CHARGE);
+            obstacle.AnimationManager.Scale = 0.18f;
+            obstacle.AnimationManager.Play(new Animation(ContentManager.SharkAnimation, 10) { FrameSpeed = 0.25f });
+            obstacle.HitboxSize = new Size(hitboxWidth, hitboxHeight);
+            obstacle.HitBoxXOffSet = 25;
+            obstacle.HitBoxYOffSet = 50;
+
             return obstacle;
         }
 

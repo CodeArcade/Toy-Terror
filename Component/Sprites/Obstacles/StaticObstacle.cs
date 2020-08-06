@@ -16,6 +16,7 @@ namespace brackeys_2020_2_jam.Component.Sprites.Obstacles
         {
             if (sprite == this) return;
             if (sprite is Conveyor) return;
+            if (sprite is Chopper) return;
 
             if (IsTouchingTop(sprite))
             {
