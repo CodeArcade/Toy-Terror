@@ -97,6 +97,7 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D Vignette => JamGame.Content.Load<Texture2D>("Textures/Vignette");
 
         public Texture2D PetzTexture => JamGame.Content.Load<Texture2D>("Sprites/Petz");
+        public Texture2D Petz2Texture => JamGame.Content.Load<Texture2D>("Sprites/Petz2");
         public Texture2D CubeTexture => JamGame.Content.Load<Texture2D>("Sprites/Rubik_Cube");
         public Texture2D TransparentTexture => JamGame.Content.Load<Texture2D>("Textures/Transparent");
         public Texture2D ControlsTexture => JamGame.Content.Load<Texture2D>("Textures/Controls");

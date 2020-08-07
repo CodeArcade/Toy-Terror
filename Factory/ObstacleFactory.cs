@@ -153,11 +153,20 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetTeddy()
         {
+            int width = 250;
+            int height = 135;
+            int hitboxHeight = 72;
+            int hitboxWidth = 230;
+
             StaticObstacle obstacle = new StaticObstacle()
             {
-                Texture = ContentManager.ProgressBarValue
+                Texture = ContentManager.Petz2Texture,
+                Size = new Size(width, height),
+                HitboxSize = new Size(hitboxWidth, hitboxHeight),
+                HitBoxXOffSet = (int)((width - hitboxWidth) / 1.75),
+                HitBoxYOffSet = height - hitboxHeight
             };
-            // load texture
+
             return obstacle;
         }
 
