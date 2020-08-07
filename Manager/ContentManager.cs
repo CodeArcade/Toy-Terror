@@ -85,20 +85,24 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D Logo => JamGame.Content.Load<Texture2D>("Textures/logo_KEKW");
 
         public Texture2D WalkingAnimation => JamGame.Content.Load<Texture2D>("Animations/Walking");
+        public Texture2D Walking2Animation => JamGame.Content.Load<Texture2D>("Animations/Walking2");
         public Texture2D StandingAnimation => JamGame.Content.Load<Texture2D>("Animations/Standing");
         public Texture2D JumpAnimation => JamGame.Content.Load<Texture2D>("Animations/Jump");
         public Texture2D WindupAnimation => JamGame.Content.Load<Texture2D>("Animations/Windup");
         public Texture2D ChopperAnimation => JamGame.Content.Load<Texture2D>("Animations/Chopper");
         public Texture2D ConveyorAnimation => JamGame.Content.Load<Texture2D>("Animations/Conveyor");
         public Texture2D SharkAnimation => JamGame.Content.Load<Texture2D>("Animations/Shark");
+        public Texture2D TrainAnimation => JamGame.Content.Load<Texture2D>("Animations/Train");
 
         public Texture2D Background => JamGame.Content.Load<Texture2D>("Background");
         public Texture2D MenuBackground => JamGame.Content.Load<Texture2D>("MenuBackground");
         public Texture2D Vignette => JamGame.Content.Load<Texture2D>("Textures/Vignette");
+        public Texture2D EndGameBackground => JamGame.Content.Load<Texture2D>("QR");
 
         public Texture2D PetzTexture => JamGame.Content.Load<Texture2D>("Sprites/Petz");
         public Texture2D Petz2Texture => JamGame.Content.Load<Texture2D>("Sprites/Petz2");
         public Texture2D CubeTexture => JamGame.Content.Load<Texture2D>("Sprites/Rubik_Cube");
+        public Texture2D RobotTexture => JamGame.Content.Load<Texture2D>("Sprites/Robot");
         public Texture2D TransparentTexture => JamGame.Content.Load<Texture2D>("Textures/Transparent");
         public Texture2D ControlsTexture => JamGame.Content.Load<Texture2D>("Textures/Controls");
         public Texture2D RewindTexture => JamGame.Content.Load<Texture2D>("Textures/Rewind");

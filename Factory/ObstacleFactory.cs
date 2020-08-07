@@ -85,8 +85,12 @@ namespace brackeys_2020_2_jam.Factory
                 AdditionalSpeed = 0.1f,
                 Texture = ContentManager.ProgressBarBackground
             };
-            // load animation
-            // apply animation
+
+            obstacle.AnimationManager.Scale = 0.6f;
+            obstacle.AnimationManager.Play(new Animation(ContentManager.TrainAnimation, 8) { FrameSpeed = 0.01f });
+            obstacle.Size = new Size(obstacle.AnimationManager.AnimationRectangle.Width, obstacle.AnimationManager.AnimationRectangle.Height);
+            obstacle.HitboxSize = new Size(obstacle.Size.Width, (int)(obstacle.Size.Height * 0.8));
+            obstacle.HitBoxYOffSet = 40;
 
             return obstacle;
         }
@@ -96,11 +100,12 @@ namespace brackeys_2020_2_jam.Factory
             MovingObstacle obstacle = new MovingObstacle()
             {
                 AdditionalSpeed = 0.05f,
-                Texture = ContentManager.ProgressBarBackground
             };
 
-            // load animation
-            // apply animation
+            obstacle.AnimationManager.Scale = 0.2f;
+            obstacle.AnimationManager.Play(new Animation(ContentManager.Walking2Animation, 29) { FrameSpeed = 0.01f });
+            obstacle.Size = new Size(obstacle.AnimationManager.AnimationRectangle.Width, obstacle.AnimationManager.AnimationRectangle.Height);
+            obstacle.HitboxSize = new Size(obstacle.Size.Width,obstacle.Size.Height);
 
             return obstacle;
         }
@@ -143,10 +148,15 @@ namespace brackeys_2020_2_jam.Factory
 
         public StaticObstacle GetFurby()
         {
-            StaticObstacle obstacle = new StaticObstacle()
-            {
-                Texture = ContentManager.ProgressBarValue
-            };
+
+            StaticObstacle obstacle = new StaticObstacle();
+
+            obstacle.AnimationManager.Scale = 0.3f;
+            obstacle.AnimationManager.Play(new Animation(ContentManager.RobotTexture, 1) { FrameSpeed = 1 });
+            obstacle.Size = new Size(obstacle.AnimationManager.AnimationRectangle.Width, obstacle.AnimationManager.AnimationRectangle.Height);
+            obstacle.HitboxSize = new Size((int)(obstacle.Size.Width * 0.9), (int)(obstacle.Size.Height * 0.8));
+            obstacle.HitBoxYOffSet = 20;
+
             // load texture
             return obstacle;
         }
@@ -164,7 +174,7 @@ namespace brackeys_2020_2_jam.Factory
                 Size = new Size(width, height),
                 HitboxSize = new Size(hitboxWidth, hitboxHeight),
                 HitBoxXOffSet = (int)((width - hitboxWidth) / 1.75),
-                HitBoxYOffSet = height - hitboxHeight
+                HitBoxYOffSet = 50
             };
 
             return obstacle;

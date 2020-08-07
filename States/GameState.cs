@@ -166,19 +166,19 @@ namespace brackeys_2020_2_jam.States
                     break;
                 case 4:
                     ConveyorSpeed = 5;
-                    SpawnIntervall = 2;
+                    SpawnIntervall = 2.5;
                     Player.AliveDrain = 1.8f;
                     Conveyor.AnimationManager.Animation.FrameSpeed = 0.15f;
                     break;
                 case 5:
                     ConveyorSpeed = 6;
-                    SpawnIntervall = 1;
+                    SpawnIntervall = 2;
                     Player.AliveDrain = 2f;
                     Conveyor.AnimationManager.Animation.FrameSpeed = 0.1f;
                     break;
                 case 6:
                     ConveyorSpeed = 7;
-                    SpawnIntervall = 1.5;
+                    SpawnIntervall = 2;
                     Player.AliveDrain = 2.2f;
                     Conveyor.AnimationManager.Animation.FrameSpeed = 0.5f;
                     break;
@@ -276,7 +276,7 @@ namespace brackeys_2020_2_jam.States
                     obstacle = ObstacleFactory.GetMovingOrStickyObstacle();
                     break;
             }
-            obstacle.Position = new Vector2(JamGame.ScreenWidth - 100, ConveyorHitBox.Position.Y - ConveyorHitBox.Size.Height - obstacle.Hitbox.Height);
+            obstacle.Position = new Vector2(JamGame.ScreenWidth, ConveyorHitBox.Position.Y - ConveyorHitBox.Size.Height - obstacle.Hitbox.Height);
             Components.Add(obstacle);
         }
 
@@ -285,7 +285,7 @@ namespace brackeys_2020_2_jam.States
             foreach (Component.Component component in Components)
             {
                 if (component is Chopper) continue;
-                if (component.Position.X < 0 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
+                if (component.Position.X < 0 - 1000 || component.Position.Y > JamGame.ScreenHeight) component.IsRemoved = true;
             }
 
             if (Player.IsRemoved) { HandleGameEnd(); StateManager.ChangeToEndGameLose(); }
