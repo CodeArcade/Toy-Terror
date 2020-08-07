@@ -34,7 +34,7 @@ namespace brackeys_2020_2_jam.States
             tempSize = new Size(350, 350);
             Sprite controls1 = new Sprite()
             {
-                Texture = ContentManager.ProgressBarBackground, //TODO
+                Texture = ContentManager.ControlsTexture, //TODO
                 Size = tempSize,
                 Position = new Vector2(tempSize.Width / 1.8f, button.Position.Y + button.Texture.Height + 50)
             };
@@ -43,7 +43,7 @@ namespace brackeys_2020_2_jam.States
             tempSize = new Size(350, 350);
             Sprite controls2 = new Sprite()
             {
-                Texture = ContentManager.ProgressBarBackground, //TODO
+                Texture = ContentManager.RewindTexture, //TODO
                 Size = tempSize,
                 Position = new Vector2(JamGame.ScreenWidth - (tempSize.Width / 1.8f) - tempSize.Width, button.Position.Y + button.Texture.Height + 50)
             };
@@ -64,11 +64,10 @@ namespace brackeys_2020_2_jam.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(ContentManager.MenuBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Microsoft.Xna.Framework.Color.White);
 
             base.Draw(gameTime, spriteBatch);
 
-            spriteBatch.Draw(ContentManager.Vignette, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
         }
 
         private void ChangeToGame()

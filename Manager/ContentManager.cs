@@ -93,10 +93,13 @@ namespace brackeys_2020_2_jam.Manager
         public Texture2D SharkAnimation => JamGame.Content.Load<Texture2D>("Animations/Shark");
 
         public Texture2D Background => JamGame.Content.Load<Texture2D>("Background");
+        public Texture2D MenuBackground => JamGame.Content.Load<Texture2D>("MenuBackground");
         public Texture2D Vignette => JamGame.Content.Load<Texture2D>("Textures/Vignette");
 
         public Texture2D PetzTexture => JamGame.Content.Load<Texture2D>("Sprites/Petz");
         public Texture2D CubeTexture => JamGame.Content.Load<Texture2D>("Sprites/Rubik_Cube");
         public Texture2D TransparentTexture => JamGame.Content.Load<Texture2D>("Textures/Transparent");
+        public Texture2D ControlsTexture => JamGame.Content.Load<Texture2D>("Textures/Controls");
+        public Texture2D RewindTexture => JamGame.Content.Load<Texture2D>("Textures/Rewind");
     }
 }

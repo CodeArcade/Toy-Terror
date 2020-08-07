@@ -104,6 +104,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ButtonFont.spritefont
 
+#begin MenuBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuBackground.png
+
 #begin Music/GameMusic.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -440,6 +452,18 @@
 /processorParam:TextureFormat=Color
 /build:Textures/18_Uhr.png
 
+#begin Textures/Controls.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Controls.png
+
 #begin Textures/logo_KEKW.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -451,6 +475,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/logo_KEKW.png
+
+#begin Textures/Rewind.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Rewind.png
 
 #begin Textures/Transparent.png
 /importer:TextureImporter
