@@ -9,11 +9,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
 using Unity;
 
 namespace brackeys_2020_2_jam.States
@@ -23,7 +20,6 @@ namespace brackeys_2020_2_jam.States
         [Dependency]
         public ObstacleFactory ObstacleFactory { get; set; }
 
-        private Random Random { get; } = new Random(DateTime.Now.Millisecond);
         public float ConveyorSpeed { get; set; } = 0f;
         public bool GameStarted { get; set; } = false;
         public bool GameEnded { get; set; } = false;
@@ -223,7 +219,7 @@ namespace brackeys_2020_2_jam.States
                     GameStarted = true;
                     AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
                     ConveyorSoundEffect.Play();
-                    AudioManager.ChangeSong(ContentManager.GameMusic);
+                    AudioManager.ChangeSong(ContentManager.GameMusic, volume: 0.3f);
                 }
             }
         }
