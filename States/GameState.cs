@@ -293,27 +293,27 @@ namespace brackeys_2020_2_jam.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            switch (Level)
-            {
-                case 1:
-                    spriteBatch.Draw(ContentManager.ProgressBarBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-                case 2:
-                    spriteBatch.Draw(ContentManager.ProgressBarValue, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-                case 3:
-                    spriteBatch.Draw(ContentManager.ButtonTexture, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-                case 4:
-                    spriteBatch.Draw(ContentManager.StandingAnimation, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-                case 5:
-                    spriteBatch.Draw(ContentManager.Clock.First(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-                case 6:
-                    spriteBatch.Draw(ContentManager.DustParticles.Last(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-                    break;
-            }
+            //switch (Level)
+            //{
+            //    case 1:
+            //        spriteBatch.Draw(ContentManager.ProgressBarBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //    case 2:
+            //        spriteBatch.Draw(ContentManager.ProgressBarValue, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //    case 3:
+            //        spriteBatch.Draw(ContentManager.ButtonTexture, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //    case 4:
+            //        spriteBatch.Draw(ContentManager.StandingAnimation, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //    case 5:
+            //        spriteBatch.Draw(ContentManager.Clock.First(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //    case 6:
+            //        spriteBatch.Draw(ContentManager.DustParticles.Last(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+            //        break;
+            //}
 
             spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 
