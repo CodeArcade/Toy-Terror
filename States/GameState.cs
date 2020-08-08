@@ -9,11 +9,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
 using Unity;
 
 namespace brackeys_2020_2_jam.States
@@ -23,7 +20,6 @@ namespace brackeys_2020_2_jam.States
         [Dependency]
         public ObstacleFactory ObstacleFactory { get; set; }
 
-        private Random Random { get; } = new Random(DateTime.Now.Millisecond);
         public float ConveyorSpeed { get; set; } = 0f;
         public bool GameStarted { get; set; } = false;
         public bool GameEnded { get; set; } = false;
@@ -56,9 +52,10 @@ namespace brackeys_2020_2_jam.States
                 MaxSpeed = new Vector2(10, 10),
                 MaxAcceleration = 3,
                 Acceleration = 1f,
-                Position = new Vector2(1000, 250),
                 ConveyorSpeed = ConveyorSpeed
             };
+
+            Player.Position = new Vector2(1000, 470 - Player.Size.Height);
 
             Progressbar = new Progressbar(Player, new System.Drawing.Size(80, 20))
             {
@@ -223,7 +220,7 @@ namespace brackeys_2020_2_jam.States
                     GameStarted = true;
                     AudioManager.PlayEffect(ContentManager.MotorStartSoundEffect);
                     ConveyorSoundEffect.Play();
-                    AudioManager.ChangeSong(ContentManager.GameMusic);
+                    AudioManager.ChangeSong(ContentManager.GameMusic, volume: 0.3f);
                 }
             }
         }
@@ -297,27 +294,7 @@ namespace brackeys_2020_2_jam.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //switch (Level)
-            //{
-            //    case 1:
-            //        spriteBatch.Draw(ContentManager.ProgressBarBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //    case 2:
-            //        spriteBatch.Draw(ContentManager.ProgressBarValue, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //    case 3:
-            //        spriteBatch.Draw(ContentManager.ButtonTexture, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //    case 4:
-            //        spriteBatch.Draw(ContentManager.StandingAnimation, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //    case 5:
-            //        spriteBatch.Draw(ContentManager.Clock.First(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //    case 6:
-            //        spriteBatch.Draw(ContentManager.DustParticles.Last(), new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
-            //        break;
-            //}
+            spriteBatch.Draw(ContentManager.ProgressBarBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 
             spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
 

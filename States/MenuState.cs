@@ -49,7 +49,7 @@ namespace brackeys_2020_2_jam.States
             };
             Components.Add(controls2);
             
-            AudioManager.ChangeSong(ContentManager.MenuMusic, true);
+            AudioManager.ChangeSong(ContentManager.MenuMusic, true, 0.1f);
         }
 
         private void StartButtonClicked(object sender, EventArgs e)

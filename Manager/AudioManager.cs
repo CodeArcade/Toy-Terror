@@ -8,6 +8,7 @@ namespace brackeys_2020_2_jam.Manager
         private Song CurrentSong;
         private Song NextSong;
         private bool Loop;
+        private float Volume;
 
         public void PlayEffect(SoundEffect effect, float volume = 1, float pitch = 0)
         {
@@ -31,7 +32,7 @@ namespace brackeys_2020_2_jam.Manager
             MediaPlayer.Play(CurrentSong);
         }
 
-        public void ChangeSong(Song song, bool loop = false) { NextSong = song; Loop = loop; }
+        public void ChangeSong(Song song, bool loop = false, float volume = 1) { NextSong = song; Loop = loop; Volume = volume; }
 
         public void StopMusic() => MediaPlayer.Stop();
     }
