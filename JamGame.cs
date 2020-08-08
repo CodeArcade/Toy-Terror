@@ -35,7 +35,7 @@ namespace brackeys_2020_2_jam
 
         protected override void Initialize()
         {
-            Window.Title = "Jam Game!";
+            Window.Title = "Toy Terror";
             IsMouseVisible = true;
 #if DEBUG
             AdvanceSlowly = false;

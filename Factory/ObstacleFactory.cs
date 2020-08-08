@@ -39,12 +39,13 @@ namespace brackeys_2020_2_jam.Factory
         }
         public StaticObstacle GetStickyObstacle()
         {
-            int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacles)).Length);
-            return pick switch
-            {
-                (int)StickyObstacles.Shark => GetShark(),
-                _ => GetHedgehog(),
-            };
+            return GetShark();
+            //int pick = Random.Next(0, Enum.GetNames(typeof(StickyObstacles)).Length);
+            //return pick switch
+            //{
+            //    (int)StickyObstacles.Shark => GetShark(),
+            //    _ => GetHedgehog(),
+            //};
         }
         public StaticObstacle GetStaticOrStickyObstacle()
         {

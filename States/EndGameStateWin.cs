@@ -12,7 +12,7 @@ namespace brackeys_2020_2_jam.States
     {
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-              spriteBatch.Draw(ContentManager.Background, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
+              spriteBatch.Draw(ContentManager.EndGameBackground, new Rectangle(0, 0, JamGame.ScreenWidth, JamGame.ScreenHeight), Color.White);
         }
 
         public override void Update(GameTime gameTime)
