@@ -8,6 +8,8 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <RootNamespace>brackeys_2020_2_jam</RootNamespace>
+    <AssemblyName>Toy Terror</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
@@ -26,5 +28,9 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1375-develop" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1375-develop" />
+    <PackageReference Include="Unity" Version="5.11.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Fonts\" />
   </ItemGroup>
 </Project>

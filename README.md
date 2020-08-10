@@ -2,7 +2,7 @@
 
 This is my and @NoctusRex's entry for the Brackeys Game Jam 2020-2.
 
-**Theme:** currently unknown :(.
+**Theme:** Rewind.
 
 ## Requirements
 
